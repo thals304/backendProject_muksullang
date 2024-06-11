@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Foodeiblog Template">
+<meta name="keywords" content="Foodeiblog, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>회원가입 및 로그인</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/portfolio_template1/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/style.css"
+	type="text/css">
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+<script>
+		// js 쿠키 >  jQuery-cookie를 사용하면 함수 만들 필요 없어 더 간단하다고 함
+		$().ready(function(){
+			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+			let userInputId = getCookie("userInputId");
+			$("#userId").val(userInputId);
+			
+			if($("#userId").val() != ""){// 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+				$("#idSaveCheck").attr("checked",true); // ID 저장하기를 체크 상태로 두기.
+			}
+			
+			$("#idSaveCheck").change(function(){// 체크박스에 변화가 있다면,
+				if($("#idSaveCheck").is(":checked")){// ID 저장하기 체크했을 때,
+					let userInputId = $("#userId").val();
+					setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+				}
+				else{
+					deleteCookie("userInputId");
+				}
+			});
+			
+			 // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+			 $("#userId").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+				 if($("#idSaveCheck").is(":checked")){
+					 let userInputId = $("#userId").val();
+					 setCookie("userInputId", userInputId, 7); 
+				 }
+				 
+			 });
+		});
+
+
+		function setCookie(cookieName, value, exdays){
+		    let exdate = new Date();
+		    exdate.setDate(exdate.getDate() + exdays);
+		    let cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+		    document.cookie = cookieName + "=" + cookieValue;
+		}
+		 
+		function deleteCookie(cookieName){
+		    let expireDate = new Date();
+		    expireDate.setDate(expireDate.getDate() - 1);
+		    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+		}
+		 
+		function getCookie(cookieName) {
+		    cookieName = cookieName + '=';
+		    let cookieData = document.cookie;
+		    let start = cookieData.indexOf(cookieName);
+		    let cookieValue = '';
+		    if(start != -1){
+		        start += cookieName.length;
+		        let end = cookieData.indexOf(';', start);
+		        if(end == -1)end = cookieData.length;
+		        cookieValue = cookieData.substring(start, end);
+		    }
+		    return unescape(cookieValue);
+		}
+
+
+
+</script>
+<script>
+	$().ready(function(){
+		
+		$("#loginBtn").click(function(){
+			let loginData = {
+
+					"userId" : $("[name='userId']").val(),
+					"passwd" : $("[name='passwd']").val()
+			};
+			
+			$.ajax({
+				url : "/user/signIn",
+				type : "post" ,
+				contentType : "application/json",
+				data : JSON.stringify(loginData),
+				success : function(isValidUser){
+					if (isValidUser == "y"){
+						location.href ="/user/myPage";
+					}
+					else{
+						$("#failMsg").html("<span style='color:red;'>아이디와 패스워드를 확인하세요.</span>");
+					}
+				}
+			});
+		});
+		
+	});
+</script>
+</head>
+
+<body class="fixed-position">
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	<!-- Sign In Section Begin -->
+	<div class="signin">
+		<div class="signin__warp">
+			<div class="signin__content">
+				<div class="signin__logo">
+					<!-- 로고 눌렀을 때 웹페이지 홈으로 이동 -->
+					<a href="#"><img src="/portfolio_template1/img/muksullang_post_logo.jpg" alt=""></a>
+				</div>
+				<p>
+					Muksullang에 오신 여러분 환영합니다. <br> 로그인으로 My Page를 이용해보세요.
+				</p>
+				<div class="signin__form">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="false">
+								Sign In </a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tabs-1" role="tabpanel">
+							<div class="signin__form__text">
+								<!-- 로그인 -->
+									
+									아이디 : <input type="text" name="userId" placeholder="User ID">
+									<br><br>
+									
+									패스워드: <input type="password"  name="passwd" placeholder="Password">
+									<br><br>
+									<span id="failMsg" ></span>
+									
+									<label for="idSaveCheck"> 
+									아이디 저장하기 
+									<input type="checkbox" id="idSaveCheck"> 
+									<span class="checkmark"></span>
+									</label>
+									
+									<br><br>
+									<button type="submit" id="loginBtn" value="로그인" class="site-btn">Sign In</button>
+									<br><br> 아직 회원가입이 안 되어 있다면?
+									<span><a th:href="@{/user/signUp}">회원가입</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Sign In Section End -->
+
+	<!-- Search Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">+</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search End -->
+
+	<!-- Js Plugins -->
+	<script src="/portfolio_template1/js/jquery-3.3.1.min.js"></script>
+	<script src="/portfolio_template1/js/bootstrap.min.js"></script>
+	<script src="/portfolio_template1/js/jquery.slicknav.js"></script>
+	<script src="/portfolio_template1/js/owl.carousel.min.js"></script>
+	<script src="/portfolio_template1/js/main.js"></script>
+</body>
+
+</html>

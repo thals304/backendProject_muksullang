@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>Mypage - update</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/portfolio_template2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/portfolio_template2/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="/portfolio_template2/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+  <link href="/portfolio_template2/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/portfolio_template2/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/portfolio_template2/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Template Name: MyPortfolio
+    Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com/
+  ======================================================= -->
+  <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+  <script>
+  		
+  		function confirmProcess(){
+  			if(confirm("정말 변경하시겠습니까?")){
+  				return true;
+  			}
+  			else {
+  				return false;
+  			}
+  		}
+  
+  		$().ready(function(){
+  			$("#confirmPasswd").blur(function(){
+  				let passwd = $("#passwd").val();
+  				let confirmPasswd = $("#confirmPasswd").val();
+  				
+  				if (passwd == confirmPasswd){
+  					$("#isValidPasswdMsg").html("<span style='color:green;'>패스워드가 일치합니다.</span>");
+  				}
+  				else {
+  					$("#isValidPasswdMsg").html("<span style='color:red;'>패스워드가 일치하지 않습니다.</span>");
+  				}
+  			});
+  		});
+  
+  </script>
+</head>
+
+<body>
+	
+	<div th:if="${session.userId == null}">
+	    <nav class="navbar navbar-light custom-navbar">
+	      <div class="container">
+	        <a class="navbar-brand" href="#"><img src="/portfolio_template2/img/muksullang_post_logo.jpg"></a>
+	      </div>
+	    </nav>
+	    <br><br><br><br>
+	    <div align="center">
+	      <span style="color:red;">로그인 후에만 MyPage 이용가능합니다.</span>
+	      <br><br>
+	      <a style="color:blue;" th:href="@{/post/main}">웹페이지 홈으로 돌아가기</a>
+	      /
+	      <a style="color:blue;" th:href="@{/user/signUp}">회원가입</a>
+	      /
+	      <a style="color:blue;" th:href="@{/user/signIn}">로그인</a>
+	    </div>
+	</div>
+	<div th:unless="${session.userId == null}">
+		<div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
+		    <div class="container py-2 py-md-5">
+		      <div class="row align-items-start">
+		        <div class="col-md-2">
+		          <ul class="custom-menu">
+		            <li><a th:href="@{/user/myPage}">MyPage Home</a></li>
+		            <li class="active"><a th:href="@{/user/update}">Info</a></li>
+		            <li><a th:href="@{/user/logout}">Logout</a></li>
+		            <li><a th:href="@{/user/delete}">Delete Account</a></li>
+		          </ul>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		
+		  <nav class="navbar navbar-light custom-navbar">
+		    <div class="container">
+		    <!-- 로고를 눌렀을 때 홈화면으로 가도록 -->
+		      <a class="navbar-brand" th:href="@{/post/main}"><img src="/portfolio_template2/img/muksullang_post_logo.jpg"></a>
+		      <a href="#" class="burger" data-toggle="collapse" data-target="#main-navbar">
+		        <span></span>
+		      </a>
+		    </div>
+		  </nav>
+			
+		  <main id="main">
+		
+		    <div class="site-section pb-0 site-portfolio">
+		      <div class="container">
+		
+		        <div class="row mb-5 align-items-end">
+		          <div class="col-md-6" data-aos="fade-up">
+		            <h2>Info</h2>
+		            <p class="mb-0">개인 정보 관리</p>
+		          </div>
+		        </div>
+		
+		        <div class="row">
+		          <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
+		          <!-- 수정하기 폼 -->
+		            <form th:action="@{/user/update}" method="post" th:object="${userDTO}" th:onsubmit="return confirmProcess();" enctype="multipart/form-data" role="form" class="php-email-form">
+		              <div class="col-md-6 form-group">
+		              	 <img th:src="@{/user/thumbnails(fileName=${userDTO.profileUUID})}" width="150" height="150" alt="썸네일사진">
+		              	 <br><br>
+		                  <label for="uploadProfile">Profile</label>
+		           		  <input type="file" name="uploadProfile"/>
+		                  <div class="validate"></div>
+		                </div>
+		              <div class="row">
+		                <br>
+		                <div class="col-md-6 form-group">
+		                  <label for="passwd">Password</label>
+		                  <input type="password" th:field="*{passwd}" class="form-control" />
+		                  <div class="validate"></div>
+		                </div>
+		                <div class="col-md-6 form-group">
+		                  <label for="confirmPasswd">Password confirm</label>
+		                  <input type="password" class="form-control" id="confirmPasswd"/>
+		                  <scan id="isValidPasswdMsg"></scan>
+		                  <div class="validate"></div>
+		                </div>
+		                <div class="col-md-12 form-group">
+		                  <label for="email">Email</label>
+		                  <input type="email" class="form-control" th:field="*{email}" />
+		                  <div class="validate"></div>
+		                </div>
+		                <div class="col-md-12 form-group">
+		                  <label for="address">Address</label>
+		                  <input type="text" class="form-control" th:field="*{address}" />
+		                  <div class="validate"></div>
+		                </div>
+		
+						<!-- 
+						<div class="col-md-12 mb-3">
+		                    <div class="loading">Loading</div>
+		                  <div class="error-message"></div>
+		                  <div class="sent-message">Your private info has been changed. Thank you!</div>
+		                </div>
+						 -->
+						<input type="hidden" th:field="*{userId}"/>
+		                <div class="col-md-6 form-group">
+		                  <input type="submit" class="readmore d-block w-100" value="UPDATE">
+		                </div>
+		              </div>
+		            </form>
+		
+		          </div>
+		      <div class="col-md-4 ml-auto order-2" data-aos="fade-up">
+		            <ul class="list-unstyled">
+		            <li class="mb-3">
+		                <strong class="d-block mb-1">Profile</strong>
+		                <span style="color: red;">프로필 사진은 PNG, JPEG/JPG <br> 확장자를 추천 드립니다.  </span>
+		              </li>
+		              <li class="mb-3">
+		                <strong class="d-block mb-1">Password</strong>
+		                <span style="color: red;">비밀번호는 <br> 특수문자, 대문자, 소문자, 숫자 등을 섞어 쓰는 것을 추천 드립니다.  </span>
+		              </li>
+		              <li class="mb-3">
+		                <strong class="d-block mb-1">Password Confirm</strong>
+		                <span style="color: red;">password 확인용으로 옆에서 쓴 password와 일치해야 합니다.</span>
+		              </li>
+		              <li class="mb-3">
+		                <strong class="d-block mb-1">Email</strong>
+		                <span style="color: red;">이메일은 abcdefg@xxxx.com 형태로 <br> 써주셔야 합니다.</span>
+		              </li>
+		              <li>
+		                <strong class="d-block mb-1">Address</strong>
+		                <span style="color: red;">주소는 xx시 xx구 xx동 형태로 <br> 써주셔야 합니다.</span>
+		              </li>
+		            </ul>
+		          </div>
+		          
+		
+		        </div>
+		
+		      </div>
+		
+		    </div>
+		  </main>
+		
+		  <footer class="footer mt-5 pt-5" role="contentinfo">
+		    <div class="container">
+		      <div class="row">
+		        <div class="col-sm-6">
+		          <p class="mb-1">&copy; Copyright MyPortfolio. All Rights Reserved</p>
+		          <div class="credits">
+		            <!--
+		              All the links in the footer should remain intact.
+		              You can delete the links only if you purchased the pro version.
+		              Licensing information: https://bootstrapmade.com/license/
+		              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=MyPortfolio
+		            -->
+		            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+		          </div>
+		        </div>
+		        <div class="col-sm-6 social text-md-right">
+		          <a href="#"><span class="icofont-twitter"></span></a>
+		          <a href="#"><span class="icofont-facebook"></span></a>
+		          <a href="#"><span class="icofont-dribbble"></span></a>
+		          <a href="#"><span class="icofont-behance"></span></a>
+		        </div>
+		      </div>
+		    </div>
+		  </footer>
+	</div>
+
+  <!-- Vendor JS Files -->
+  <script src="/portfolio_template2/vendor/jquery/jquery.min.js"></script>
+  <script src="/portfolio_template2/vendor/jquery/jquery-migrate.min.js"></script>
+  <script src="/portfolio_template2/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/portfolio_template2/vendor/easing/easing.min.js"></script>
+  <script src="/portfolio_template2/vendor/php-email-form/validate.js"></script>
+  <script src="/portfolio_template2/vendor/isotope/isotope.pkgd.min.js"></script>
+  <script src="/portfolio_template2/vendor/aos/aos.js"></script>
+  <script src="/portfolio_template2/vendor/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/portfolio_template2/js/main.js"></script>
+
+</body>
+
+</html>

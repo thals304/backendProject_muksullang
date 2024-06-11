@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Foodeiblog Template">
+<meta name="keywords" content="Foodeiblog, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>회원가입 및 로그인</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/portfolio_template1/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/style.css"
+	type="text/css">
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+<script>
+	// 회원가입 : 아이디 중복 체크 & 비밀번호 확인 & 폼 체크
+	// isPassId, isPassPasswd 변수를 $().function 밖에 선언해 줘야함
+	let isPassId = false;
+	let isPassPasswd = false;
+	
+	$().ready(function() {
+		
+		$("#isValidId").click(function(){
+			
+			let userId = $("#userId").val();
+		    if (userId == "") {
+		    	$("#isValidIdMsg").html("<span style='color:red;'>아이디를 입력하세요.</span>");
+		   		return;
+		    }
+		   
+		    $.ajax({
+		    	
+		      url : "/user/validId",
+		       type : "post",
+		       data : { "userId" : userId },
+		       success : function (isValidId) {
+		    	   
+		          if (isValidId == "y") {
+		          	$("#isValidIdMsg").html("<span style='color:green;'>사용가능한 아이디입니다.</span>");
+		          	isPassId = true;
+		          }
+		          else {
+	        		$("#isValidIdMsg").html("<span style='color:red;'>중복된 아이디입니다.</span>");
+	        		isPassId = false;
+		          }
+		          
+		       }
+		       
+		    });
+		    
+		});	
+		
+		
+		
+		$("#confirmPasswd").blur(function(){
+			
+			let passwd = $("#passwd").val();
+			let confirmPasswd = $("#confirmPasswd").val();
+			
+			if (passwd == confirmPasswd) {
+				$("#isValidPasswdMsg").html("<span style='color:green;'>패스워드가 일치합니다.</span>");
+				isPassPasswd = true;
+			}
+			else {
+				$("#isValidPasswdMsg").html("<span style='color:red;'>패스워드가 일치하지 않습니다.</span>");
+				isPassPasswd = false;
+			}
+			
+		});	
+		
+	});
+	
+	function checkFormValidation() {
+
+		if (!isPassId) {
+			alert("아이디를 확인해주세요.");
+			$("#memberId").focus();
+			return false;
+		}
+		
+		if (!isPassPasswd) {
+			alert("패스워드를 확인해주세요.");
+			$("#confirmPasswd").focus();
+			return false;
+		}
+		
+		let agreeYnChecked = document.getElementById('agreeYn').checked;
+		
+		if (!agreeYnChecked){
+			alert("개인 정보 및 위치 정보 수집에 동의해야 합니다.");
+			return false;
+		}
+		
+		// 주소가 00시 00동 00구로 입력 안하면 회원가입 불가능 하도록
+		let address = document.getElementById('address').value;
+		
+		
+	}
+</script>
+</head>
+
+<body class="fixed-position">
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	<!-- Sign In Section Begin -->
+	<div class="signin">
+		<div class="signin__warp">
+			<div class="signin__content">
+				<div class="signin__logo">
+					<!-- 로고 눌렀을 때 웹페이지 홈으로 이동 -->
+					<a href="#"><img src="/portfolio_template1/img/muksullang_post_logo.jpg" alt=""></a>
+				</div>
+				<p>
+					Muksullang에 오신 여러분 환영합니다. <br> Muksullang의 회원이 되어 다양한 기능을 이용해보세요.
+				</p>
+				<div class="signin__form">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="false">
+								Sign up </a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tabs-1" role="tabpanel">
+							<div class="signin__form__text">
+								<!-- 회원가입 폼 -->
+								<form th:action="@{/user/signUp}"  th:onsubmit="return checkFormValidation();" method="post">
+									<div>
+										<input type="text" id="userId" name="userId" placeholder="User ID 입력" required>
+										<input type="button" class="site-btn" id="isValidId" value="아이디 중복체크" required> 
+										<span id="isValidIdMsg"></span>
+									</div>
+									<div>
+										<input type="password" id="passwd" name="passwd" placeholder="Password 입력" required> 
+										<input type="password" id="confirmPasswd" placeholder="Password 확인" required> 
+										<span id="isValidPasswdMsg"></span>
+									</div>
+									<div>
+										<input type="email" name="email" placeholder="Email" required>
+									</div>
+									<div>
+										<input type="text" name="address" placeholder="Address ex) 서울시 성동구 성수동" required>
+									</div>
+									<div>
+										<label for="agreeYn"> 
+										<input type="checkbox" id="agreeYn" name="agreeYn" value="y" checked >
+									    개인 정보 및 위치 정보 수집에 동의합니다.(필수) 
+										<span class="checkmark"></span>
+										</label>
+									</div>
+									<div>
+										<label for="agreeEmailYn">
+										<input type="checkbox" id="agreeEmailYn" name="agreeEmailYn" value="y" checked>
+										E-MAIL 수신 동의 (선택)  
+										<span class="checkmark"></span>
+										</label>
+									</div>
+									<button type="submit" value="회원가입하기" class="site-btn" >Register Now</button>
+									<br><br>이미 Muksullang의 회원이라면?
+									<span><a th:href="@{/user/signIn}">로그인</a></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Sign In Section End -->
+
+	
+
+	<!-- Search Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">+</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search End -->
+
+	<!-- Js Plugins -->
+	<script src="/portfolio_template1/js/jquery-3.3.1.min.js"></script>
+	<script src="/portfolio_template1/js/bootstrap.min.js"></script>
+	<script src="/portfolio_template1/js/jquery.slicknav.js"></script>
+	<script src="/portfolio_template1/js/owl.carousel.min.js"></script>
+	<script src="/portfolio_template1/js/main.js"></script>
+</body>
+
+</html>
