@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Mypage - update</title>
+  <title>MyPage - update</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -36,7 +36,7 @@
   ======================================================= -->
   <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
   <script>
-  		
+  
   		function confirmProcess(){
   			if(confirm("정말 변경하시겠습니까?")){
   				return true;
@@ -45,7 +45,7 @@
   				return false;
   			}
   		}
-  
+  			
   		$().ready(function(){
   			$("#confirmPasswd").blur(function(){
   				let passwd = $("#passwd").val();
@@ -123,12 +123,14 @@
 		        <div class="row">
 		          <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
 		          <!-- 수정하기 폼 -->
-		            <form th:action="@{/user/update}" method="post" th:object="${userDTO}" th:onsubmit="return confirmProcess();" enctype="multipart/form-data" role="form" class="php-email-form">
+		            <form th:action="@{/user/update}" method="post" th:object="${userDTO}" th:onsubmit="return confirmProcess();" enctype="multipart/form-data" >
 		              <div class="col-md-6 form-group">
 		              	 <img th:src="@{/user/thumbnails(fileName=${userDTO.profileUUID})}" width="150" height="150" alt="썸네일사진">
 		              	 <br><br>
 		                  <label for="uploadProfile">Profile</label>
 		           		  <input type="file" name="uploadProfile"/>
+		           		  <input type="hidden" th:field="*{profileUUID}"/>
+			        	  <input type="hidden" th:field="*{profileOriginalName}"/>
 		                  <div class="validate"></div>
 		                </div>
 		              <div class="row">

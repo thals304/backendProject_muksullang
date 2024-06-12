@@ -32,7 +32,9 @@ import jakarta.servlet.http.HttpSession;
  *  > 문제발생 : html에서 Post로 userId가 null로 넘어옴 > .ajax에서 id가 없는데 name속성으로 안써주고 id로 써서 생긴 문제
  *        
  * 마이페이지 수정하기 > 일부만 수정해도 업데이트 되도록 
- * > 문제발생 : 파일 업로드 안하면 current request is not a multipart request 오류 발생
+ * > 문제발생 : 수정하기에서 파일 업로드 안하면 current request is not a multipart request 오류 발생 > form에서 class를 지웠더니 해결 완료
+ *         : serviceImpl에서 업로드 파일이 default 파일과 같은 경우를 따로 조건으로 달아줘야 하는가? yes
+ *         : serviceImpl에서 비밀번호가 null로 넘어왔을 때도 암호화가 되는가? no
  * */
 @Controller
 @RequestMapping("/user")
@@ -124,6 +126,8 @@ public class UserController {
 	@PostMapping("/update")
 	@ResponseBody
 	public String update(@RequestParam("uploadProfile") MultipartFile uploadProfile, @ModelAttribute UserDTO userDTO) throws IllegalStateException, IOException {
+		// update.html에서 값이 잘 넘어오고 있는지 확인하기 위함
+		System.out.println(userDTO);
 		
 		userService.updateUser(uploadProfile, userDTO);
 		

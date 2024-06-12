@@ -16,7 +16,8 @@ public class UserDTO {
 	private String agreeYn;
 	private String agreeEmailYn;
 	private String activeYn;
-	private Date inactiveAt;
-	private Date joinAt;
+	private Date   inactiveAt;
+	private Date   joinAt;
+	private String role;
 	
 }

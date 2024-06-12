@@ -2,10 +2,16 @@ package com.application.muksullang.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +30,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	
 
 	@Override
 	public void signUp(UserDTO userDTO) {
@@ -38,6 +47,7 @@ public class UserServiceImpl implements UserService {
 		userDAO.signUp(userDTO);
 		
 	}
+	
 	
 	@Override
 	public String checkValidId(String userId) {
@@ -76,12 +86,15 @@ public class UserServiceImpl implements UserService {
 		
 		if(!uploadProfile.isEmpty()) {
 			// 기존 default인 profile을 삭제하면 다른 유저들 기본 파일 이미지도 없어지는 것인데 근데 또 다른 이미지 업데이트 했다가 또 수정할때는 삭제해줘야 하는데
-			// userDTO.getProfileUUID()가 userProfile.PNG가 아닌 경우만 C드라이브에서 삭제해주면 되지 않을까?
-			if(!userDTO.getProfileUUID().equals("userProfile.PNG")){
-				new File(fileRepositoryPath + userDTO.getProfileUUID()).delete();
+			String originalFilename = uploadProfile.getOriginalFilename();
+			
+			// 이렇게 하면 userProfile.png가 삭제됨 > 기존 UUID가 userProfile.png와 다를 때 삭제하는 조건 추가
+			if(!originalFilename.equals("userProfile.png")){
+				if (!userDTO.getProfileUUID().equals("userProfile.png")) {
+					new File(fileRepositoryPath + userDTO.getProfileUUID()).delete();
+				}
 			}
 			
-			String originalFilename = uploadProfile.getOriginalFilename();
 			userDTO.setProfileOriginalName(originalFilename);
 			
 			String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
@@ -93,7 +106,8 @@ public class UserServiceImpl implements UserService {
 			
 		}
 		
-		// 비밀번호 수정한 것도 암호화 필요 -> 만약 비밀번호 수정을 안하면 null로 넘어오나? 제한 걸어줘야 하나?
+		// 비밀번호 수정한 것도 암호화 필요 -> 만약 비밀번호 수정을 안하면 null로 넘어오나? 
+		// no (그래도 null이 아닐 경우에만 암호화 하도록 if 조건 걸어주는 것이 좋을 것 같음)
 		if (userDTO.getPasswd() != null) {
 			userDTO.setPasswd(passwordEncoder.encode(userDTO.getPasswd()));
 		}
@@ -106,6 +120,34 @@ public class UserServiceImpl implements UserService {
 	public void updateInactiveUser(String userId) {
 		
 		userDAO.updateInactiveUser(userId);
+	}
+
+	@Override
+	@Scheduled(cron="59 59 23 * * *")
+	public void getTodayNewMemberCnt() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(new Date());
+		
+		logger.info("(" + today + ") 신규회원수 : " + userDAO.getTodayNewMemberCnt(today));
+		
+	}
+
+	@Override
+	@Scheduled(cron="59 59 23 * * *")
+	public void deleteMemberScheduler() { // INACTIVE_AT이 60일 지난 회원 삭제
+		
+		List<UserDTO> deleteMemberList = userDAO.getInActiveMemberList();
+		
+		if(!deleteMemberList.isEmpty()) {
+			for (UserDTO userDTO : deleteMemberList) {
+				if(!userDTO.getProfileUUID().equals("userProfile.png")) {
+					new File(fileRepositoryPath + userDTO.getProfileUUID()).delete();
+				}
+				userDAO.deleteUser(userDTO.getUserId());
+			}
+		}
+		
 	}
 
 	

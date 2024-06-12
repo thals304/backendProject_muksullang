@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/post/layout1.html}">
+<head>
+<meta charset="UTF-8">
+<title>Best Of - 게시물 디테일</title>
+</head>
+<body>
+	<div layout:fragment="content1">
+		<!-- Blog Section Begin -->
+		<section class="blog-section spad">
+			<div class="blog-pic">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12">
+							<img src="/portfolio_template3/img/bd버거_성수_long.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="blog-text">
+							<div class="blog-title">
+								<!--<span>04 April 2024</span> 맛집 소개라 없어도 될 것 같음-->
+								<h2>bd 버거 - 성수점</h2>
+								<ul class="tags">
+									<li>Food</li>
+									<li>성수점</li>
+								</ul>
+							</div>
+							<div class="blog-desc">
+								<p>Location은 ~~~에 있습니다. 그리고 영업시간은 ~~~입니다. Pellentesque
+									tempor lectus nisi, ut consectetur mauris feugiat et. Nam
+									lacinia placerat sem nec consequat. Praesent tempus eros vitae
+									iaculis sollicitudin. Nulla facilisi. Aenean sit amet magna in
+									nunc malesuada ornare quis sed libero. Aenean ornare rutrum
+									vestibulum. Morbi a mi vel nunc bibendum viverra sed ut dui.
+									Proin accumsan, neque quis fringilla bibendum, lectus neque
+									interdum odio, quis blandit metus nibh sit amet nibh. Vivamus
+									lobortis libero non tellus imperdiet fringilla. Sed quis enim
+									id odio blandit maximus ut a mi. Ae</p>
+								<p>메뉴 Pellentesque tempor lectus nisi, ut consectetur mauris
+									feugiat et. Nam lacinia placerat sem nec consequat. Praesent
+									tempus eros vitae iaculis sollicitudin. Nulla facilisi. Aenean
+									sit amet magna in nunc malesuada ornare quis sed libero. Aenean
+									ornare rutrum vestibulum. Morbi a mi vel nunc bibendum viverra
+									sed ut dui. Proin accumsan, neque quis fringilla bibendum,
+									lectus neque interdum odio, quis blandit metus nibh sit amet
+									nibh. Vivamus lobortis libero non tellus imperdiet fringilla.
+									Sed quis enim id odio blandit maximus ut a mi. Ae</p>
+								<p>Pellentesque tempor lectus nisi, ut consectetur mauris
+									feugiat et. Nam lacinia placerat sem nec consequat. Praesent
+									tempus eros vitae iaculis sollicitudin. Nulla facilisi. Aenean
+									sit amet magna in nunc malesuada ornare quis sed libero. Aenean
+									ornare rutrum vestibulum. Morbi a mi vel nunc bibendum viverra
+									sed ut dui. Proin accumsan, neque quis fringilla bibendum,
+									lectus neque interdum odio, quis blandit metus nibh sit amet
+									nibh. Vivamus lobortis libero non tellus imperdiet fringilla.
+									Sed quis enim id odio blandit maximus ut a mi. Aenean enim
+									ante, rutrum id cursus ac, facilisis at sapien. Vestibulum
+									facilisis quam sit amet leo elementum, eu tincidunt nibh
+									blandit. Nam sit amet faucibus nunc, a venenatis dolor. Nulla
+									tempus ornare massa vitae malesuada. Curabitur ultricies
+									faucibus ipsum id imperdiet. Donec in dolor ex.</p>
+								<div class="blog-quote">
+									<i class="fa fa-quote-left"></i>
+									<p>햄버거에 미친 당신 성수 bd 버거집에 초대합니다 사이드랑 같이 먹으면 햄버거가 두 배로 맛있는
+										곳!!</p>
+								</div>
+							</div>
+							<div class="blog-comment">
+								<h3>Comments (3)</h3>
+								<!--알아서 카운트가 올라가야 하는데-->
+								<div class="single-comment">
+									<img src="유저 프로필.png" alt="">
+									<!--유저 프로필 사진을 받아올 수 있나?-->
+									<ul>
+										<li>Lily</li>
+										<li>April 04, 2024</li>
+										<li>Reply</li>
+									</ul>
+									<p>bd 버거 강남점도 있어요! 저는 회사가 강남이라 점심시간에 먹으러 갔는데 진짜 맛있고 갓 나온
+										햄버거 먹으니까 너무 행복했어요~ 햄버거 좋아하시는 분이라면 bd버거는 꼭 먹어야 한다고 생각해요.~ellus
+										imperdiet fringilla. Sed quis enim id odio blandit maximus ut
+										a mi. Aenean enim ante, rutrum id cursus ac, facilisis at
+										sapien. Vestibulum facilisis quam sit amet leo elementum.</p>
+								</div>
+							</div>
+							<form action="#" class="comment-form">
+								<h3>Leave a Comment</h3>
+								<div class="row">
+									<!--로그인 후에 이용 가능-->
+									<div class="col-lg-6">
+										<input type="text" placeholder="Your name">
+									</div>
+									<div class="col-lg-6">
+										<input type="text" placeholder="Your email">
+									</div>
+									<div class="col-lg-12">
+										<textarea placeholder="Comment"></textarea>
+									</div>
+								</div>
+								<button type="submit">Post</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Blog Section End -->
+
+		<!-- Similar Recipe Section Begin -->
+		<section class="similar-recipe spad">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="similar-item">
+							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-7.jpg" alt=""></a>
+							<div class="similar-text">
+								<div class="cat-name">Food</div>
+								<h6>0000피자 - 성수점</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="similar-item">
+							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-6.jpg" alt=""></a>
+							<div class="similar-text">
+								<div class="cat-name">Food</div>
+								<h6>0000햄버거 - 강남점</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="similar-item">
+							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-5.jpg" alt=""></a>
+							<div class="similar-text">
+								<div class="cat-name">Food</div>
+								<h6>000000 - 00점</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="similar-item">
+							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-4.jpg" alt=""></a>
+							<div class="similar-text">
+								<div class="cat-name">Food</div>
+								<h6>샌드위치 - 00점</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Similar Recipe Section End -->
+	</div>
+</body>
+</html>

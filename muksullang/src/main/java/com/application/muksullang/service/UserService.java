@@ -19,4 +19,10 @@ public interface UserService {
 	public void updateUser(MultipartFile uploadProfile, UserDTO userDTO) throws IllegalStateException, IOException;
 	
 	public void updateInactiveUser(String userId);
+	
+	// 스케쥴링 - 신규 회원 조회
+	public void getTodayNewMemberCnt();
+	
+	// 스케쥴링 - 비활성화 회원 조회 및 삭제
+	public void deleteMemberScheduler();
 }

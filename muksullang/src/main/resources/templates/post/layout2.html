@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Foodeiblog Template">
+<meta name="keywords" content="Foodeiblog, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Layout2</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet"
+	href="/portfolio_template1/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/style.css"
+	type="text/css">
+</head>
+
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="header__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 col-md-1 col-6 order-md-1 order-1">
+						<div class="header__humberger"></div>
+					</div>
+					<div class="col-lg-8 col-md-10 order-md-2 order-3">
+						<nav class="header__menu">
+							<ul>
+								<li><a th:href="@{/post/main}">Home</a></li>
+								<li><a th:href="@{/post/bestOf}">Best Of</a></li>
+								<li><a th:href="@{/post/recommend}">Recommend</a></li>
+								<li><a th:href="@{/post/about}">About</a></li>
+								<li><a th:href="@{/user/myPage}">My Page</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="col-lg-2 col-md-1 col-6 order-md-3 order-2"></div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					<div class="header__btn"></div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<div class="header__logo">
+						<a th:href="@{/post/main}"><img
+							src="/portfolio_template1/img/muksullang_post_logo.jpg"
+							alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3"></div>
+			</div>
+		</div>
+	</header>
+	<!-- Header Section End -->
+
+	<div layout:fragment="content2"></div>
+
+	<!-- Footer Section Begin -->
+	<!-- footer를 없앨 수도 있음 -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer__text">
+						<div class="footer__logo">
+							<a href="#"><img src="img/logo.png" alt=""></a>
+						</div>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+							eiusmod tempor incididunt ut<br /> labore et dolore magna
+							aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
+							viverra<br /> maecenas accumsan lacus vel facilisis.
+						</p>
+						<div class="footer__social">
+							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+								class="fa fa-twitter"></i></a> <a href="#"><i
+								class="fa fa-instagram"></i></a> <a href="#"><i
+								class="fa fa-youtube-play"></i></a> <a href="#"><i
+								class="fa fa-envelope-o"></i></a>
+						</div>
+					</div>
+					<div class="footer__copyright">
+						<p>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright &copy;
+							<script>
+								document.write(new Date().getFullYear());
+							</script>
+							All rights reserved | This template is made with <i
+								class="fa fa-heart" aria-hidden="true"></i> by <a
+								href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer Section End -->
+
+
+	<!-- Search Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">+</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search End -->
+
+	<!-- Js Plugins -->
+	<script src="/portfolio_template1/js/jquery-3.3.1.min.js"></script>
+	<script src="/portfolio_template1/js/bootstrap.min.js"></script>
+	<script src="/portfolio_template1/js/jquery.slicknav.js"></script>
+	<script src="/portfolio_template1/js/owl.carousel.min.js"></script>
+	<script src="/portfolio_template1/js/main.js"></script>
+</body>
+
+</html>
