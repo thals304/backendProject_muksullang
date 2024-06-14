@@ -1,5 +1,5 @@
 
-# < Project Title > 맛집 추천 커뮤니티 “먹슐랭”
+# < Project Title > 맛집 추천 커뮤니티 “먹슐랭(Muksullang)”
 
 ### 개발 기간 📆
 
