@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Foodeiblog Template">
+<meta name="keywords" content="Foodeiblog, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>logIn</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Unna:400,700&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/portfolio_template1/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="/portfolio_template1/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/portfolio_template1/css/style.css"
+	type="text/css">
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+	
+<script>
+	$().ready(function(){
+		
+		$("#signInBtn").click(function(){
+			let signInData = {
+
+					"adminId" : $("[name='adminId']").val(),
+					"adminPasswd" : $("[name='adminPasswd']").val()
+			};
+			
+			$.ajax({
+				url : "/admin/signIn",
+				type : "post" ,
+				contentType : "application/json",
+				data : JSON.stringify(signInData),
+				success : function(isValidAdmin){
+					if (isValidAdmin == "y"){
+						location.href ="/admin/main";
+					}
+					else{
+						$("#failMsg").html("<span style='color:red;'>아이디와 패스워드를 확인하세요.</span>");
+					}
+				}
+			});
+		});
+		
+	});
+</script>
+</head>
+
+<body class="fixed-position">
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	<!-- Sign In Section Begin -->
+	<div class="signin">
+		<div class="signin__warp">
+			<div class="signin__content">
+				<div class="signin__logo">
+					<!-- 로고 눌렀을 때 웹페이지 홈으로 이동 -->
+					<a href="#"><img src="/portfolio_template1/img/muksullang_post_logo.jpg" alt=""></a>
+				</div>
+				<p>
+					Muksullang Admin을 위한 로그인 화면입니다.<br>
+				</p>
+				
+				<div class="signin__form">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="false">
+								Sign In </a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tabs-1" role="tabpanel">
+							<div class="signin__form__text" >
+								<!-- 로그인 -->
+									
+									아이디 : <input type="text" name="adminId" placeholder="Admin ID">
+									<br><br>
+									
+									패스워드: <input type="password"  name="adminPasswd" placeholder="Admin Password">
+									<br><br>
+									<span id="failMsg" ></span>
+									
+									<br><br>
+									<button type="submit" id="signInBtn" value="로그인" class="site-btn">Sign In</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Sign In Section End -->
+
+	<!-- Search Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">+</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search End -->
+
+	<!-- Js Plugins -->
+	<script src="/portfolio_template1/js/jquery-3.3.1.min.js"></script>
+	<script src="/portfolio_template1/js/bootstrap.min.js"></script>
+	<script src="/portfolio_template1/js/jquery.slicknav.js"></script>
+	<script src="/portfolio_template1/js/owl.carousel.min.js"></script>
+	<script src="/portfolio_template1/js/main.js"></script>
+</body>
+
+</html>

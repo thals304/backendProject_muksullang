@@ -22,20 +22,6 @@ import com.application.muksullang.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-/* 
- * 회원가입
- * > 문제발생 : 회원가입 로그인/비밀번호 중복확인 메세지가 안뜸 & 이메일 수신동의 체크가 안됨 > url을 validId로 쓰지 않은 실수 / label for와 checkbox id를 일치시켜줘야함
- *         : userId와 passwd가 null로 넘어옴 > html에 userId, passwd는 name이 반드시 필요!
- *         : agreeYn, emailYn의 값이 안넘어옴 > id, name이 dto 변수명과 같아야함
- *         : form에서 주소 입력에서 00시 00구 00동 구조로 입력 안하면 다시 입력하도록 경고 주는 건 어떻게 하지?
- * 로그인    
- *  > 문제발생 : html에서 Post로 userId가 null로 넘어옴 > .ajax에서 id가 없는데 name속성으로 안써주고 id로 써서 생긴 문제
- *        
- * 마이페이지 수정하기 > 일부만 수정해도 업데이트 되도록 
- * > 문제발생 : 수정하기에서 파일 업로드 안하면 current request is not a multipart request 오류 발생 > form에서 class를 지웠더니 해결 완료
- *         : serviceImpl에서 업로드 파일이 default 파일과 같은 경우를 따로 조건으로 달아줘야 하는가? yes
- *         : serviceImpl에서 비밀번호가 null로 넘어왔을 때도 암호화가 되는가? no
- * */
 @Controller
 @RequestMapping("/user")
 public class UserController {
