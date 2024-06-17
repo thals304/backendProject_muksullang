@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="/portfolio_admin_template/images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/bootstrap.min.css" />
+      <!-- site css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/style.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/colors.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/perfect-scrollbar.css" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/custom.css" />
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/js/semantic.min.css" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond./portfolio_admin_template/js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+   <script>
+   $().ready(function(){
+		
+		$("#signInBtn").click(function(){
+			let signInData = {
+
+					"adminId" : $("[name='adminId']").val(),
+					"adminPasswd" : $("[name='adminPasswd']").val()
+			};
+			
+			$.ajax({
+				url : "/admin/signIn",
+				type : "post" ,
+				contentType : "application/json",
+				data : JSON.stringify(signInData),
+				success : function(isValidAdmin){
+					if (isValidAdmin == "y"){
+						location.href ="/admin/main";
+					}
+					else{
+						$("#failMsg").html("<span style='color:red;'>아이디와 패스워드를 확인하세요.</span>");
+					}
+				}
+			});
+		});
+		
+	});
+   </script>
+   </head>
+   <body class="inner_page login">
+      <div class="full_container">
+         <div class="container">
+            <div class="center verticle_center full_height">
+               <div class="login_section">
+                  <div class="logo_login">
+                     <div class="center">
+                        <img width="210" src="/portfolio_admin_template/images/logo/muksullang_signIn.jpg" alt="#" />
+                     </div>
+                  </div>
+                  <div class="login_form">
+                     <form>
+                     	<br>
+                        <fieldset>
+                           <div class="field">
+                              <label class="label_field">Id</label>
+                              <input type="text" name="adminId" placeholder="Admin ID" />
+                           </div>
+                           <div class="field">
+                              <label class="label_field">Password</label>
+                              <input type="password" name="adminPasswd" placeholder="Admin Password" />
+                           	  <span id="failMsg" ></span>
+                           </div>
+                           <br>
+                           <div class="field margin_0">
+                              <label class="label_field hidden">hidden label</label>
+                              <button class="main_bt" id="signInBtn" value="로그인">Sign In</button>
+                           </div>
+                        </fieldset>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- jQuery -->
+      <script src="/portfolio_admin_template/js/jquery.min.js"></script>
+      <script src="/portfolio_admin_template/js/popper.min.js"></script>
+      <script src="/portfolio_admin_template/js/bootstrap.min.js"></script>
+      <!-- wow animation -->
+      <script src="/portfolio_admin_template/js/animate.js"></script>
+      <!-- select country -->
+      <script src="/portfolio_admin_template/js/bootstrap-select.js"></script>
+      <!-- nice scrollbar -->
+      <script src="/portfolio_admin_template/js/perfect-scrollbar.min.js"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="/portfolio_admin_template/js/custom.js"></script>
+   </body>
+</html>

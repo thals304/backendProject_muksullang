@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Admin - main</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="/portfolio_admin_template/images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/bootstrap.min.css" />
+      <!-- site css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/style.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/colors.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/perfect-scrollbar.css" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="/portfolio_admin_template/css/custom.css" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond./portfolio_admin_template/js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+       <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+   </head>
+   <body class="dashboard dashboard_1">
+   <div class="full_container">
+      <div class="inner_container">
+         <!-- Sidebar  -->
+         <nav id="sidebar">
+            <div class="sidebar_blog_1">
+               <div class="sidebar-header">
+                  <div class="logo_section">
+                     <a href="#"><img class="logo_icon img-responsive" src="/portfolio_admin_template/images/logo/muksullang_signIn.jpg" alt="#" /></a>
+                  </div>
+               </div>
+               <div class="sidebar_user_info">
+                  <div class="icon_setting"></div>
+                  <div class="user_profle_side">
+                     <div class="user_img"><img class="img-responsive" src="/portfolio_admin_template/images/layout_img/sominKim.jpg" alt="#" /></div>
+                     <div class="user_info">
+                        <h6><span th:text="${session.adminId}"></span></h6>
+                        <p><span class="online_animation"></span> Online</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="sidebar_blog_2">
+               <h4>General</h4>
+               <ul class="list-unstyled components">
+                  <li class="active">
+                     <a th:href="@{/admin/main}" data-toggle="collapse" aria-expanded="false" ><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
+        
+                  </li>
+                  <li><a th:href="@{/admin/createPost}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                  <li class="active">
+                     <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Additional Pages</span></a>
+                     <ul class="collapse list-unstyled" id="additional_page">
+                        <li>
+                           <a href="profile.html"> <span>Profile</span></a>
+                        </li>
+                        <li>
+                           <a href="project.html"> <span>Projects</span></a>
+                        </li>
+                        <li>
+                           <a href="404_error.html"> <span>404 Error</span></a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li><a href="charts.html"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
+                  <li><a href="settings.html"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+               </ul>
+            </div>
+         </nav>
+         <!-- end sidebar -->
+         <!-- right content -->
+         <div id="content">
+            <!-- topbar -->
+            <div class="topbar">
+               <nav class="navbar navbar-expand-lg navbar-light">
+                  <div class="full">
+                     <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                     <div class="logo_section">
+                        <a th:href="@{/admin/main}"><img class="img-responsive" src="/portfolio_admin_template/images/logo/muksullang_logo.jpg" alt="#" /></a>
+                     </div>
+                     <div class="right_topbar">
+                        <div class="icon_info">
+                           
+                           <ul class="user_profile_dd">
+                              <li>
+                                 <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="/portfolio_admin_template/images/layout_img/sominKim.jpg" alt="#" /><span class="name_user" th:text="${session.adminId}"></span></a>
+                                 <div class="dropdown-menu">
+                                 <!-- 
+                                 <a class="dropdown-item" href="profile.html">My Profile</a>
+                                    <a class="dropdown-item" href="help.html">Help</a>
+                                  -->
+                                    <a class="dropdown-item" th:href="@{/admin/logOut}"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </nav>
+            </div>
+            <!-- end topbar -->
+            <!-- dashboard inner -->
+            <div class="midde_cont">
+               <div class="container-fluid">
+                  <div class="row column_title">
+                     <div class="col-md-12">
+                        <div class="page_title">
+                           <h2>Dashboard</h2>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row column1">
+                     <div class="col-md-6 col-lg-3">
+                        <div class="full counter_section margin_bottom_30">
+                           <div class="couter_icon">
+                              <div> 
+                                 <i class="fa fa-user yellow_color"></i>
+                              </div>
+                           </div>
+                           <div class="counter_no">
+                              <div>
+                                 <p class="total_no">2500</p>
+                                 <p class="head_couter">Users</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6 col-lg-3">
+                        <div class="full counter_section margin_bottom_30">
+                           <div class="couter_icon">
+                              <div> 
+                                 <i class="fa fa-clock-o blue1_color"></i>
+                              </div>
+                           </div>
+                           <div class="counter_no">
+                              <div>
+                                 <p class="total_no">123.50</p>
+                                 <p class="head_couter">Average Time</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6 col-lg-3">
+                        <div class="full counter_section margin_bottom_30">
+                           <div class="couter_icon">
+                              <div> 
+                                 <i class="fa fa-cloud-download green_color"></i>
+                              </div>
+                           </div>
+                           <div class="counter_no">
+                              <div>
+                                 <p class="total_no">1,805</p>
+                                 <p class="head_couter">Collections</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-6 col-lg-3">
+                        <div class="full counter_section margin_bottom_30">
+                           <div class="couter_icon">
+                              <div> 
+                                 <i class="fa fa-comments-o red_color"></i>
+                              </div>
+                           </div>
+                           <div class="counter_no">
+                              <div>
+                                 <p class="total_no">54</p>
+                                 <p class="head_couter">Comments</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- end dashboard inner -->
+         </div>
+         <!-- end right content -->
+      </div>
+   </div>
+   <!-- jQuery -->
+   <script src="/portfolio_admin_template/js/jquery.min.js"></script>
+   <script src="/portfolio_admin_template/js/popper.min.js"></script>
+   <script src="/portfolio_admin_template/js/bootstrap.min.js"></script>
+   <!-- wow animation -->
+   <script src="/portfolio_admin_template/js/animate.js"></script>
+   <!-- select country -->
+   <script src="/portfolio_admin_template/js/bootstrap-select.js"></script>
+   <!-- owl carousel -->
+   <script src="/portfolio_admin_template/js/owl.carousel.js"></script> 
+   <!-- chart js -->
+   <script src="/portfolio_admin_template/js/Chart.min.js"></script>
+   <script src="/portfolio_admin_template/js/Chart.bundle.min.js"></script>
+   <script src="/portfolio_admin_template/js/utils.js"></script>
+</body>
+   
+     
+</html>

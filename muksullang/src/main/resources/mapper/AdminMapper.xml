@@ -9,5 +9,34 @@
 	    WHERE  ADMIN_ID = #{adminId}
 	      AND  ADMIN_PASSWD = #{adminPasswd}
 	</select>
-
+	
+	<insert id="createPost" parameterType="PostDTO" useGeneratedKeys="true" keyProperty="postId">
+		INSERT INTO POST(
+		POST_NM,
+		ADMIN_ID,
+		TITLE,
+		SORT,
+		LOCATION,
+		IMAGE,
+		RUNNING_TIME
+		)
+		VALUES(
+		#{postNm},
+		#{adminId},
+		#{title},
+		#{sort},
+		#{location},
+		#{image},
+		#{runningTime}
+		)
+	</insert>
+	
+	<insert id="createContent">
+		INSERT INTO CONTENT(
+		CONTENT
+		)
+		VALUES(
+		#{content}
+		)
+	</insert>
 </mapper>
