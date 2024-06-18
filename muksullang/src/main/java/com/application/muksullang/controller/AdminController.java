@@ -86,7 +86,7 @@ public class AdminController {
 	public String createPost() {
 		return "admin/createPost";
 	}
-	/*
+	
 	@PostMapping("/createPost")
 	public String createPost(@RequestParam("uploadImage") MultipartFile uploadImage, 
 			                 @ModelAttribute PostDTO postDTO,
@@ -97,16 +97,26 @@ public class AdminController {
 		
 		// adminService.createPost을 통해 postId가 잘 넘어오는지 확인하기 위함
 		System.out.println(postDTO.getPostId());	
-		
-		List<ContentDTO> contentList = contentDTO.getContentDTOList();
+		/*
+		for (ContentDTO dto : contentDTO.getContentDTOList()) {
+			// html에서 작성한 내용이 넘어오는지 확인하기 위함
+			System.out.println(dto);
+			
+			contentDTO.setPostId(postDTO.getPostId());
+			adminService.createContent(dto);
+		}
+		*/
+		 // postId를 contentDTO에 설정
+	    List<ContentDTO> contentList = contentDTO.getContentDTOList();
 	    for (ContentDTO dto : contentList) {
 	        dto.setPostId(postDTO.getPostId()); // postId 설정
 	    }
-	    
+
+	    // 내용 생성 서비스 호출
 	    adminService.createContent(contentDTO);
-		
+	    
 		return "redirect:/admin/main";
 	}
-	*/
+	
 	
 }
