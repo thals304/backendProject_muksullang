@@ -25,9 +25,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 /*
  * 문제 발생- 
- * 게시물 작성 form에서 content는 어떻게 해줘야 하나? 한 게시물에 content 내용 여러 개 올릴거면? 
- * js에서 버튼 누르면 추가할 수 있도록 해줘야 될 것 같은데 .append처럼 (이 부분 공부 다시 필요!)
- * 근데 db에 어떻게 올릴지 과정이 쉽지가 않네
  * 
  * admin html에서도 웹 메인으로 이동 가능한 버튼이 있으면 좋겠음 > 그리고 post 게시물에서 session.adminId != null인 경우에 게시물을 삭제/수정 가능 하도록
  * 
@@ -97,15 +94,7 @@ public class AdminController {
 		
 		// adminService.createPost을 통해 postId가 잘 넘어오는지 확인하기 위함
 		System.out.println(postDTO.getPostId());	
-		/*
-		for (ContentDTO dto : contentDTO.getContentDTOList()) {
-			// html에서 작성한 내용이 넘어오는지 확인하기 위함
-			System.out.println(dto);
-			
-			contentDTO.setPostId(postDTO.getPostId());
-			adminService.createContent(dto);
-		}
-		*/
+		
 		 // postId를 contentDTO에 설정
 	    List<ContentDTO> contentList = contentDTO.getContentDTOList();
 	    for (ContentDTO dto : contentList) {
@@ -113,7 +102,7 @@ public class AdminController {
 	    }
 
 	    // 내용 생성 서비스 호출
-	    adminService.createContent(contentDTO);
+	    adminService.createContent(contentList);
 	    
 		return "redirect:/admin/main";
 	}

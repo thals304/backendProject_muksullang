@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class ContentDTO {
 	
+	private long   contentId;
 	private String content;
 	private long   postId;
 	

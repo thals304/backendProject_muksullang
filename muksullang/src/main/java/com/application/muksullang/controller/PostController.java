@@ -2,6 +2,7 @@ package com.application.muksullang.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,7 +27,11 @@ public class PostController {
 	
 	// Best Of (post_id를 가져와서 db에서 post_nm이 recommend인 게시물 정보를 html에 뿌려주면 될 것 같음)
 	@GetMapping("/bestOf")
-	public String bestOf() {
+	public String bestOf(Model model) {
+		// 게시물 수가 9개 이상일 때 다음 페이지로 넘어가는 페이지네이션 기능을 만들어야 함
+		String type = "Best Of";
+		model.addAttribute("bestOfList", postService.getBestOfList(type));
+		
 		return "post/bestOf";
 	}
 	

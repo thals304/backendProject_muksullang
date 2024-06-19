@@ -31,12 +31,14 @@
 		)
 	</insert>
 	
-	<insert id="createContent">
+	<insert id="createContent" parameterType="ContentDTO">
 		INSERT INTO CONTENT(
-		CONTENT
+		CONTENT,
+		POST_ID
 		)
 		VALUES(
-		#{content}
+		#{content},
+		#{postId}
 		)
 	</insert>
 </mapper>

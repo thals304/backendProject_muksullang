@@ -1,6 +1,7 @@
 package com.application.muksullang.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,6 @@ public interface AdminService {
 	
 	public void createPost(MultipartFile uploadImage, PostDTO postDTO) throws IllegalStateException, IOException;
 
-	public void createContent(ContentDTO contentDTO);
+	public void createContent(List<ContentDTO> contentList);
 
 }
