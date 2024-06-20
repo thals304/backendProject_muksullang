@@ -21,6 +21,8 @@ import com.application.muksullang.service.PostService;
 
 
 /*
+ * 
+ * AWS 배포에서 layout2에서 오류 발생
  * Best Of 구현 안한 부분
  * 
  * - 커서 페이지네이션
