@@ -1,9 +1,11 @@
 
-# < Project Title > 맛집 추천 커뮤니티 “먹슐랭(Muksullang)”
+# < Project Title > Amazon Web Service 기반 “맛집 추천 커뮤니티 먹슐랭(Muksullang)” 시스템 개발 프로젝트
 
 ### 개발 기간 📆
 
 2024년 04월 03일 ~ 2024년 07월
+
+### 프로젝트 니즈(Needs)
 
 ### 주요 개발 자원 (SW)
 
