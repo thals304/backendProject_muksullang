@@ -1,11 +1,13 @@
 package com.application.muksullang.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.muksullang.dao.PostDAO;
+import com.application.muksullang.dto.ContentDTO;
 import com.application.muksullang.dto.PostDTO;
 
 @Service
@@ -19,4 +21,30 @@ public class PostServiceImpl implements PostService {
 			
 			return postDAO.getBestOfList(type);
 		}
+
+		@Override
+		public List<PostDTO> searchBestOfPost(Map<String, Object> params) {
+			
+			return postDAO.searchBestOfPost(params);
+		}
+
+		@Override
+		public PostDTO getBestOfDetailPost(long postId) {
+			
+			return postDAO.getBestOfDetailPost(postId);
+		}
+
+		@Override
+		public List<ContentDTO> getBestOfDetailContent(long postId) {
+		
+			return postDAO.getBestOfDetailContent(postId);
+		}
+
+		@Override
+		public ContentDTO getBestOfDetailContentImpactMsg(long postId) {
+	
+			return postDAO.getBestOfDetailContentImpactMsg(postId);
+		}
+
+		
 }

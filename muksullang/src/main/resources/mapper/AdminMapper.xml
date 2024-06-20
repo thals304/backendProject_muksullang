@@ -41,4 +41,5 @@
 		#{postId}
 		)
 	</insert>
+	
 </mapper>

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.application.muksullang.dao.PostDAO">
-
-	<resultMap type="postMap" id="hashmap">
+	<!-- 게시글 관련 조회 데이터 매핑(Table Column -> Map key) -->
+	<resultMap id="postMap" type="hashmap">
 		<result column="POST_ID" property="postId"/>
 		<result column="POST_NM" property="postNm"/>
 		<result column="ADMIN_ID" property="adminId"/>
@@ -16,7 +16,7 @@
 	</resultMap>
 	
 	<!-- Best Of 전체 게시물 조회(postId(디테일 눌렀을 때 보내기 위함), title, sort, location, image, runningTime만 필요) -->
-	<select id="getBestOfList" parameterType="type" resultType="PostDTO">
+	<select id="getBestOfList" parameterType="String" resultType="PostDTO">
 		SELECT POST_ID,
 		       IMAGE,
 		       TITLE,
@@ -25,5 +25,51 @@
 		       RUNNING_TIME
 		FROM   POST
 		WHERE  POST_NM = #{type}
+	</select>
+	
+	<!-- Best Of 검색 게시물 조회(postId(디테일 눌렀을 때 보내기 위함), title, sort, location, image, runningTime만 필요) -->
+	<select id="searchBestOfPost" parameterType="java.util.Map" resultType="PostDTO">
+	    SELECT POST_ID,
+	           IMAGE,
+	           TITLE,
+	           SORT,
+	           LOCATION,
+	           RUNNING_TIME
+	    FROM   POST
+	    <where>
+	        <if test="title != null and title != ''">
+	            AND TITLE LIKE CONCAT('%', #{title}, '%')
+	        </if>
+	        <if test="category != null and category != 'basic'">
+	            AND SORT = #{category}
+	        </if>
+	        <if test="location != null and location != 'basic'">
+	            AND LOCATION LIKE CONCAT('%', #{location}, '%')
+	        </if>
+	    </where>
+	</select>
+	
+	<!-- 1개 게시물 상세조회 (POST)-->
+	<select id="getBestOfDetailPost" parameterType="long" resultType="PostDTO">
+		SELECT *
+		FROM   POST
+		WHERE  POST_ID = #{postId}
+	</select>
+	
+	<!-- 1개 게시물 상세조회 (CONTENT) 2개-->
+	<select id="getBestOfDetailContent" parameterType="long" resultType="ContentDTO">
+		SELECT   *
+		FROM     CONTENT
+		WHERE    POST_ID = #{postId}
+		ORDER BY CONTENT_ID ASC
+		LIMIT    2
+	</select>
+	<!-- 1개 게시물 상세조회 (CONTENT) 임팩트 메시지 내용 1개-->
+	<select id="getBestOfDetailContentImpactMsg" parameterType="long" resultType="ContentDTO">
+		SELECT *
+		FROM     CONTENT
+		WHERE    POST_ID = #{postId}
+		ORDER BY CONTENT_ID DESC
+		LIMIT    1
 	</select>
 </mapper>

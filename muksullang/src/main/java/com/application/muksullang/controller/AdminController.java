@@ -28,6 +28,7 @@ import jakarta.servlet.http.HttpSession;
  * 
  * admin html에서도 웹 메인으로 이동 가능한 버튼이 있으면 좋겠음 > 그리고 post 게시물에서 session.adminId != null인 경우에 게시물을 삭제/수정 가능 하도록
  * 
+ * 웹사이트에서 localhost/admin/main 이나 /createPost를 눌러도 아무나 들어갈 수 있음 session으로 막아야 될 듯
  * */
 @Controller
 @RequestMapping("/admin")
@@ -93,7 +94,7 @@ public class AdminController {
 		adminService.createPost(uploadImage , postDTO);
 		
 		// adminService.createPost을 통해 postId가 잘 넘어오는지 확인하기 위함
-		System.out.println(postDTO.getPostId());	
+		//System.out.println(postDTO.getPostId());	
 		
 		 // postId를 contentDTO에 설정
 	    List<ContentDTO> contentList = contentDTO.getContentDTOList();

@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void createContent(List<ContentDTO> contentList) {
 		
-		    for (ContentDTO dto : contentList) {;
+		    for (ContentDTO dto : contentList) {
 		        adminDAO.createContent(dto); // 각 contentDTO를 생성하는 DAO 호출
 		    }
 		

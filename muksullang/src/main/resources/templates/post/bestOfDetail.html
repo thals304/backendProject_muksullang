@@ -5,75 +5,54 @@
 <head>
 <meta charset="UTF-8">
 <title>Best Of - 게시물 디테일</title>
+<style>
+    .blog-pic {
+        text-align: center; /* 이미지를 가운데 정렬 */
+        margin-bottom: 20px; /* 이미지와 제목 사이의 간격 설정 */
+    }
+
+    .blog-pic img {
+        display: inline-block; /* 이미지를 인라인 블록 요소로 설정 */
+        vertical-align: middle; /* 이미지를 수직 가운데 정렬 */
+    }
+</style>
 </head>
 <body>
 	<div layout:fragment="content1">
 		<!-- Blog Section Begin -->
 		<section class="blog-section spad">
 			<div class="blog-pic">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg-12">
-							<img src="/portfolio_template3/img/bd버거_성수_long.png" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
+	            <div class="container-fluid">
+	                <div class="row">
+	                    <div class="col-lg-12">
+	                        <img th:src="@{/post/thumbnails(fileName=${postDTO.image})}" alt="" style="width: 100%; max-width: 600px;" >
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="blog-text">
 							<div class="blog-title">
 								<!--<span>04 April 2024</span> 맛집 소개라 없어도 될 것 같음-->
-								<h2>bd 버거 - 성수점</h2>
+								<h2 th:text="${postDTO.title}">title</h2>
 								<ul class="tags">
-									<li>Food</li>
-									<li>성수점</li>
+									<li th:text="${postDTO.sort}">sort</li>
 								</ul>
 							</div>
-							<div class="blog-desc">
-								<p>Location은 ~~~에 있습니다. 그리고 영업시간은 ~~~입니다. Pellentesque
-									tempor lectus nisi, ut consectetur mauris feugiat et. Nam
-									lacinia placerat sem nec consequat. Praesent tempus eros vitae
-									iaculis sollicitudin. Nulla facilisi. Aenean sit amet magna in
-									nunc malesuada ornare quis sed libero. Aenean ornare rutrum
-									vestibulum. Morbi a mi vel nunc bibendum viverra sed ut dui.
-									Proin accumsan, neque quis fringilla bibendum, lectus neque
-									interdum odio, quis blandit metus nibh sit amet nibh. Vivamus
-									lobortis libero non tellus imperdiet fringilla. Sed quis enim
-									id odio blandit maximus ut a mi. Ae</p>
-								<p>메뉴 Pellentesque tempor lectus nisi, ut consectetur mauris
-									feugiat et. Nam lacinia placerat sem nec consequat. Praesent
-									tempus eros vitae iaculis sollicitudin. Nulla facilisi. Aenean
-									sit amet magna in nunc malesuada ornare quis sed libero. Aenean
-									ornare rutrum vestibulum. Morbi a mi vel nunc bibendum viverra
-									sed ut dui. Proin accumsan, neque quis fringilla bibendum,
-									lectus neque interdum odio, quis blandit metus nibh sit amet
-									nibh. Vivamus lobortis libero non tellus imperdiet fringilla.
-									Sed quis enim id odio blandit maximus ut a mi. Ae</p>
-								<p>Pellentesque tempor lectus nisi, ut consectetur mauris
-									feugiat et. Nam lacinia placerat sem nec consequat. Praesent
-									tempus eros vitae iaculis sollicitudin. Nulla facilisi. Aenean
-									sit amet magna in nunc malesuada ornare quis sed libero. Aenean
-									ornare rutrum vestibulum. Morbi a mi vel nunc bibendum viverra
-									sed ut dui. Proin accumsan, neque quis fringilla bibendum,
-									lectus neque interdum odio, quis blandit metus nibh sit amet
-									nibh. Vivamus lobortis libero non tellus imperdiet fringilla.
-									Sed quis enim id odio blandit maximus ut a mi. Aenean enim
-									ante, rutrum id cursus ac, facilisis at sapien. Vestibulum
-									facilisis quam sit amet leo elementum, eu tincidunt nibh
-									blandit. Nam sit amet faucibus nunc, a venenatis dolor. Nulla
-									tempus ornare massa vitae malesuada. Curabitur ultricies
-									faucibus ipsum id imperdiet. Donec in dolor ex.</p>
-								<div class="blog-quote">
-									<i class="fa fa-quote-left"></i>
-									<p>햄버거에 미친 당신 성수 bd 버거집에 초대합니다 사이드랑 같이 먹으면 햄버거가 두 배로 맛있는
-										곳!!</p>
-								</div>
+							<!-- 내용 2개 -->
+							<div class="blog-desc" th:each="contentDTO : ${contentDTOList}">
+								<p th:text="${contentDTO.content}"></p>
 							</div>
+							<!-- 강조 메시지 1개 -->
+							<div class="blog-quote">
+								<i class="fa fa-quote-left"></i>
+								<p th:text="${contentImpactMsg.content}"></p>
+							</div>
+							<!-- 리뷰 -->
 							<div class="blog-comment">
 								<h3>Comments (3)</h3>
-								<!--알아서 카운트가 올라가야 하는데-->
 								<div class="single-comment">
 									<img src="유저 프로필.png" alt="">
 									<!--유저 프로필 사진을 받아올 수 있나?-->

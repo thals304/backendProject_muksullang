@@ -5,54 +5,133 @@
 <head>
 <meta charset="UTF-8">
 <title>Best Of</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+        .title-with-button {
+            display: flex;
+            align-items: center;
+        }
+
+        .title-with-button h4 {
+            margin-right: 10px;
+        }
+
+        .wishlist-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #ccc;
+        }
+
+        .wishlist-button .fa-heart {
+            transition: color 0.3s;
+        }
+
+        .wishlist-button.clicked .fa-heart {
+            color: #e74c3c;  /* 클릭된 후 빨간색으로 변경 */
+        }
+</style>
+<script>
+	$().ready(function(){
+		$("#bestOfBookmark").click(function(){
+			let postId = $(this).data("post-id"); // postId 가져오기
+            let userId = $("#userId").val(); // userId 가져오기
+            
+			if (userId){ // 로그인한 유저가 북마크 버튼을 눌렀을 경우
+				
+			 	let bookmarkData = {
+	                    "postId": postId,
+	                    "userId": userId
+	                };
+				
+				$.ajax({
+					url : "/post/bookmark",
+					type : "post",
+					contentType : "application/json",
+					data : JSON.stringify(bookmarkData),
+					success : function(response){
+						if(response.success){
+							if(response.bookmarked){
+								$("#bestOfBookmark i").removeClass("far").addClass("fas"); // 빈 하트에서 채워진 하트로 변경
+		                        $("#bestOfBookmark").addClass("bookmarked"); // 북마크 상태를 나타내는 클래스 추가
+								location.href="/post/bestOf";
+							}
+							else{
+								// 북마크 취소된 경우
+	                            $("#bestOfBookmark i").removeClass("fas").addClass("far"); // 채워진 하트에서 빈 하트로 변경
+	                            $("#bestOfBookmark").removeClass("bookmarked"); // 북마크 상태를 나타내는 클래스 제거
+	                            alert("북마크가 취소되었습니다.");
+							}
+						}
+					}
+				});
+			}
+			else {
+				alert("My Page에서 로그인 후에 이용 가능합니다.");
+			}
+		});
+		});
+
+</script>
 </head>
 <body>
 	<div layout:fragment="content1">
 		<!-- Hero Search Section Begin -->
 		<div class="hero-search set-bg" data-setbg="/portfolio_template3/img/search-bg.jpg">
-			<div class="container">
-				<div class="filter-table">
-					<form action="#" class="filter-search">
-						<input type="text" placeholder="Detail"> <select
-							id="category">
-							<option value="basic">Category</option>
-							<option value="food">Food</option>
-							<option value="dessert">Dessert</option>
-							<option value="other">Other</option>
-						</select> <select id="tag">
-							<option value="basic">Location</option>
-							<option value="광주">성수점</option>
-							<option value="광주">광주점</option>
-							<!--tag는 지역 00점인데 일단 웹에서 지원하는 지역만 넣어놓자-->
-						</select>
-						<button type="submit">Search</button>
-					</form>
-				</div>
-			</div>
-		</div>
+	        <div class="container">
+	            <div class="filter-table">
+	                <form th:action="@{/post/searchBestOfPost}" method="get" class="filter-search">
+	                    <input type="text" placeholder="Search Store Name" name="title">
+	                    <select id="category" name="category">
+	                        <option value="basic">Category</option>
+	                        <option value="Food">Food</option>
+	                        <option value="Dessert">Dessert</option>
+	                        <option value="Other">Other</option>
+	                    </select>
+	                    <select id="tag" name="location">
+	                        <option value="basic">Location</option>
+	                        <option value="성수">성수</option>
+	                        <option value="강남">강남</option>
+	                        <option value="홍대">홍대</option>
+	                        <option value="광주">광주</option>
+	                    </select>
+	                    <button type="submit">Search</button>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
 		<!-- Hero Search Section End -->
-
+		
+		<!-- Hidden input for userId -->
+    	<input type="hidden" id="userId" name="userId" th:value="${session.userId}" />
 		<!-- Recipe Section Begin -->
 		<section class="recipe-section spad">
 		    <div class="container">
-		        <div class="row">
-		            <div class="col-lg-4 col-sm-6" th:each="bestOf : ${bestOfList}">
-		                <div class="recipe-item">
-		                    <img th:src="${bestOf.image}" alt="Recipe Image">
-		                    <div class="ri-text">
-		                        <div class="cat-name" th:text="${bestOf.sort}">Sort</div>
-		                        <a th:href="@{/post/bestOfPost(postId=${bestOf.postId})}">
-		                            <h4 th:text="${bestOf.title}">Title</h4>
-		                        </a>
-		                        <p>
-		                            <span th:text="${bestOf.location}">Location</span>
-		                            <br>
-		                            <span th:text="${bestOf.runningTime}">Running Time</span>
-		                        </p>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
+		       <div class="row">
+				    <div class="col-lg-4 col-sm-6" th:each="bestOf : ${bestOfList}">
+				        <div class="recipe-item">
+				            <img th:src="@{/post/thumbnails(fileName=${bestOf.image})}" alt="Recipe Image">
+				            <div class="ri-text">
+				                <div class="cat-name" th:text="${bestOf.sort}">Sort</div>
+				                <div class="title-with-button">
+				                    <a th:href="@{/post/bestOfDetail(postId=${bestOf.postId})}">
+				                        <h4 th:text="${bestOf.title}">Title</h4>
+				                    </a>
+				                    <button class="wishlist-button" id="bestOfBookmark" data-post-id="${bestOf.postId}">
+				                        <i class="far fa-heart"></i>
+				                    </button>
+				                </div>
+				                <p>
+				                    <span th:text="${bestOf.location}">Location</span>
+				                    <br> 
+				                    <span th:text="${bestOf.runningTime}">Running Time</span>
+				                </p>
+				            </div>
+				        </div>
+				    </div>
+</div>
+		       
 		        <div class="row">
 		            <div class="col-lg-12">
 		                <div class="recipe-pagination">
