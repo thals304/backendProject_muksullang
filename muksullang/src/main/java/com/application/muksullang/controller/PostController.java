@@ -16,19 +16,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.application.muksullang.dto.ContentDTO;
 import com.application.muksullang.dto.PostDTO;
+import com.application.muksullang.dto.ReplyDTO;
 import com.application.muksullang.service.PostService;
+import com.application.muksullang.service.ReplyService;
 
 
 /*
+ * getBestOfDetail에서 리뷰리스트를 받아오는 과정에서 오류 발생 mapper에서 hashmap을 사용했기 때문에 Service, DAO에서 return 값이 List<Map<String,Object>>이어야 함
+ * + mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
+ * 리뷰에서 작성자 썸네일은 게시물 썸네일과 따로 만들어 줘야함(파일 resource가 다르므로)
  * 
  * AWS 배포에서 layout2에서 오류 발생
- * Best Of 구현 안한 부분
  * 
+ * Best Of 구현 안한 부분
  * - 커서 페이지네이션
  * - 북마크(게시물 찜하기) : Best Of에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
  * 버튼을 눌렀을 때 빨간색이 되면 북마크로 등록, 빨간색에서 다시 버튼을 눌러 흰색이 되면 북마크 취소 
- * - 디테일에 리뷰 수, 리뷰 뿌리기
+ * - 디테일에 리뷰 수(select로 등록할건데 데이터 타입을 int로 해도 되나?), 리뷰 뿌리기
  * */
 @Controller
 @RequestMapping("/post")
@@ -37,8 +43,14 @@ public class PostController {
 	@Value("${image.repo.path}")
 	private String imageRepositoryPath;
 	
+	@Value("${file.repo.path}")
+	private String fileRepositoryPath;
+	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	// 웹페이지 첫 화면 main 
 	@GetMapping("/main")
@@ -57,6 +69,7 @@ public class PostController {
 		return "post/bestOf";
 	}
 	
+	// post 썸네일
 	@GetMapping("/thumbnails")
 	@ResponseBody
 	// import org.springframework.core.io.Resource;
@@ -64,6 +77,14 @@ public class PostController {
 	public Resource thumbnails(@RequestParam("fileName") String fileName)  throws MalformedURLException {
 		return new UrlResource("file:"+ imageRepositoryPath + fileName);
 	}
+	
+	// user 썸네일
+	@GetMapping("/userThumbnails")
+	@ResponseBody
+	public Resource userThumbnails(@RequestParam("fileName") String fileName) throws MalformedURLException {
+		return new UrlResource("file:"+ fileRepositoryPath + fileName);
+	}
+	
 	
 	// Best Of의 검색 기능
 	@GetMapping("/searchBestOfPost")
@@ -87,9 +108,12 @@ public class PostController {
 	@GetMapping("/bestOfDetail")
 	public String bestOfDetail(Model model, @RequestParam("postId") long postId) {
 		
-		model.addAttribute("postDTO", postService.getBestOfDetailPost(postId) );
+		model.addAttribute("postDTO", postService.getBestOfDetailPost(postId));
 		model.addAttribute("contentDTOList", postService.getBestOfDetailContent(postId));
 		model.addAttribute("contentImpactMsg", postService.getBestOfDetailContentImpactMsg(postId));		
+		model.addAttribute("replyList", replyService.getReplyList(postId));
+		model.addAttribute("replyCnt", replyService.getReplyCnt(postId));
+		
 		return "post/bestOfDetail";
 	}
 	

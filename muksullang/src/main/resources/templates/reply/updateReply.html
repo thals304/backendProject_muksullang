@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/post/layout1.html}">
+<head>
+<meta charset="UTF-8">
+<title>Update Reply</title>
+<style>
+    .blog-pic {
+        text-align: center; /* 이미지를 가운데 정렬 */
+        margin-bottom: 20px; /* 이미지와 제목 사이의 간격 설정 */
+    }
+
+    .blog-pic img {
+        display: inline-block; /* 이미지를 인라인 블록 요소로 설정 */
+        vertical-align: middle; /* 이미지를 수직 가운데 정렬 */
+    }
+    
+    /* 별 스타일 */
+	.rating-star {
+	    font-size: 24px;
+	    color: gold;
+	    margin-left: 10px;
+	    display: inline-block;
+	    vertical-align: middle;
+	}
+</style>
+</head>
+<body>
+	<section class="blog-section spad">
+		<div layout:fragment="content1">
+				<div class="container">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="blog-text">
+					<!-- 리뷰 수정 -->
+						<form th:action="@{/reply/updateReply}" method="post" class="comment-form">
+							<h3>Edit a Comment</h3>
+							<div class="row">
+									<div class="col-lg-6">
+										<label for="userId">UserId</label>
+										<input type="text" th:value="${replyDTO.userId}" id="userId" name="userId" readonly>
+									</div>
+									<div class="col-lg-6">
+										<label for="rating">Rating</label>
+										<span class="rating-star">&#9733;</span>
+										<select id="rating" name="rating"class="form-control custom-width">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</div>
+									<div class="col-lg-12">
+										<textarea id="content" name="content" th:text="${replyDTO.content}"></textarea>
+									</div>
+								</div>
+								<input type="hidden" name="postId" th:value="${replyDTO.postId}"> 
+								<input type="hidden" name="replyId" th:value="${replyDTO.replyId}"> 
+								<button type="submit">Edit</button>
+							</form> 	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
