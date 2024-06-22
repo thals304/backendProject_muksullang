@@ -2,18 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.application.muksullang.dao.PostDAO">
-	<!-- 게시글 관련 조회 데이터 매핑(Table Column -> Map key) -->
-	<resultMap id="postMap" type="hashmap">
-		<result column="POST_ID" property="postId"/>
-		<result column="POST_NM" property="postNm"/>
-		<result column="ADMIN_ID" property="adminId"/>
-		<result column="TITLE" property="title"/>
-		<result column="SORT" property="sort"/>
-		<result column="LOCATION" property="location"/>
-		<result column="IMAGE" property="image"/>
-		<result column="RUNNING_TIME" property="runningTime"/>
-		<result column="ENROLL_AT" property="enrollAt"/>
-	</resultMap>
 	
 	<!-- Best Of 전체 게시물 조회(postId(디테일 눌렀을 때 보내기 위함), title, sort, location, image, runningTime만 필요) -->
 	<select id="getBestOfList" parameterType="String" resultType="PostDTO">
@@ -71,5 +59,15 @@
 		WHERE    POST_ID = #{postId}
 		ORDER BY CONTENT_ID DESC
 		LIMIT    1
+	</select>
+	
+	<!-- Recommend 전체 게시물 조회 -->
+	<select id="getRecommendList" parameterType="String" resultType="PostDTO">
+		SELECT POST_ID,
+		       IMAGE,
+		       TITLE,
+		       ENROLL_AT
+		FROM   POST
+		WHERE  POST_NM = #{type}
 	</select>
 </mapper>

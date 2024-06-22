@@ -25,6 +25,14 @@
 	    vertical-align: middle;
 	}
 </style>
+<script>
+	function processDeleteReply(replyId){
+		let isDelete = confirm("작성한 리뷰를 삭제하시겠습니까?");
+		if (isDelete){
+			location.href = "/reply/deleteReply?replyId=" + replyId;
+		}
+	}
+</script>
 </head>
 <body>
 	<div layout:fragment="content1">
@@ -51,6 +59,7 @@
 								</ul>
 							</div>
 							<!-- 내용 2개 -->
+							
 							<div class="blog-desc" th:each="contentDTO : ${contentDTOList}">
 								<p th:text="${contentDTO.content}"></p>
 							</div>
@@ -106,7 +115,7 @@
 							</th:block>
 							<th:block th:unless="${session.userId != null}">
 								<p style="color:red;" align="center">
-								MyPage에서 로그인 후에 리뷰 작성 가능합니다.
+								리뷰 작성을 하고 싶다면 ? MyPage에서 로그인 후에 리뷰 작성 가능합니다
 								</p>
 							</th:block>
 						</div>

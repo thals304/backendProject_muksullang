@@ -43,13 +43,14 @@
 	function addContentField(){
 		
 		let container = document.getElementById("content-container");
-		let newInput = document.createElement("input");
-		newInput.type = "text";
-		newInput.name = "contentDTOList["+contentIndex+"].content";
-		newInput.size = "150";
-		newInput.placeholder = "Enter content";
-		
-		container.appendChild(newInput);
+		let newTextarea = document.createElement("textarea");
+		    newTextarea.name = "contentDTOList[" + contentIndex + "].content";
+		    newTextarea.id = "content" + contentIndex; 
+		    newTextarea.rows = 10; 
+		    newTextarea.cols = 100; 
+		    newTextarea.placeholder = "Enter content";
+		    
+	    container.appendChild(newTextarea);
 		container.appendChild(document.createElement("br"));
 		container.appendChild(document.createElement("br"));
 		contentIndex++;
@@ -218,7 +219,7 @@
 							                <div class="table_section padding_infor_info">
 							                    <div class="table-responsive-sm">
 							                        <div id="content-container">
-							                            <input type="text" name="contentDTOList[0].content" id="content0" size="150" placeholder="Enter content">
+							                            <textarea name="contentDTOList[0].content" id="content0" rows="10" cols="100" placeholder="Enter content"></textarea>
 							                            <br><br>
 							                        </div>
 							                        <button type="button" onclick="addContentField()">Add More Content</button>

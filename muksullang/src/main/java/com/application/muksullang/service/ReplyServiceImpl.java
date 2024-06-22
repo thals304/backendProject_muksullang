@@ -34,4 +34,14 @@ public class ReplyServiceImpl implements ReplyService {
 	public ReplyDTO getReplyDetail(long replyId) {
 		return replyDAO.getReplyDetail(replyId);
 	}
+
+	@Override
+	public void updateReply(ReplyDTO replyDTO) {
+		replyDAO.updateReply(replyDTO);
+	}
+
+	@Override
+	public void deleteReply(long replyId) {
+		replyDAO.deleteReply(replyId);
+	}
 }

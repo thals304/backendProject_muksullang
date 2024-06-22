@@ -21,4 +21,10 @@ public interface ReplyDAO {
 	
 	// 1개의 댓글 정보 상세 조회
 	public ReplyDTO getReplyDetail(long replyId);
+	
+	// 댓글 수정
+	public void updateReply(ReplyDTO replyDTO);
+	
+	// 댓글 삭제
+	public void deleteReply(long replyId);
 }

@@ -23,4 +23,7 @@ public interface PostDAO {
 	public List<ContentDTO> getBestOfDetailContent(long postId);
 	// Best Of의 게시물 디테일 정보 (CONTENT - 가게에 대한 임팩트 메시지)
 	public ContentDTO getBestOfDetailContentImpactMsg(long postId);
+	
+	// Recommend인 게시물 정보 리스트 가져오기
+	public List<PostDTO> getRecommendList(String type);
 }

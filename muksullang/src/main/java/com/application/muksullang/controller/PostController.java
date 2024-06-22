@@ -24,17 +24,16 @@ import com.application.muksullang.service.ReplyService;
 
 
 /*
- * getBestOfDetail에서 리뷰리스트를 받아오는 과정에서 오류 발생 mapper에서 hashmap을 사용했기 때문에 Service, DAO에서 return 값이 List<Map<String,Object>>이어야 함
- * + mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
- * 리뷰에서 작성자 썸네일은 게시물 썸네일과 따로 만들어 줘야함(파일 resource가 다르므로)
+ *  //(중요) mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
  * 
+ * 게시물 내용에서 br \n 적용이 안되는 고민 생김 > 
  * AWS 배포에서 layout2에서 오류 발생
  * 
  * Best Of 구현 안한 부분
  * - 커서 페이지네이션
  * - 북마크(게시물 찜하기) : Best Of에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
  * 버튼을 눌렀을 때 빨간색이 되면 북마크로 등록, 빨간색에서 다시 버튼을 눌러 흰색이 되면 북마크 취소 
- * - 디테일에 리뷰 수(select로 등록할건데 데이터 타입을 int로 해도 되나?), 리뷰 뿌리기
+ * - 공공데이터 csv 넣기(서울 관광 음식 - 위치에 송파 들어가는 것 중 5-6개 정도만 뽑아 사용> 사진 찾아야함)
  * */
 @Controller
 @RequestMapping("/post")
@@ -119,7 +118,11 @@ public class PostController {
 	
 	// Recommend (post_id를 가져와서 db에서 post_nm이 recommend인 게시물 정보를 html에 뿌려주면 될 것 같음)
 	@GetMapping("/recommend")
-	public String recommend() {
+	public String recommend(Model model) {
+		
+		String type = "Recommend";
+		model.addAttribute("recommendList", postService.getRecommendList(type));
+		
 		return "post/recommend";
 	}
 	

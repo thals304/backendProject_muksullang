@@ -53,4 +53,22 @@
  		FROM   REPLY
  		WHERE  REPLY_ID = #{replyId}
  	</select>
+ 	
+ 	<update id="updateReply" parameterType="ReplyDTO">
+ 		UPDATE REPLY
+ 		<set>
+ 			<if test="rating != null">
+ 				RATING = #{rating},
+ 			</if>
+ 			<if test="content != null and content != ''">
+ 				CONTENT = #{content}
+ 			</if>
+ 		</set>
+ 		WHERE REPLY_ID = #{replyId}
+ 	</update>
+ 	
+ 	<delete id="deleteReply" parameterType="long">
+ 		DELETE FROM REPLY
+ 		WHERE  REPLY_ID = #{replyId}
+ 	</delete>
 </mapper>

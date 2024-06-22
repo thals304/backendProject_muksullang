@@ -14,7 +14,8 @@ import com.application.muksullang.dto.ReplyDTO;
 import com.application.muksullang.service.ReplyService;
 /*
  * reply 안한 부분
- * - 리뷰 수정하기, 리뷰 삭제하기 마무리
+ * - 리뷰 수정하기 > 리뷰 평가 db에 저장한 부분을 수정하기 화면에 기본으로 보여주고 싶음
+ *   th:selected="${replyDTO.rating == 1}" 으로 가능
  * */
 @Controller
 @RequestMapping("/reply")
@@ -43,6 +44,37 @@ public class ReplyController {
 		model.addAttribute("replyDTO", replyService.getReplyDetail(replyId));
 		
 		return "reply/updateReply";
+	}
+	
+	@PostMapping("/updateReply")
+	@ResponseBody
+	public String updateReply(@ModelAttribute ReplyDTO replyDTO) {
+		
+		replyService.updateReply(replyDTO);
+		
+		// 응답(postDetail로 이동)
+		String jsScript = "";
+			jsScript += "<script>";
+			jsScript += "alert('리뷰 수정되었습니다.');";
+			jsScript += "location.href='/post/bestOfDetail?postId=" + replyDTO.getPostId() + "';";
+			jsScript += "</script>";
+		
+		return jsScript;
+	}
+	
+	@GetMapping("/deleteReply")
+	@ResponseBody
+	public String deleteReply(@RequestParam("replyId") long replyId) {
+		
+		replyService.deleteReply(replyId);
+		
+		String jsScript = """
+				<script>
+					history.go(-1);
+				</script>	
+					""";
+			
+			return jsScript;
 	}
 		
 }

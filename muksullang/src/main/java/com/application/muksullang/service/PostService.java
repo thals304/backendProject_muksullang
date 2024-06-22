@@ -17,4 +17,6 @@ public interface PostService {
 	public PostDTO getBestOfDetailPost(long postId);
     public List<ContentDTO> getBestOfDetailContent(long postId);
 	public ContentDTO getBestOfDetailContentImpactMsg(long postId);
+	
+	public List<PostDTO> getRecommendList(String type);
 }

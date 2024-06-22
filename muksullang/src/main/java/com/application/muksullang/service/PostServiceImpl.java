@@ -18,7 +18,6 @@ public class PostServiceImpl implements PostService {
 
 		@Override
 		public List<PostDTO> getBestOfList(String type) {
-			
 			return postDAO.getBestOfList(type);
 		}
 
@@ -44,6 +43,11 @@ public class PostServiceImpl implements PostService {
 		public ContentDTO getBestOfDetailContentImpactMsg(long postId) {
 	
 			return postDAO.getBestOfDetailContentImpactMsg(postId);
+		}
+
+		@Override
+		public List<PostDTO> getRecommendList(String type) {
+			return postDAO.getRecommendList(type);
 		}
 
 		

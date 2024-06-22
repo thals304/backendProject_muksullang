@@ -27,44 +27,44 @@
 </style>
 </head>
 <body>
-	<section class="blog-section spad">
 		<div layout:fragment="content1">
+			<section class="blog-section spad">
 				<div class="container">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="blog-text">
 					<!-- 리뷰 수정 -->
-						<form th:action="@{/reply/updateReply}" method="post" class="comment-form">
+						<form th:action="@{/reply/updateReply}" method="post" th:object="${replyDTO}" class="comment-form">
 							<h3>Edit a Comment</h3>
 							<div class="row">
 									<div class="col-lg-6">
 										<label for="userId">UserId</label>
-										<input type="text" th:value="${replyDTO.userId}" id="userId" name="userId" readonly>
+										<input type="text" id="userId" name="userId" th:field="*{userId}" readonly>
 									</div>
 									<div class="col-lg-6">
 										<label for="rating">Rating</label>
 										<span class="rating-star">&#9733;</span>
-										<select id="rating" name="rating"class="form-control custom-width">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
+										<select id="rating" name="rating" th:field="*{rating}" class="form-control custom-width">
+											<option value="1" th:selected="${replyDTO.rating == 1}">1</option>
+											<option value="2" th:selected="${replyDTO.rating == 2}">2</option>
+											<option value="3" th:selected="${replyDTO.rating == 3}">3</option>
+											<option value="4" th:selected="${replyDTO.rating == 4}">4</option>
+											<option value="5" th:selected="${replyDTO.rating == 5}">5</option>
 										</select>
 									</div>
 									<div class="col-lg-12">
-										<textarea id="content" name="content" th:text="${replyDTO.content}"></textarea>
+										<textarea id="content" name="content" th:field="*{content}"></textarea>
 									</div>
 								</div>
-								<input type="hidden" name="postId" th:value="${replyDTO.postId}"> 
-								<input type="hidden" name="replyId" th:value="${replyDTO.replyId}"> 
+								<input type="hidden" id="postId" name="postId" th:field="*{postId}"> 
+								<input type="hidden" id="replyId" name="replyId" th:field="*{replyId}"> 
 								<button type="submit">Edit</button>
 							</form> 	
 						</div>
 					</div>
 				</div>
 			</div>
+			</section>
 		</div>
-	</section>
 </body>
 </html>

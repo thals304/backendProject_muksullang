@@ -13,4 +13,8 @@ public interface ReplyService {
 	public void creatReply(ReplyDTO replyDTO);
 	
 	public ReplyDTO getReplyDetail(long replyId);
+	
+	public void updateReply(ReplyDTO replyDTO);
+	
+	public void deleteReply(long replyId);
 }
