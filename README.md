@@ -73,8 +73,8 @@ diagram.io |
 
 | 요구사항 정의서 |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- |
-| 프로젝트 | Amazon Web Service 맛집 추천 커뮤니티(먹슐랭) 시스템 개발 프로젝트 |  |  |  | 작성자 | 홍길동 |
-| 시스템명 | Restaurant Recommendation System 1.0 |  |  |  | 작성일 | 2023-xx-xx |
+| 프로젝트 | Amazon Web Service 맛집 추천 커뮤니티(먹슐랭) 시스템 개발 프로젝트 |  |  |  | 작성자 | 김소민 |
+| 시스템명 | Restaurant Recommendation System 1.0 |  |  |  | 작성일 | 2024-06-xx |
 | 요구사항ID | 업무구분 | 요구사항 | 유형 | 처리방안 |  |  |
 | RQ-001 | 사용자 | 회원가입 | 기능 | 스프링 MVC 개발 |  |  |
 | RQ-002 | 사용자 | 로그인 | 기능 | 스프링 MVC 개발 |  |  |
