@@ -1,10 +1,13 @@
 package com.application.muksullang.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,7 @@ import com.application.muksullang.dto.AdminDTO;
 import com.application.muksullang.dto.ContentDTO;
 import com.application.muksullang.dto.PostDTO;
 import com.application.muksullang.service.AdminService;
+import com.application.muksullang.service.PostService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -39,6 +43,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private PostService postService;
 	
 	@GetMapping("/signIn")
 	public String signIn() {
@@ -65,7 +72,12 @@ public class AdminController {
 	}
 	
 	@GetMapping("/main")
-	public String adminPage() {
+	public String adminPage(Model model) {
+		model.addAttribute("userCnt", adminService.getUserCnt()); // activeYn이 y인 회원 수 카운트
+		model.addAttribute("bestOfCnt", adminService.getBestOfPostCnt());
+		model.addAttribute("recommendCnt", adminService.getRecommendPostCnt());
+		model.addAttribute("postCnt", adminService.getBestOfPostCnt());
+		model.addAttribute("replyCnt", adminService.getReplyCnt());
 		return "admin/main";
 	}
 	
@@ -106,6 +118,21 @@ public class AdminController {
 	    adminService.createContent(contentList);
 	    
 		return "redirect:/admin/main";
+	}
+	
+	@GetMapping("/bestOfList")
+	public String bestOfList(Model model) {
+		model.addAttribute("bestOfList", postService.getBestOfList("Best Of"));
+		
+		return "admin/bestOfList";
+	}
+	
+	@GetMapping("/recommendList")
+	public String recommendList(Model model) {
+		
+		model.addAttribute("recommendList", postService.getRecommendList("Recommend"));
+		
+		return "admin/recommendList";
 	}
 	
 	

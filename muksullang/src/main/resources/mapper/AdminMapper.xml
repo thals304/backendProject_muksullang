@@ -42,4 +42,27 @@
 		)
 	</insert>
 	
+	<select id="getUserCnt" resultType="int">
+		SELECT COUNT(USER_ID)
+		FROM   USER
+		WHERE  ACTIVE_YN = 'y'
+	</select>
+	
+	<select id="getBestOfPostCnt" resultType="int">
+		SELECT COUNT(POST_ID)
+		FROM   POST
+		WHERE  POST_NM = 'Best Of'
+	</select>
+	
+	<select id="getRecommendPostCnt" resultType="int">
+		SELECT COUNT(POST_ID)
+		FROM   POST
+		WHERE  POST_NM = 'Recommend'
+	</select>
+	
+	<select id="getReplyCnt" resultType="int">
+		SELECT COUNT(REPLY_ID)
+		FROM   REPLY
+	</select>
+	
 </mapper>

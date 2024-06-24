@@ -26,4 +26,9 @@ public interface PostDAO {
 	
 	// Recommend인 게시물 정보 리스트 가져오기
 	public List<PostDTO> getRecommendList(String type);
+	// Recommend인 게시물에 소개 내용 1개 가져오기
+	public String getRecommendContent(long postId); 
+	
+	// Recommend의 게시물 디테일 정보 (POST)
+	public PostDTO getRecommendDetailPost(long postId);
 }

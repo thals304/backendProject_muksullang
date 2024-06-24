@@ -4,7 +4,8 @@
 	  layout:decorate="~{/post/layout1.html}">
 <head>
 <meta charset="UTF-8">
-<title>Best Of - 게시물 디테일</title>
+<title>Best Of Detail</title>
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
 <style>
     .blog-pic {
         text-align: center; /* 이미지를 가운데 정렬 */
@@ -68,6 +69,7 @@
 								<i class="fa fa-quote-left"></i>
 								<p th:text="${contentImpactMsg.content}"></p>
 							</div>
+							
 							<!-- 리뷰 리스트(수정, 삭제 버튼 추가) -->
 							<div class="blog-comment">
 								<h3 th:text="|Comments(${replyCnt})|">Comments 개수</h3>
@@ -80,14 +82,14 @@
 									</ul>
 									<p th:text="${replyMap.content}">content</p>
 									<th:block th:if="${session.userId != null and session.userId == replyMap.userId}">
-										<input type="button" value="수정" th:onclick="|location.href='@{/reply/updateReply(replyId=${replyMap.replyId})}'|" >
+										<input type="button" value="수정" th:onclick="|location.href='@{/reply/updateBestOfReply(replyId=${replyMap.replyId})}'|" >
 										<input type="button" value="삭제" th:onclick="|processDeleteReply('${replyMap.replyId}')|">
 									</th:block>
 								</div>
 							</div>
 							<!-- 리뷰 작성 -->
 							<th:block th:if="${session.userId != null}">
-								<form th:action="@{/reply/createReply}" method="post" class="comment-form">
+								<form th:action="@{/reply/createBestOfReply}" method="post" class="comment-form">
 									<h3>Leave a Comment</h3>
 									<div class="row">
 										<div class="col-lg-6">
@@ -110,7 +112,7 @@
 										</div>
 									</div>
 									<input type="hidden" id ="postId" name="postId" th:value="${postDTO.postId}"> 
-									<button type="submit">Post</button>
+									<button type="submit">Submit</button>
 								</form> 
 							</th:block>
 							<th:block th:unless="${session.userId != null}">

@@ -16,4 +16,5 @@ public class PostDTO {
 	private String runningTime;
 	private String enrollAt;
 	
+	
 }

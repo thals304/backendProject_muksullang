@@ -18,4 +18,15 @@ public interface AdminDAO {
 	
 	// 게시물의 content 등록
 	public void createContent(ContentDTO contentDTO);
+	
+	// 유저 수 카운트
+	public int getUserCnt();
+	// Best Of 게시물 수 카운트
+	public int getBestOfPostCnt();
+	// Recommend 게시물 수 카운트
+	public int getRecommendPostCnt();
+	// 리뷰 수 카운트
+	public int getReplyCnt();
+	
+	
 }

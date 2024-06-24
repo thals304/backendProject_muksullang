@@ -66,8 +66,23 @@
 		SELECT POST_ID,
 		       IMAGE,
 		       TITLE,
+		       SORT,
 		       ENROLL_AT
 		FROM   POST
 		WHERE  POST_NM = #{type}
+	</select>
+	
+	<select id="getRecommendContent" parameterType="long" resultType="String">
+		SELECT   CONTENT
+		FROM     CONTENT
+		WHERE    POST_ID = #{postId}
+		ORDER BY CONTENT_ID ASC
+		LIMIT    1
+	</select>
+	
+	<select id="getRecommendDetailPost" parameterType="long" resultType="PostDTO">
+	 	SELECT *
+	 	FROM   POST
+	 	WHERE  POST_ID = #{postId}
 	</select>
 </mapper>

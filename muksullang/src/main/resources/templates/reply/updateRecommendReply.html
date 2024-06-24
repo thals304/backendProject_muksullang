@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/post/layout2.html}">
+<head>
+<meta charset="UTF-8">
+<title>Recommend update Reply</title>
+</head>
+<body>
+	
+			<!--  리뷰 등록 -->
+	<div layout:fragment="content2">
+		<section class="single-post spad">	
+			<div class="row d-flex justify-content-center">		
+				<div class="col-lg-4">
+				<br><br><br><br>
+					<div class="single-post__leave__comment">
+						<div class="widget__title">
+							<h4>Edit a comment</h4>
+						</div>
+						<form th:action="@{/reply/updateRecommendReply}" th:object="${replyDTO}" method="post">
+							<div class="input-list">
+								<label for="userId">UserId : </label>
+								<input type="text" id="userId" name="userId" th:field="*{userId}" readonly> 
+							</div>
+							<textarea  id="content" name="content" th:field="*{content}"></textarea>
+							<input type="hidden" id="postId" name="postId" th:field="*{postId}"> 
+							<input type="hidden" id="replyId" name="replyId" th:field="*{replyId}"> 
+							<button type="submit" class="site-btn">Edit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		<br><br><br><br><br><br>
+	</div>							
+</body>
+</html>

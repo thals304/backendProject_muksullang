@@ -24,9 +24,9 @@ public class ReplyController {
 	@Autowired
     private ReplyService replyService;
 	
-	@PostMapping("/createReply")
+	@PostMapping("/creatBestOfReply")
 	@ResponseBody
-	public String creatReply(@ModelAttribute ReplyDTO replyDTO) {
+	public String creatBestOfReply(@ModelAttribute ReplyDTO replyDTO) {
 		replyService.creatReply(replyDTO);
 		
 		String jsScript = "";
@@ -38,15 +38,15 @@ public class ReplyController {
 		return jsScript;
 	}
 	
-	@GetMapping("/updateReply")
+	@GetMapping("/updateBestOfReply")
 	public String updateReply(@RequestParam("replyId") long replyId, Model model) {
 		
 		model.addAttribute("replyDTO", replyService.getReplyDetail(replyId));
 		
-		return "reply/updateReply";
+		return "reply/updateBestOfReply";
 	}
 	
-	@PostMapping("/updateReply")
+	@PostMapping("/updateBestOfReply")
 	@ResponseBody
 	public String updateReply(@ModelAttribute ReplyDTO replyDTO) {
 		
@@ -75,6 +75,43 @@ public class ReplyController {
 					""";
 			
 			return jsScript;
+	}
+	
+	@PostMapping("/creatRecommendReply")
+	public String creatRecommendReply(@ModelAttribute ReplyDTO replyDTO) {
+		replyService.creatReply(replyDTO);
+		
+		String jsScript = "";
+		jsScript += "<script>";
+		jsScript += "alert('리뷰가 등록되었습니다.');";
+		jsScript += "location.href='/post/recommedDetail?postId=" + replyDTO.getPostId() + "';";
+		jsScript += "</script>";
+		
+		return jsScript;
+	}
+	
+	@GetMapping("/updateRecommendReply")
+	public String updateRecommendReply(@RequestParam("replyId") long replyId, Model model) {
+		
+		model.addAttribute("replyDTO", replyService.getReplyDetail(replyId));
+		
+		return "reply/updateRecommendReply";
+	}
+	
+	@PostMapping("/updateRecommendReply")
+	@ResponseBody
+	public String updateRecommendReply(@ModelAttribute ReplyDTO replyDTO) {
+        
+		replyService.updateReply(replyDTO);
+		
+		// 응답(postDetail로 이동)
+		String jsScript = "";
+			jsScript += "<script>";
+			jsScript += "alert('리뷰 수정되었습니다.');";
+			jsScript += "location.href='/post/recommedDetail?postId=" + replyDTO.getPostId() + "';";
+			jsScript += "</script>";
+		
+		return jsScript;
 	}
 		
 }

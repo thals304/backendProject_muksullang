@@ -19,4 +19,8 @@ public interface PostService {
 	public ContentDTO getBestOfDetailContentImpactMsg(long postId);
 	
 	public List<PostDTO> getRecommendList(String type);
+	public String getRecommendContent(long postId);
+	
+	// recommend 디테일 (post 따로, content 따로)
+	public PostDTO getRecommendDetailPost(long postId);
 }

@@ -16,5 +16,13 @@ public interface AdminService {
 	public void createPost(MultipartFile uploadImage, PostDTO postDTO) throws IllegalStateException, IOException;
 
 	public void createContent(List<ContentDTO> contentList);
+	
+	public int getUserCnt();
+	
+	public int getBestOfPostCnt();
+	
+	public int getRecommendPostCnt();
+	
+	public int getReplyCnt();
 
 }

@@ -27,6 +27,7 @@ import com.application.muksullang.service.ReplyService;
  *  //(중요) mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
  * 
  * 게시물 내용에서 br \n 적용이 안되는 고민 생김 > 
+ * recommend/recommendDetail에서 th:text 날짜를 바꾸면 에러가 남
  * AWS 배포에서 layout2에서 오류 발생
  * 
  * Best Of 구현 안한 부분
@@ -85,7 +86,7 @@ public class PostController {
 	}
 	
 	
-	// Best Of의 검색 기능
+	// Best Of Search
 	@GetMapping("/searchBestOfPost")
 	public String searchBestOfPost(@RequestParam(name = "title") String title,
             @RequestParam(name = "category") String category,
@@ -103,7 +104,7 @@ public class PostController {
 		return "post/bestOf";
 	}
 	
-	// Best Of - Post 디테일 가져오기 (post_id를 가져와서 db에서 getDetail하고 html에 뿌려주면 될 것 같음
+	// Best Of Detail
 	@GetMapping("/bestOfDetail")
 	public String bestOfDetail(Model model, @RequestParam("postId") long postId) {
 		
@@ -116,20 +117,34 @@ public class PostController {
 		return "post/bestOfDetail";
 	}
 	
-	// Recommend (post_id를 가져와서 db에서 post_nm이 recommend인 게시물 정보를 html에 뿌려주면 될 것 같음)
+	// Recommend
 	@GetMapping("/recommend")
 	public String recommend(Model model) {
 		
 		String type = "Recommend";
-		model.addAttribute("recommendList", postService.getRecommendList(type));
+		List<PostDTO> recommendList = postService.getRecommendList(type);
+		
+		// 각 게시물의 postId를 가지고 content 1개도 같이 html에 보내야함
+		for(PostDTO postDTO : recommendList) {
+			Long postId = postDTO.getPostId();
+			String content = postService.getRecommendContent(postId);
+			model.addAttribute("content_" + postId, content); // content_${postId}로 템플릿에서 사용 가능
+		}
+		model.addAttribute("recommendList", recommendList);
 		
 		return "post/recommend";
 	}
 	
-	// Recommend - Post의 디테일 가져오기(post_id를 가져와서 db에서 getDetail하고 html에 뿌려주면 될 것 같음
+	// Recommend Detail
 	@GetMapping("/recommedDetail")
-	public String recommendDetail() {
-		return "";
+	public String recommendDetail(Model model, @RequestParam("postId") long postId) {
+		
+		model.addAttribute("postDTO", postService.getRecommendDetailPost(postId));
+		// content 개수 조절을 어떻게 해야될지 모르겠음
+		model.addAttribute("replyList", replyService.getReplyList(postId));
+		model.addAttribute("replyCnt", replyService.getReplyCnt(postId));
+		
+		return "post/recommendDetail";
 	}
 	
 	// About

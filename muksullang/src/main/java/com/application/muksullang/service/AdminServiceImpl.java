@@ -53,4 +53,24 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	@Override
+	public int getUserCnt() {
+		return adminDAO.getUserCnt();
+	}
+
+	@Override
+	public int getBestOfPostCnt() {
+		return adminDAO.getBestOfPostCnt();
+	}
+	
+	@Override
+	public int getRecommendPostCnt() {
+		return adminDAO.getRecommendPostCnt();
+	}
+
+	@Override
+	public int getReplyCnt() {
+		return adminDAO.getReplyCnt();
+	}
+
 }
