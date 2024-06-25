@@ -177,7 +177,9 @@
 						                                <td>
 						                                	<img th:src="@{/post/thumbnails(fileName=${recommend.image})}" width="100">
 						                                </td>
-						                                <td th:text="${recommend.title}"><a th:href="@{/post/recommedDetail(postId=${recommned.postId})}"></a></td>
+						                               <td>
+														    <a th:href="@{/post/recommedDetail(postId=${recommend.postId})}" th:text="${recommend.title}"></a>
+													   </td>
 						                          		<td th:text="${recommend.sort}"></td>
 						                                <td th:text="${recommend.enrollAt}"></td>
 						                                <td>

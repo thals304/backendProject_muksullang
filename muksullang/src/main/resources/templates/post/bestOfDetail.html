@@ -62,7 +62,7 @@
 							<!-- 내용 2개 -->
 							
 							<div class="blog-desc" th:each="contentDTO : ${contentDTOList}">
-								<p th:text="${contentDTO.content}"></p>
+								<p th:utext="${contentDTO.content}"></p>
 							</div>
 							<!-- 강조 메시지 1개 -->
 							<div class="blog-quote">

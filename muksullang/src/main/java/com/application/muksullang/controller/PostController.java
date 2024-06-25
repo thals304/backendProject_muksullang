@@ -26,8 +26,7 @@ import com.application.muksullang.service.ReplyService;
 /*
  *  //(중요) mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
  * 
- * 게시물 내용에서 br \n 적용이 안되는 고민 생김 > 
- * recommend/recommendDetail에서 th:text 날짜를 바꾸면 에러가 남
+ * 게시물 내용 textarea에서 br \n 적용이 안되는 고민 생김 > ckeditor 또는 utext로 해서 textarea에서 <br> 넣기
  * AWS 배포에서 layout2에서 오류 발생
  * 
  * Best Of 구현 안한 부분

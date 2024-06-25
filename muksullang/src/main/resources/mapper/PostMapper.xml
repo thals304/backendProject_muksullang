@@ -10,7 +10,8 @@
 		       TITLE,
 		       SORT,
 		       LOCATION,
-		       RUNNING_TIME
+		       RUNNING_TIME,
+		       ENROLL_AT
 		FROM   POST
 		WHERE  POST_NM = #{type}
 	</select>

@@ -30,8 +30,6 @@ import jakarta.servlet.http.HttpSession;
 /*
  * 문제 발생- 
  * 
- * admin html에서도 웹 메인으로 이동 가능한 버튼이 있으면 좋겠음 > 그리고 post 게시물에서 session.adminId != null인 경우에 게시물을 삭제/수정 가능 하도록
- * 
  * 웹사이트에서 localhost/admin/main 이나 /createPost를 눌러도 아무나 들어갈 수 있음 session으로 막아야 될 듯
  * */
 @Controller

@@ -26,8 +26,8 @@
 					<div class="col-lg-8">
 						<div class="single-post__title">
 							<div class="single-post__title__meta">
-								<h2>04</h2>
-								<span>Apr</span>
+								<h2 th:text="${#dates.format(postDTO.enrollAt,'dd')}">Day</h2>
+								<span th:text="${#dates.format(postDTO.enrollAt,'MM')}">Month</span>
 							</div>
 							<div class="single-post__title__text">
 								<ul class="label">
@@ -53,7 +53,7 @@
 						<!-- sort가 Recipe이면 여기에 content 뿌리기 -->
 						<div th:if="${postDTO.sort == 'Recipe'}">
 							<div class="single-post__top__text">
-								<p>content1(게시물 간단한 소개 = 공통부분)~~~~~~~~~~~~~~~</p>
+								<p>content1(게시물 간단한 소개)</p>
 							</div>
 							<div class="single-post__recipe__details">
 								<div class="single-post__recipe__details__option">
@@ -79,35 +79,13 @@
 								<div class="single-post__recipe__details__indegradients">
 									<h5>준비 재료</h5>
 									<ul>
-	
-										<li>생칼국수면 175g</li>
-										<li>감자 3개</li>
-										<li>애호박 1/3개</li>
-										<li>당근 1/7개</li>
-										<li>쑥갓 약간</li>
-										<li>소금 1/2 작은술</li>
-										<li>국간장 1큰술</li>
-										<li>채수 물 7컵, 슬라이스 건표고버섯 ⅔컵 또는 건표고버섯 3~5개, 다시마5×5cm 5장</li>
-	
+										<li>준비재료들</li>
 									</ul>
 								</div>
 								<div class="single-post__recipe__details__direction">
 									<h5>따라해보기</h5>
 									<ul>
-										<li><span>1.</span> 냄비에 채수 재료를 넣고 센불에서 끓어오르면 다시마를 건진 후 약불로
-											줄여 10분간 더 끓인다 다시마는 버리지 않고 따로 덜어둔다.</li>
-										<li><span>2.</span> 감자는 필러로 껍질을 벗긴 후 강판또는 푸드 프로세서로 간다.</li>
-										<li><span>3.</span> 면포에 감자 간 것을 넣고 물기를 꽉 짠 후 물과 건더기를 따로
-											둔다.</li>
-										<li><span>4.</span> ③의 물은 20분간 가만히 두어 전분을 가라앉히고 웃물은 버린다.</li>
-										<li><span>5.</span> 애호박, 당근, 채수에서 건진 다시마는 0.3cm 두께로 채 썬다.</li>
-										<li><span>6.</span> 볼에 ④의 가라앉힌 전분, 감자 건더기, 소금을 넣고 잘 섞어
-											치댄다.</li>
-										<li><span>7.</span> 지름 2cm 크기로 동그랗게 꼭꼭 뭉쳐 옹심이를 만든다.</li>
-										<li><span>8.</span> 끓는 물에 칼국수면을 넣고 센불에서 30초간 데친다.</li>
-										<li><span>9.</span> ①의 채수를 센불에서 끓이고, 끓어오르면 옹심이를 넣고 2분,
-											칼국수면을 넣고 3~4분, ⑤의 재료, 소금, 국간장을 넣고 1분간 더 끓인다.</li>
-										<li><span>10.</span> 그릇에 담고 쑥갓을 올린다.</li>
+										<li>1. 요리 순서</li>
 									</ul>
 								</div>
 							</div>

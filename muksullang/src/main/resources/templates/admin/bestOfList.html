@@ -179,11 +179,13 @@
 						                                <td>
 						                                	<img th:src="@{/post/thumbnails(fileName=${bestOf.image})}" width="100">
 						                                </td>
-						                                <td><a th:href="@{/post/bestOfDetail(postId=${bestOf.postId})}"></a></td>
+						                                <td>
+						                                	<a th:href="@{/post/bestOfDetail(postId=${bestOf.postId})}" th:text="${bestOf.title}"></a>
+						                                </td>
 						                                <td th:text="${bestOf.sort}"></td>
 						                                <td th:text="${bestOf.location}"></td>
 						                                <td th:text="${bestOf.runningTime}"></td>
-						                                <td th:text="${bestOf.enrollAt}"></td>
+						                                <td th:text="${#dates.format(bestOf.enrollAt,'yyyy-MM-dd')}"></td>
 						                                <td>
 						                                     <input type="button" value="update">
 						                                </td>
