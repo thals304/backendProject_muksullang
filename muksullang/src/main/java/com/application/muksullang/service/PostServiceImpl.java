@@ -3,7 +3,11 @@ package com.application.muksullang.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.application.muksullang.dao.PostDAO;
@@ -20,7 +24,7 @@ public class PostServiceImpl implements PostService {
 		public List<PostDTO> getBestOfList(String type) {
 			return postDAO.getBestOfList(type);
 		}
-
+		
 		@Override
 		public List<PostDTO> searchBestOfPost(Map<String, Object> params) {
 			
@@ -59,6 +63,12 @@ public class PostServiceImpl implements PostService {
 		public PostDTO getRecommendDetailPost(long postId) {
 			return postDAO.getRecommendDetailPost(postId);
 		}
+
+		@Override
+		public List<PostDTO> getSimilarSortList(PostDTO postDTO) {
+			return postDAO.getSimilarSortList(postDTO);
+		}
+
 
 		
 }

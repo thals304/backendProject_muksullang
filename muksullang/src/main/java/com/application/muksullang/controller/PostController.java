@@ -12,6 +12,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,8 @@ import com.application.muksullang.service.ReplyService;
  * 
  * 게시물 내용 textarea에서 br \n 적용이 안되는 고민 생김 > ckeditor 또는 utext로 해서 textarea에서 <br> 넣기
  * AWS 배포에서 layout2에서 오류 발생
+ * 공공데이터 csv import 하는 것 > 그냥 5개만 직접 손으로 넣는 것으로 하기 (공공데이터 가지고 csv 따로 만들어서 넣기)
+ * bestOfDetail 하단 부분 비슷한  콘텐츠 추천 완료
  * 
  * Best Of 구현 안한 부분
  * - 커서 페이지네이션
@@ -57,10 +60,11 @@ public class PostController {
 		return "post/main";
 	}
 	
-	// Best Of (post_id를 가져와서 db에서 post_nm이 recommend인 게시물 정보를 html에 뿌려주면 될 것 같음)
+	// Best Of 
 	@GetMapping("/bestOf")
 	public String bestOf(Model model) {
 		// 게시물 수가 9개 이상일 때 다음 페이지로 넘어가는 페이지네이션 기능을 만들어야 함
+		
 		
 		String type = "Best Of";
 		model.addAttribute("bestOfList", postService.getBestOfList(type));
@@ -105,14 +109,15 @@ public class PostController {
 	
 	// Best Of Detail
 	@GetMapping("/bestOfDetail")
-	public String bestOfDetail(Model model, @RequestParam("postId") long postId) {
+	public String bestOfDetail(Model model, @ModelAttribute PostDTO postDTO) { 
+		// @RequestParam("postId") long postId, @RequestParam("sort") String sort으로 하면 bestOfDetail로 보내는 모든 것이 postId, sort를 포함하고 있어야 해서 한 번에 받는게 더 나음
 		
-		model.addAttribute("postDTO", postService.getBestOfDetailPost(postId));
-		model.addAttribute("contentDTOList", postService.getBestOfDetailContent(postId));
-		model.addAttribute("contentImpactMsg", postService.getBestOfDetailContentImpactMsg(postId));		
-		model.addAttribute("replyList", replyService.getReplyList(postId));
-		model.addAttribute("replyCnt", replyService.getReplyCnt(postId));
-		
+		model.addAttribute("postDTO", postService.getBestOfDetailPost(postDTO.getPostId()));
+		model.addAttribute("contentDTOList", postService.getBestOfDetailContent(postDTO.getPostId()));
+		model.addAttribute("contentImpactMsg", postService.getBestOfDetailContentImpactMsg(postDTO.getPostId()));		
+		model.addAttribute("replyList", replyService.getReplyList(postDTO.getPostId()));
+		model.addAttribute("replyCnt", replyService.getReplyCnt(postDTO.getPostId()));
+		model.addAttribute("similarSortList", postService.getSimilarSortList(postDTO));
 		return "post/bestOfDetail";
 	}
 	

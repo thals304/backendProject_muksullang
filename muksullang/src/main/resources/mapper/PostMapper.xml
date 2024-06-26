@@ -61,6 +61,18 @@
 		ORDER BY CONTENT_ID DESC
 		LIMIT    1
 	</select>
+	<!-- 1개의 게시물 상세조회 (sort가 같은 유사 게시물 추천) -->
+	<select id="getSimilarSortList" parameterType="PostDTO" resultType="PostDTO">
+		SELECT   POST_ID,
+		         IMAGE,
+		         TITLE,
+		         SORT
+		FROM     POST
+		WHERE    POST_ID != #{postId}
+		AND      SORT = #{sort}
+		ORDER BY ENROLL_AT DESC
+		LIMIT 4
+	</select>
 	
 	<!-- Recommend 전체 게시물 조회 -->
 	<select id="getRecommendList" parameterType="String" resultType="PostDTO">

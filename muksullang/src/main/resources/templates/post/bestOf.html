@@ -117,7 +117,7 @@
 				            <div class="ri-text">
 				                <div class="cat-name" th:text="${bestOf.sort}">Sort</div>
 				                <div class="title-with-button">
-				                    <a th:href="@{/post/bestOfDetail(postId=${bestOf.postId})}">
+				                    <a th:href="@{/post/bestOfDetail(postId=${bestOf.postId}, sort=${bestOf.sort})}">
 				                        <h4 th:text="${bestOf.title}">Title</h4>
 				                    </a>
 				                    <button class="wishlist-button" id="bestOfBookmark" data-post-id="${bestOf.postId}">

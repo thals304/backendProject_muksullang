@@ -61,7 +61,7 @@
 							</div>
 							<!-- 내용 2개 -->
 							
-							<div class="blog-desc" th:each="contentDTO : ${contentDTOList}">
+							<div align="center" th:each="contentDTO : ${contentDTOList}">
 								<p th:utext="${contentDTO.content}"></p>
 							</div>
 							<!-- 강조 메시지 1개 -->
@@ -130,40 +130,14 @@
 		<!-- Similar Recipe Section Begin -->
 		<section class="similar-recipe spad">
 			<div class="container">
+		<span style="color:white;">[비슷한 카테고리 추천]</span><br><br>
 				<div class="row">
-					<div class="col-lg-3 col-md-6">
+					<div class="col-lg-3 col-md-6" th:each="similarSort : ${similarSortList}">
 						<div class="similar-item">
-							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-7.jpg" alt=""></a>
+							<a th:href="@{/post/bestOfDetail(postId=${similarSort.postId}, sort=${similarSort.sort})}"><img th:src="@{/post/thumbnails(fileName=${similarSort.image})}" alt="" width="100"></a>
 							<div class="similar-text">
-								<div class="cat-name">Food</div>
-								<h6>0000피자 - 성수점</h6>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="similar-item">
-							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-6.jpg" alt=""></a>
-							<div class="similar-text">
-								<div class="cat-name">Food</div>
-								<h6>0000햄버거 - 강남점</h6>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="similar-item">
-							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-5.jpg" alt=""></a>
-							<div class="similar-text">
-								<div class="cat-name">Food</div>
-								<h6>000000 - 00점</h6>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="similar-item">
-							<a href="#"><img src="/portfolio_template3/img/cat-feature/small-4.jpg" alt=""></a>
-							<div class="similar-text">
-								<div class="cat-name">Food</div>
-								<h6>샌드위치 - 00점</h6>
+								<div class="cat-name" th:text="${similarSort.sort}">sort</div>
+								<h6 th:text="${similarSort.title}">title</h6>
 							</div>
 						</div>
 					</div>
