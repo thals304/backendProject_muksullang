@@ -23,7 +23,6 @@ import com.application.muksullang.dto.ReplyDTO;
 import com.application.muksullang.service.PostService;
 import com.application.muksullang.service.ReplyService;
 
-
 /*
  *  
  *  //(중요) mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
