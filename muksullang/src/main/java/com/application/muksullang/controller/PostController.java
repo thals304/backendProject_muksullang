@@ -30,6 +30,7 @@ import com.application.muksullang.service.ReplyService;
  * 게시물 내용 textarea에서 br \n 적용이 안되는 고민 생김 > ckeditor 또는 utext로 해서 textarea에서 <br> 넣기
  * 
  * 6/27 - AWS 배포에서 layout2에서 오류 발생 해결하기 & 이클립스 프로젝트 14,16,19 빨간색 엑스나는 것 해결하기
+ * > 페이지 레이아웃을 한 템플릿에 대해서만 화면 연결이 안됨 500에러 발생 (layout:decorate="~{/post/layout1.html}"에서 맨 앞에 /를 빼줘야함)
  * 
  * 프로젝트 구현 안한 부분
  * - 커서 페이지네이션 (best of.html / recommend.html)
