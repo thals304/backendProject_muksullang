@@ -25,18 +25,25 @@ import com.application.muksullang.service.ReplyService;
 
 
 /*
+ *  
  *  //(중요) mapper에서 resultMap -> hashmap을 사용해서 매핑하려고 한다면, JOIN을 해서 SELECT하고 싶은 컬럼들이 resultMap 요소에 다 들어가 있어야 사용 가능 
  * 
  * 게시물 내용 textarea에서 br \n 적용이 안되는 고민 생김 > ckeditor 또는 utext로 해서 textarea에서 <br> 넣기
- * AWS 배포에서 layout2에서 오류 발생
- * 공공데이터 csv import 하는 것 > 그냥 5개만 직접 손으로 넣는 것으로 하기 (공공데이터 가지고 csv 따로 만들어서 넣기)
- * bestOfDetail 하단 부분 비슷한  콘텐츠 추천 완료
  * 
- * Best Of 구현 안한 부분
- * - 커서 페이지네이션
- * - 북마크(게시물 찜하기) : Best Of에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
+ * 6/27 - AWS 배포에서 layout2에서 오류 발생 해결하기 & 이클립스 프로젝트 14,16,19 빨간색 엑스나는 것 해결하기
+ * 
+ * 프로젝트 구현 안한 부분
+ * - 커서 페이지네이션 (best of.html / recommend.html)
+ * - 북마크(게시물 찜하기) : bestOf/recommend.html에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
  * 버튼을 눌렀을 때 빨간색이 되면 북마크로 등록, 빨간색에서 다시 버튼을 눌러 흰색이 되면 북마크 취소 
  * - 공공데이터 csv 넣기(서울 관광 음식 - 위치에 송파 들어가는 것 중 5-6개 정도만 뽑아 사용> 사진 찾아야함)
+ * - 게시물 수정/삭제 > 수정하기가 고민인게 best Of는 content 3개 recommend는 recipe : 개 article : 개로
+ * 개수도 다르고 들어가는 구성도 다른데 수정하기 폼에서 이전 저장된 자료를 어떻게 뿌려줘야 할지 
+ * - 찜하기 기능 완성 후 가능 > my page에서 찜한 게시물 & 리뷰 작성한 게시물 모아보기 (게시물이 많으면 페이지네이션? 해야하나)
+ * - main 화면에 어떤 게시물을 뿌릴지 (스케쥴링으로 달마다 enrollAt이 desc인 것 몇 개만 뽑아쓰는게 가능할까?)
+ * - (선택사항) 게시물 등록 content를 form을 add하는 것만 있지 delete 하는 것은 없음
+ * - (선택사항) 회원 가입에서 주소 입력시 정해진 형식대로 입력 안하면 회원가입 못하도록
+ * - (선택사항) 비밀번호 확인(눈)가능
  * */
 @Controller
 @RequestMapping("/post")
