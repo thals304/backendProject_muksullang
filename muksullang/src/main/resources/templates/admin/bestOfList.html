@@ -162,7 +162,7 @@
 						                    <table class="table">
 						                        <thead>
 						                            <tr>
-						                                <th>Post ID</th>
+						                                <th>Post </th>
 						                                <th>Image</th>
 						                                <th>Title</th>
 						                                <th>Sort</th>
@@ -175,7 +175,7 @@
 						                        </thead>
 						                        <tbody>
 						                            <tr th:each="bestOf : ${bestOfList}">
-						                                <td th:text="${bestOf.postId}"></td>
+						                                <td th:text="${bestOfStat.count}"></td>
 						                                <td>
 						                                	<img th:src="@{/post/thumbnails(fileName=${bestOf.image})}" width="100">
 						                                </td>

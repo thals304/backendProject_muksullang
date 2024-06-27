@@ -162,7 +162,7 @@
 						                    <table class="table">
 						                        <thead >
 						                            <tr>
-						                                <th>Post ID</th>
+						                                <th>Post No</th>
 						                                <th>Image</th>
 						                                <th>Title</th>
 						                                <th>Sort</th>
@@ -173,7 +173,7 @@
 						                        </thead>
 						                        <tbody >
 						                            <tr th:each="recommend : ${recommendList}">
-						                                <td th:text="${recommend.postId}"></td>
+						                                <td th:text="${recommendStat.index}"></td>
 						                                <td>
 						                                	<img th:src="@{/post/thumbnails(fileName=${recommend.image})}" width="100">
 						                                </td>

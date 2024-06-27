@@ -29,6 +29,8 @@ import com.application.muksullang.service.ReplyService;
  * 
  * 게시물 내용 textarea에서 br \n 적용이 안되는 고민 생김 > ckeditor 또는 utext로 해서 textarea에서 <br> 넣기
  * 
+ * AWS에서 게시물 등록 중 500 에러 발생
+ * 
  * 프로젝트 구현 안한 부분
  * - 커서 페이지네이션 (best of.html / recommend.html)
  * - 북마크(게시물 찜하기) : bestOf/recommend.html에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
