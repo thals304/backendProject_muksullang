@@ -29,13 +29,13 @@ import com.application.muksullang.service.ReplyService;
  * 
  * 게시물 내용 textarea에서 br \n 적용이 안되는 고민 생김 > ckeditor 또는 utext로 해서 textarea에서 <br> 넣기
  * 
- * AWS에서 게시물 등록 중 500 에러 발생
- * 
+ * bestOfDetail에서 similarSortList가 원활하게 작동을 안함
+ * aop 공부 후 사용해봐야함/test 코드도
  * 프로젝트 구현 안한 부분
  * - 커서 페이지네이션 (best of.html / recommend.html)
  * - 북마크(게시물 찜하기) : bestOf/recommend.html에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
  * 버튼을 눌렀을 때 빨간색이 되면 북마크로 등록, 빨간색에서 다시 버튼을 눌러 흰색이 되면 북마크 취소 
- * - 공공데이터 csv 넣기(서울 관광 음식 - 위치에 송파 들어가는 것 중 5-6개 정도만 뽑아 사용> 사진 찾아야함)
+ * - 공공데이터 csv import 해서 넣기(서울 관광 음식 - 위치에 송파 들어가는 것 중 5-6개 정도만 뽑아 사용> 사진 찾아야함)
  * - 게시물 수정/삭제 > 수정하기가 고민인게 best Of는 content 3개 recommend는 recipe : 개 article : 개로
  * 개수도 다르고 들어가는 구성도 다른데 수정하기 폼에서 이전 저장된 자료를 어떻게 뿌려줘야 할지 
  * - 찜하기 기능 완성 후 가능 > my page에서 찜한 게시물 & 리뷰 작성한 게시물 모아보기 (게시물이 많으면 페이지네이션? 해야하나)

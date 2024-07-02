@@ -37,7 +37,6 @@
       <script src="https://oss.maxcdn.com/libs/respond./portfolio_admin_template/js/1.4.2/respond.min.js"></script>
       <![endif]-->
  <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
-
 </head>
 <body class="inner_page tables_page">
 	<div th:if="${session.adminId == null }">
@@ -149,57 +148,71 @@
 								</div>
 							</div>
 							<!-- row -->
-							 <!-- Best of 게시물 리스트 테이블 -->
-						    <div class="col-md-12">
-						        <div class="white_shd full margin_bottom_30">
-						            <div class="full graph_head">
-						                <div class="heading1 margin_0">
-						                    <h2>Best Of 게시물 리스트</h2>
-						                </div>
-						            </div>
-						            <div class="table_section padding_infor_info">
-						                <div class="table-responsive-sm">
-						                    <table class="table">
-						                        <thead>
-						                            <tr>
-						                                <th>Post </th>
-						                                <th>Image</th>
-						                                <th>Title</th>
-						                                <th>Sort</th>
-						                                <th>Location</th>
-						                                <th>Running Time</th>
-						                                <th>Enroll At</th>
-						                                <th>수정</th>
-						                                <th>삭제</th>
-						                            </tr>
-						                        </thead>
-						                        <tbody>
-						                            <tr th:each="bestOf : ${bestOfList}">
-						                                <td th:text="${bestOfStat.count}"></td>
-						                                <td>
-						                                	<img th:src="@{/post/thumbnails(fileName=${bestOf.image})}" width="100">
-						                                </td>
-						                                <td>
-						                                	<a th:href="@{/post/bestOfDetail(postId=${bestOf.postId},postNm=${bestOf.sort})}" th:text="${bestOf.title}"></a>
-						                                </td>
-						                                <td th:text="${bestOf.sort}"></td>
-						                                <td th:text="${bestOf.location}"></td>
-						                                <td th:text="${bestOf.runningTime}"></td>
-						                                <td th:text="${#dates.format(bestOf.enrollAt,'yyyy-MM-dd')}"></td>
-						                                <td>
-						                                     <input type="button" value="update" th:onclick="|location.href='@{/admin/updateBestOfPost(postId=${bestOf.postId})}'|">
-						                                </td>
-						                                <td>
-						                                	<input type="button" value="delete" th:onclick="|processDeletePost('${bestOf.postId}')|">
-						                                </td>
-						                            </tr>
-						                        </tbody>
-						                    </table>
-						                </div>
-						            </div>
-						        </div>
-						    </div>
-
+							<div class="row">
+								<!-- table section -->
+								 <form th:action="@{/admin/updateBestOfPost}" method="post" th:object="${postDTO}" enctype="multipart/form-data">
+							        <div class="col-md-12">
+							            <div class="white_shd full margin_bottom_30">
+							                <div class="full graph_head">
+							                    <div class="heading1 margin_0">
+							                        <h2>Update Post Section</h2>
+							                    </div>
+							                </div>
+							                <div class="table_section padding_infor_info">
+							                    <div class="table-responsive-sm">
+							                        <table class="table">
+							                            <thead>
+							                                <tr>
+							                                    <th>#</th>
+							                                    <th>PostNm(Best Of/Recommend)<span style="color:red;">(필수)</span></th>
+							                                    <th>Title<span style="color:red;">(필수)</span></th>
+							                                    <th>Sort(식당/카페/바)</th>
+							                                    <th>Location</th>
+							                                    <th>Image<span style="color:red;">(필수)</span></th>
+							                                    <th>RunningTime</th>
+							                                </tr>
+							                            </thead>
+							                            <tbody>
+							                                <tr>
+							                                    <td><input type="hidden" id="adminId" name="adminId" th:value="${session.adminId}"></td>
+							                                    <td><input type="text" id="postNm" name="postNm" th:field="*{postNm}"></td>
+							                                    <td><input type="text" id="title" name="title" th:field="*{title}"></td>
+							                                    <td><input type="text" id="sort" name="sort" th:field="*{sort}"></td>
+							                                    <td><input type="text" id="location" name="location" th:field="*{location}"></td>
+							                                    <td><input type="file" id="image" name="image" th:field="*{image}"></td><!-- 이미지는 썸네일로 보여줘야 할거 같은데 썸네일로 보여주고 다른 사진으로 바꾸기 -->
+							                                    <td><input type="text" id="runningTime" name="runningTime" th:field="*{runningTime}"></td>
+							                                </tr>
+							                            </tbody>
+							                        </table>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							
+							        <div class="col-md-12">
+							            <div class="white_shd full margin_bottom_30">
+							                <div class="full graph_head">
+							                    <div class="heading1 margin_0">
+							                        <h2>Update Content Section<span style="color:red;">(필수)</span></h2>
+							                    </div>
+							                </div>
+							                <div class="table_section padding_infor_info">
+							                    <div class="table-responsive-sm">
+							                        <div id="content-container" >
+							                        	<div th:each="contentDTO, iterStat : *{contentList}">
+							                        		<input type="hidden" th:field="*{contentList[__${iterStat.index}__].contentId}" th:value="${contentDTO.contentId}">
+                            								<textarea th:field="*{contentList[__${iterStat.index}__].content}" th:id="'content' + ${iterStat.index}" rows="10" cols="100"></textarea>
+							                        	</div>
+							                            <br><br>
+							                        </div>
+							                        <button type="submit">Update Post</button>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+	    						</form>
+								<!-- table section end -->
+							</div>
 						</div>
 					</div>
 					<!-- end dashboard inner -->

@@ -2,6 +2,7 @@ package com.application.muksullang.dto;
 
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -18,5 +19,5 @@ public class PostDTO {
 	private String runningTime;
 	private Date enrollAt;
 	
-	
+	private List<ContentDTO> contentList;
 }

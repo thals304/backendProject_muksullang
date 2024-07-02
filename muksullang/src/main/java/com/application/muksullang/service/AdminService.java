@@ -24,5 +24,7 @@ public interface AdminService {
 	public int getRecommendPostCnt();
 	
 	public int getReplyCnt();
+	
+	public List<ContentDTO> getBestOfDetailContent(long postId);
 
 }

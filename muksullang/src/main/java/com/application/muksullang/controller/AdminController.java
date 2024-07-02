@@ -133,5 +133,17 @@ public class AdminController {
 		return "admin/recommendList";
 	}
 	
+	@GetMapping("/updateBestOfPost")
+	public String updateBestOfPost(@RequestParam("postId") long postId, Model model) {
+		
+		// th:object를 쓰기 위해 postDTO에 List<ContentDTO>를 추가함
+		PostDTO postDTO = postService.getBestOfDetailPost(postId);
+		List<ContentDTO> contentList = adminService.getBestOfDetailContent(postId);
+		postDTO.setContentList(contentList);
+		model.addAttribute("postDTO", postDTO);
+		
+		return "admin/updateBestOfPost";
+	}
+	
 	
 }

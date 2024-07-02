@@ -65,4 +65,10 @@
 		FROM   REPLY
 	</select>
 	
+	<select id="getBestOfDetailContent" parameterType="long" resultType="ContentDTO">
+		SELECT *
+		FROM   CONTENT
+		WHERE  POST_ID = #{postId}
+	</select>
+	
 </mapper>

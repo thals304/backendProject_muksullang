@@ -1,6 +1,8 @@
 package com.application.muksullang.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.application.muksullang.dto.AdminDTO;
@@ -28,5 +30,7 @@ public interface AdminDAO {
 	// 리뷰 수 카운트
 	public int getReplyCnt();
 	
+	// bestOf content 조회하기
+	public List<ContentDTO> getBestOfDetailContent(long postId);
 	
 }

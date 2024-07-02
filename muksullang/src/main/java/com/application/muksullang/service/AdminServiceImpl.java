@@ -73,4 +73,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getReplyCnt();
 	}
 
+	@Override
+	public List<ContentDTO> getBestOfDetailContent(long postId) {
+		return adminDAO.getBestOfDetailContent(postId);
+	}
+
 }
