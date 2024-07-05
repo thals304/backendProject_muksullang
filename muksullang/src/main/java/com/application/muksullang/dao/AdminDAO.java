@@ -33,4 +33,12 @@ public interface AdminDAO {
 	// bestOf content 조회하기
 	public List<ContentDTO> getBestOfDetailContent(long postId);
 	
+	// bestOf Post 업데이트
+	public void updateBestOfPost(PostDTO postDTO);
+	// bestOf Content 업데이트
+	public void updateBestOfContent(ContentDTO contentDTO);
+	
+	// bestOf 게시물 삭제
+	public void deleteBestOfPost(long postId);
+	
 }

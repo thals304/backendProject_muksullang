@@ -78,4 +78,31 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getBestOfDetailContent(postId);
 	}
 
+	@Override
+	public void updateBestOfPost(PostDTO postDTO, MultipartFile uploadImage) throws IllegalStateException, IOException {
+		if(!uploadImage.isEmpty()) {
+			String originalFileName = uploadImage.getOriginalFilename();
+			
+			// c파일에 있는 기존 파일 삭제 후 다시 등록해야함
+			new File(imageRepositoryPath + postDTO.getImage()).delete();
+			
+			postDTO.setImage(originalFileName);
+			
+			uploadImage.transferTo(new File(imageRepositoryPath + originalFileName));
+		}
+		
+		adminDAO.updateBestOfPost(postDTO);
+		
+		List<ContentDTO> contentList = postDTO.getContentList();
+		for (ContentDTO contentDTO : contentList) {
+			adminDAO.updateBestOfContent(contentDTO);
+		}
+		
+	}
+
+	@Override
+	public void deleteBestOfPost(long postId) {
+		adminDAO.deleteBestOfPost(postId);
+	}
+
 }

@@ -114,10 +114,10 @@ public class PostController {
 	}
 	
 	// Best Of Detail
-	@GetMapping("/bestOfDetail")
+	@GetMapping("/bestOfDetail")		
 	public String bestOfDetail(Model model, @ModelAttribute PostDTO postDTO) { 
-		// @RequestParam("postId") long postId, @RequestParam("sort") String sort으로 하면 bestOfDetail로 보내는 모든 것이 postId, sort를 포함하고 있어야 해서 한 번에 받는게 더 나음
-		
+		// @RequestParam("postId") long postId, @RequestParam("sort") String sort으로 하면 bestOfDetail로 보내는 모든 부분에서 postId, sort를 포함하고 있어야 해서 한 번에 받는게 더 나음
+		// Best Of를 BestOf로 바꿔야 url 이동 원활하게 가능
 		model.addAttribute("postDTO", postService.getBestOfDetailPost(postDTO.getPostId()));
 		model.addAttribute("contentDTOList", postService.getBestOfDetailContent(postDTO.getPostId()));
 		model.addAttribute("contentImpactMsg", postService.getBestOfDetailContentImpactMsg(postDTO.getPostId()));		

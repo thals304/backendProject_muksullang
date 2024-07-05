@@ -26,5 +26,8 @@ public interface AdminService {
 	public int getReplyCnt();
 	
 	public List<ContentDTO> getBestOfDetailContent(long postId);
+	
+	public void updateBestOfPost(PostDTO postDTO, MultipartFile uploadImage) throws IllegalStateException, IOException;
 
+	public void deleteBestOfPost(long postId);
 }

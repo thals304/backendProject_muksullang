@@ -29,8 +29,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 /*
  * 문제 발생- 
- * 
- * 웹사이트에서 localhost/admin/main 이나 /createPost를 눌러도 아무나 들어갈 수 있음 session으로 막아야 될 듯
+ *  bestOfPost가 업데이트가 안되고, detail로 화면이동이 안됨 -> update.html에서 hidden으로 postId를 안보내서 생긴 문제
+ * 	dashboard를 클릭 했을 때, /admin/main으로 이동이 안됨 -> 해결완료
+ *  html다 session.adminId가 있을 경우에만 접근 가능하도록 해야함
+ *  
  * */
 @Controller
 @RequestMapping("/admin")
@@ -143,6 +145,28 @@ public class AdminController {
 		model.addAttribute("postDTO", postDTO);
 		
 		return "admin/updateBestOfPost";
+	}
+	
+	@PostMapping("/updateBestOfPost")
+	@ResponseBody
+	public String updateBestOfPost(@ModelAttribute PostDTO postDTO, @RequestParam("uploadImage") MultipartFile uploadImage) throws IllegalStateException, IOException {
+		
+		adminService.updateBestOfPost(postDTO, uploadImage);
+
+		String jsScript = "";
+		jsScript += "<script>";
+		jsScript += "alert('게시물 수정 완료 되었습니다.');";
+		jsScript += "location.href ='/post/bestOfDetail?postId="+ postDTO.getPostId()+"';";
+		jsScript += "</script>";
+		return jsScript;
+	}
+	
+	@GetMapping("/deleteBestOfPost")
+	public String deleteBestOfPost(@RequestParam("postId") long postId) {
+		
+		adminService.deleteBestOfPost(postId);
+		
+		return "redirect:/admin/bestOfList";
 	}
 	
 	

@@ -37,7 +37,13 @@
       <script src="https://oss.maxcdn.com/libs/respond./portfolio_admin_template/js/1.4.2/respond.min.js"></script>
       <![endif]-->
  <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
-
+<script>
+	function processDeletePost(postId){
+		if (confirm("게시물을 정말 삭제하시겠습니까?")){
+			location.href=location.href = '/admin/deleteBestOfPost?postId='+ postId;
+		}
+	}
+</script>
 </head>
 <body class="inner_page tables_page">
 	<div th:if="${session.adminId == null }">
@@ -85,22 +91,12 @@
 					<div class="sidebar_blog_2">
 						<h4>General</h4>
 						<ul class="list-unstyled components">
-							<li class="active"><a th:href="@{/admin/main}"
-								data-toggle="collapse" aria-expanded="false"><i
-									class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
+							<li class="active">
+							   <a th:href="@{/admin/main}" aria-expanded="false">
+							      <i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span>
+							   </a>
 							</li>
 							<li><a th:href="@{/admin/createPost}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
-							<li class="active"><a href="#additional_page"
-								data-toggle="collapse" aria-expanded="false"
-								class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i>
-									<span>Additional Pages</span></a>
-								<ul class="collapse list-unstyled" id="additional_page">
-									<li><a href="profile.html">> <span>Profile</span></a></li>
-									<li><a href="project.html">> <span>Projects</span></a></li>
-									<li><a href="404_error.html">> <span>404 Error</span></a></li>
-								</ul></li>
-							<li><a href="charts.html"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
-							<li><a href="settings.html"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
 						</ul>
 					</div>
 				</nav>
