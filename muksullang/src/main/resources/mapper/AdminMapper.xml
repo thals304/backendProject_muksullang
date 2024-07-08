@@ -51,7 +51,7 @@
 	<select id="getBestOfPostCnt" resultType="int">
 		SELECT COUNT(POST_ID)
 		FROM   POST
-		WHERE  POST_NM = 'Best Of'
+		WHERE  POST_NM = 'BestOf'
 	</select>
 	
 	<select id="getRecommendPostCnt" resultType="int">

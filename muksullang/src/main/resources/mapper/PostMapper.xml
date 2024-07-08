@@ -3,6 +3,48 @@
 
 <mapper namespace="com.application.muksullang.dao.PostDAO">
 	
+	<!-- 이달의 BestOf 게시물 main 화면에 뿌리기 -->
+	<select id="getLeftBestOfPostList" resultType="PostDTO">
+		SELECT   *
+		FROM     POST
+		WHERE    POST_NM = 'BestOf'
+		ORDER BY ENROLL_AT DESC
+		LIMIT    2 OFFSET 1
+	</select>
+	
+	<select id="getCenterBestOfPost" resultType="PostDTO">
+		SELECT   *
+		FROM     POST
+		WHERE    POST_NM = 'BestOf'
+		ORDER BY ENROLL_AT DESC
+		LIMIT    1
+	</select>
+	
+	<select id="getRightBestOfPostList" resultType="PostDTO">
+		SELECT   *
+		FROM     POST
+		WHERE    POST_NM = 'BestOf'
+		ORDER BY ENROLL_AT DESC
+		LIMIT    2 OFFSET 3
+	</select>
+	
+	<!-- 이달의 Recommend 게시물 main 화면에 뿌리기 -->
+	<select id="getLeftRecommendPost" resultType="PostDTO">
+		SELECT   *
+		FROM     POST
+		WHERE    POST_NM = 'RECOMMEND'
+		ORDER BY ENROLL_AT DESC
+		LIMIT    1
+	</select>
+	
+	<select id="getRightRecommendPostList" resultType="PostDTO">
+		SELECT   *
+		FROM     POST
+		WHERE    POST_NM = 'RECOMMEND'
+		ORDER BY ENROLL_AT DESC
+		LIMIT    4 OFFSET 1
+	</select>
+	
 	<!-- Best Of 전체 게시물 조회(postId(디테일 눌렀을 때 보내기 위함), title, sort, location, image, runningTime만 필요) -->
 	<select id="getBestOfList" parameterType="String" resultType="PostDTO">
 		SELECT POST_ID,

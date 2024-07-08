@@ -57,49 +57,36 @@
     <section class="page-top-recipe">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 order-lg-2">
+                <div class="col-lg-6 order-lg-2"> <!-- center -->
                     <div class="pt-recipe-item large-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="/portfolio_template3/img/recipe-3.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
+					    <a th:href="@{/post/bestOfDetail(postId=${centerBestOfPost.postId},sort=${centerBestOfPost.sort})}">
+					    	<div class="pt-recipe-img set-bg" th:attr="data-setbg=@{/post/thumbnails(fileName=${centerBestOfPost.image})}">
+					    	</div>
+					    </a>
+					    <div class="pt-recipe-text">
+					        <h3 th:text="${centerBestOfPost.title}"></h3>
+					    </div>
+					</div>
+                </div>
+                <div class="col-lg-3 col-md-6 order-lg-1"> <!-- left -->
+                    <div class="pt-recipe-item" th:each="leftBestOfPost : ${leftBestOfPostList}">
+                        <a th:href="@{/post/bestOfDetail(postId=${leftBestOfPost.postId},sort=${leftBestOfPost.sort})}">
+	                        <div class="pt-recipe-img set-bg" th:attr="data-setbg=@{/post/thumbnails(fileName=${leftBestOfPost.image})}">
+	                        </div>
+                        </a>
                         <div class="pt-recipe-text">
-                            <h3>Cannellini Aglio e Olio with Salmon</h3>
+                            <h4 th:text="${leftBestOfPost.title}"></h4>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 order-lg-1">
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="/portfolio_template3/img/recipe-1.jpg">
-                            <i class="fa fa-plus"></i>
+                <div class="col-lg-3 col-md-6 order-lg-3"> <!-- right -->
+                    <div class="pt-recipe-item" th:each="rightBestOfPost : ${rightBestOfPostList}" >
+                    <a th:href="@{/post/bestOfDetail(postId=${rightBestOfPost.postId},sort=${rightBestOfPost.sort})}">	
+                        <div class="pt-recipe-img set-bg" th:attr="data-setbg=@{/post/thumbnails(fileName=${rightBestOfPost.image})}">
                         </div>
+                    </a>
                         <div class="pt-recipe-text">
-                            <h4>Raw Vegan Carrot Cake Bites with Avocado</h4>
-                        </div>
-                    </div>
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="/portfolio_template3/img/recipe-2.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
-                        <div class="pt-recipe-text">
-                            <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 order-lg-3">
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="/portfolio_template3/img/recipe-4.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
-                        <div class="pt-recipe-text">
-                            <h4>Beef Burger with French Fries and Salad</h4>
-                        </div>
-                    </div>
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="/portfolio_template3/img/recipe-5.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
-                        <div class="pt-recipe-text">
-                            <h4>Raspberry Pancakes with Honey and Butter</h4>
+                            <h4 th:text="${rightBestOfPost.title}"></h4>
                         </div>
                     </div>
                 </div>
@@ -109,7 +96,7 @@
     <!-- Page Top Recipe Section End -->
 
     <!-- Top Recipe Section Begin -->
-    <!-- 이달의 Best Of : 왼쪽 1개 오른쪽 4개(for each를 사용하려면 2개의 리스트 필요) -->
+    <!-- 이달의 Recommend : 왼쪽 1개 오른쪽 4개(for each를 사용하려면 2개의 리스트 필요) -->
     <section class="top-recipe spad">
         <div class="section-title">
             <h5>Top Recommend this Month</h5>

@@ -11,6 +11,15 @@ import com.application.muksullang.dto.PostDTO;
 @Mapper
 public interface PostDAO {
 
+	// 이달의 Best Of 게시물
+	public List<PostDTO> getLeftBestOfPostList(); // 왼쪽 2개
+	public PostDTO getCenterBestOfPost(); // 중간 1개
+	public List<PostDTO> getRightBestOfPostList(); // 오른쪽 1개
+	
+	// 이달의 Recommend 게시물
+	public PostDTO getLeftRecommendPost(); // 왼쪽 1개
+	public List<PostDTO> getRightRecommendPostList(); // 오른쪽 4개
+	
 	// Best Of인 게시물 정보 리스트 가져오기
 	public List<PostDTO> getBestOfList(String type);
 	

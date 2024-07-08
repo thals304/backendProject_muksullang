@@ -39,7 +39,7 @@ public class ReplyController {
 	}
 	
 	@GetMapping("/updateBestOfReply")
-	public String updateReply(@RequestParam("replyId") long replyId, Model model) {
+	public String updateBestOfReply(@RequestParam("replyId") long replyId, Model model) {
 		
 		model.addAttribute("replyDTO", replyService.getReplyDetail(replyId));
 		
@@ -48,7 +48,7 @@ public class ReplyController {
 	
 	@PostMapping("/updateBestOfReply")
 	@ResponseBody
-	public String updateReply(@ModelAttribute ReplyDTO replyDTO) {
+	public String updateBestOfReply(@ModelAttribute ReplyDTO replyDTO) {
 		
 		replyService.updateReply(replyDTO);
 		
@@ -77,7 +77,7 @@ public class ReplyController {
 			return jsScript;
 	}
 	
-	@PostMapping("/creatRecommendReply")
+	@PostMapping("/creatRecommendReply") // create라고 스펠링 바꾸기
 	public String creatRecommendReply(@ModelAttribute ReplyDTO replyDTO) {
 		replyService.creatReply(replyDTO);
 		

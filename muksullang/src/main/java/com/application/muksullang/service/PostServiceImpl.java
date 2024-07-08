@@ -21,6 +21,31 @@ public class PostServiceImpl implements PostService {
 		private PostDAO postDAO;
 
 		@Override
+		public List<PostDTO> getLeftBestOfPostList() {
+			return postDAO.getLeftBestOfPostList();
+		}
+		
+		@Override
+		public PostDTO getCenterBestOfPost() {
+			return postDAO.getCenterBestOfPost();
+		}
+		
+		@Override
+		public List<PostDTO> getRightBestOfPostList() {
+			return postDAO.getRightBestOfPostList();
+		}
+		
+		@Override
+		public PostDTO getLeftRecommendPost() {
+			return postDAO.getLeftRecommendPost();
+		}
+		
+		@Override
+		public List<PostDTO> getRightRecommendPostList() {
+			return postDAO.getRightRecommendPostList();
+		}
+		
+		@Override
 		public List<PostDTO> getBestOfList(String type) {
 			return postDAO.getBestOfList(type);
 		}
@@ -50,6 +75,11 @@ public class PostServiceImpl implements PostService {
 		}
 
 		@Override
+		public List<PostDTO> getSimilarSortList(PostDTO postDTO) {
+			return postDAO.getSimilarSortList(postDTO);
+		}
+		
+		@Override
 		public List<PostDTO> getRecommendList(String type) {
 			return postDAO.getRecommendList(type);
 		}
@@ -64,10 +94,6 @@ public class PostServiceImpl implements PostService {
 			return postDAO.getRecommendDetailPost(postId);
 		}
 
-		@Override
-		public List<PostDTO> getSimilarSortList(PostDTO postDTO) {
-			return postDAO.getSimilarSortList(postDTO);
-		}
 
 
 		

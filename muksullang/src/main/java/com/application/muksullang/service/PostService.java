@@ -8,6 +8,15 @@ import com.application.muksullang.dto.PostDTO;
 
 public interface PostService {
 
+	// main 화면에 뿌릴 게시물 (Best Of)
+	public List<PostDTO> getLeftBestOfPostList();
+	public PostDTO getCenterBestOfPost();
+	public List<PostDTO> getRightBestOfPostList();
+	// main 화면에 뿌릴 게시물 (Recommend)
+	public PostDTO getLeftRecommendPost();
+	public List<PostDTO> getRightRecommendPostList();
+	
+	
 	public List<PostDTO> getBestOfList(String type);
 	
 	// best Of에서 검색하기 기능

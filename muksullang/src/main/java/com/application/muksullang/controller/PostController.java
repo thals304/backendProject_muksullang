@@ -39,7 +39,7 @@ import com.application.muksullang.service.ReplyService;
  * - 게시물 수정/삭제 > 수정하기가 고민인게 best Of는 content 3개 recommend는 recipe : 개 article : 개로
  * 개수도 다르고 들어가는 구성도 다른데 수정하기 폼에서 이전 저장된 자료를 어떻게 뿌려줘야 할지 
  * - 찜하기 기능 완성 후 가능 > my page에서 찜한 게시물 & 리뷰 작성한 게시물 모아보기 (게시물이 많으면 페이지네이션? 해야하나)
- * - main 화면에 어떤 게시물을 뿌릴지 (스케쥴링으로 달마다 enrollAt이 desc인 것 몇 개만 뽑아쓰는게 가능할까?)
+ * - main 화면에 어떤 게시물을 뿌릴지 (Recommend는 아직 게시물 등록 안해서 등록하고 main.html에만 뿌리먄 됨)
  * - (선택사항) 게시물 등록 content를 form을 add하는 것만 있지 delete 하는 것은 없음
  * - (선택사항) 회원 가입에서 주소 입력시 정해진 형식대로 입력 안하면 회원가입 못하도록
  * - (선택사항) 비밀번호 확인(눈)가능
@@ -62,7 +62,15 @@ public class PostController {
 	
 	// 웹페이지 첫 화면 main 
 	@GetMapping("/main")
-	public String main() {
+	public String main(Model model) {
+		// 이달의 Best Of : 왼쪽 2개 중간 1개 오른쪽 2개 (일단 enroll 기준으로 하고 나중에 찜하기 기능 완성하면 찜하기 수가 많거나 리뷰수가 많은 게시물을 뿌리는 방향으로)
+		model.addAttribute("leftBestOfPostList", postService.getLeftBestOfPostList());
+		model.addAttribute("centerBestOfPost", postService.getCenterBestOfPost());
+		model.addAttribute("rightBestOfPostList", postService.getRightBestOfPostList());
+		// 이달의 Recommend : 왼쪽 1개 오른쪽 4개 
+		model.addAttribute("leftRecommendPost", postService.getLeftRecommendPost());
+		model.addAttribute("rightRecommendPostList", postService.getRightRecommendPostList());
+		
 		return "post/main";
 	}
 	
@@ -72,7 +80,7 @@ public class PostController {
 		// 게시물 수가 9개 이상일 때 다음 페이지로 넘어가는 페이지네이션 기능을 만들어야 함
 		
 		
-		String type = "Best Of";
+		String type = "BestOf";
 		model.addAttribute("bestOfList", postService.getBestOfList(type));
 		
 		return "post/bestOf";
