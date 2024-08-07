@@ -52,7 +52,7 @@ public class UserController {
 	@ResponseBody
 	public String validId(@RequestParam("userId") String userId) {
 		// .ajax에서 id 잘 넘어오는지 확인
-		System.out.println(userId);
+		//System.out.println(userId);
 		
 		return userService.checkValidId(userId);
 	}

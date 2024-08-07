@@ -1,4 +1,4 @@
-package com.application.muksullang.controller;
+                                   package com.application.muksullang.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -27,13 +27,7 @@ import com.application.muksullang.service.PostService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-/*
- * 문제 발생- 
- *  bestOfPost가 업데이트가 안되고, detail로 화면이동이 안됨 -> update.html에서 hidden으로 postId를 안보내서 생긴 문제
- * 	dashboard를 클릭 했을 때, /admin/main으로 이동이 안됨 -> 해결완료
- *  html다 session.adminId가 있을 경우에만 접근 가능하도록 해야함
- *  
- * */
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {

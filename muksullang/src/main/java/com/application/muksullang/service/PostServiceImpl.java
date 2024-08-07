@@ -94,6 +94,11 @@ public class PostServiceImpl implements PostService {
 			return postDAO.getRecommendDetailPost(postId);
 		}
 
+		@Override
+		public List<ContentDTO> getRecommendDetailContent(long postId) {
+			return postDAO.getRecommendDetailContent(postId);
+		}
+
 
 
 		

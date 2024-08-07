@@ -68,7 +68,12 @@ public class PostController {
 		model.addAttribute("centerBestOfPost", postService.getCenterBestOfPost());
 		model.addAttribute("rightBestOfPostList", postService.getRightBestOfPostList());
 		// 이달의 Recommend : 왼쪽 1개 오른쪽 4개 
-		model.addAttribute("leftRecommendPost", postService.getLeftRecommendPost());
+		PostDTO leftRecommendPostDTO = postService.getLeftRecommendPost();
+		model.addAttribute("leftRecommendPost", leftRecommendPostDTO);
+		// content 1개 넘어온 것 확인
+		// System.out.println(postService.getRecommendContent(leftRecommendPostDTO.getPostId()));
+		model.addAttribute("leftRecommendPostContent", postService.getRecommendContent(leftRecommendPostDTO.getPostId()));
+		
 		model.addAttribute("rightRecommendPostList", postService.getRightRecommendPostList());
 		
 		return "post/main";
@@ -147,6 +152,7 @@ public class PostController {
 			Long postId = postDTO.getPostId();
 			String content = postService.getRecommendContent(postId);
 			model.addAttribute("content_" + postId, content); // content_${postId}로 템플릿에서 사용 가능
+			model.addAttribute("replyCnt", replyService.getReplyCnt(postId));
 		}
 		model.addAttribute("recommendList", recommendList);
 		
@@ -158,7 +164,13 @@ public class PostController {
 	public String recommendDetail(Model model, @RequestParam("postId") long postId) {
 		
 		model.addAttribute("postDTO", postService.getRecommendDetailPost(postId));
-		// content 개수 조절을 어떻게 해야될지 모르겠음
+		// html에서 th:each로 하는 것이 아닌 하나씩 content를 적용해주기 위해 content를 구분해서 보내줘야 될 것 같은데
+		List<ContentDTO> contentDTOList = postService.getRecommendDetailContent(postId);
+		int index = 1;
+		for (ContentDTO contentDTO : contentDTOList) {
+			model.addAttribute("content_" + index, contentDTO);
+			index ++;
+		}
 		model.addAttribute("replyList", replyService.getReplyList(postId));
 		model.addAttribute("replyCnt", replyService.getReplyCnt(postId));
 		

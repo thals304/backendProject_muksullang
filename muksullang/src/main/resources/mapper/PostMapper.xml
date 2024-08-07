@@ -33,7 +33,7 @@
 		SELECT   *
 		FROM     POST
 		WHERE    POST_NM = 'RECOMMEND'
-		ORDER BY ENROLL_AT DESC
+		ORDER BY ENROLL_AT
 		LIMIT    1
 	</select>
 	
@@ -41,7 +41,7 @@
 		SELECT   *
 		FROM     POST
 		WHERE    POST_NM = 'RECOMMEND'
-		ORDER BY ENROLL_AT DESC
+		ORDER BY ENROLL_AT
 		LIMIT    4 OFFSET 1
 	</select>
 	
@@ -139,5 +139,11 @@
 	 	SELECT *
 	 	FROM   POST
 	 	WHERE  POST_ID = #{postId}
+	</select>
+	
+	<select id="getRecommendDetailContent" parameterType="long" resultType="ContentDTO">
+		SELECT *
+		FROM   CONTENT
+		WHERE  POST_ID = #{postId}
 	</select>
 </mapper>

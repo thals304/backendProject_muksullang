@@ -163,7 +163,7 @@
 						                        </thead>
 						                        <tbody >
 						                            <tr th:each="recommend : ${recommendList}">
-						                                <td th:text="${recommendStat.index}"></td>
+						                                <td th:text="${recommendStat.count}"></td>
 						                                <td>
 						                                	<img th:src="@{/post/thumbnails(fileName=${recommend.image})}" width="100">
 						                                </td>
@@ -171,7 +171,7 @@
 														    <a th:href="@{/post/recommedDetail(postId=${recommend.postId})}" th:text="${recommend.title}"></a>
 													   </td>
 						                          		<td th:text="${recommend.sort}"></td>
-						                                <td th:text="${recommend.enrollAt}"></td>
+						                                <td th:text="${#dates.format(recommend.enrollAt, 'yyyy-MM-dd')}"></td>
 						                                <td>
 						                                    <input type="button" value="update">
 						                                </td>

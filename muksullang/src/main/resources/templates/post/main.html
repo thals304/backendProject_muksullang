@@ -108,39 +108,39 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="top-recipe-item large-item">
-                        <div class="top-recipe-img set-bg" data-setbg="/portfolio_template3/img/top-recipe/recipe-1.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
+                    	<a th:href="@{/post/recommedDetail(postId=${leftRecommendPost.postId})}">
+                    		<div class="top-recipe-img set-bg" th:attr="data-setbg=@{/post/thumbnails(fileName=${leftRecommendPost.image})}">
+                        	</div>
+                    	</a>
                         <div class="top-recipe-text">
-                            <div class="cat-name">Desert</div>
-                            <a href="#">
-                                <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
+                            <div class="cat-name" th:text="${leftRecommendPost.sort}">sort</div>
+                            <a>
+                                <h4 th:text="${leftRecommendPost.title}">title</h4>
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <p th:text="${leftRecommendPostContent}">content 1</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="top-recipe-item">
+                <div class="col-lg-6" >
+                    <div class="top-recipe-item" th:each="rightRecommendPost : ${rightRecommendPostList}">
                         <div class="row">
                             <div class="col-sm-4">
-                                <div class="top-recipe-img set-bg" data-setbg="/portfolio_template3/img/top-recipe/recipe-2.jpg">
-                                    <i class="fa fa-plus"></i>
+                            	<a th:href="@{/post/recommedDetail(postId=${rightRecommendPost.postId})}">
+                            		<div class="top-recipe-img set-bg" th:attr="data-setbg=@{/post/thumbnails(fileName=${rightRecommendPost.image})}">
                                 </div>
+                            	</a>
                             </div>
                             <div class="col-sm-8">
                                 <div class="top-recipe-text">
-                                    <div class="cat-name">Vegan</div>
-                                    <a href="#">
-                                        <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
+                                    <div class="cat-name" th:text="${rightRecommendPost.sort}">sort</div>
+                                    <a>
+                                        <h4 th:text="${rightRecommendPost.title}">title</h4>
                                     </a>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
+                                    <p th:text="|등록 일자 : ${#dates.format(rightRecommendPost.enrollAt, 'yyyy-MM-dd')}|"></p>
                                 </div>
                             </div>
                         </div>
+                        <br>
                     </div>
                 </div>
             </div>

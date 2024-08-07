@@ -42,4 +42,5 @@ public interface PostDAO {
 	
 	// Recommend의 게시물 디테일 정보 (POST)
 	public PostDTO getRecommendDetailPost(long postId);
+	public List<ContentDTO> getRecommendDetailContent(long postId);
 }
