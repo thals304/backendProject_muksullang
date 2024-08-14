@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.application.muksullang.dao.BookmarkDAO">
+
+	<select id="existsByUserIdAndPostId" parameterType="bookmarkDTO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM   BOOKMARK
+		WHERE  USER_ID = #{userId} AND POST_ID = #{postId}
+	</select>
+	
+	<insert id="addBookmark" parameterType="BookmarkDTO">
+		INSERT INTO BOOKMARK(
+		USER_ID,
+		POST_ID
+		)
+		VALUES(
+		#{userId},
+		#{postId}
+		)
+	</insert>
+	
+	<delete id="deleteBookmark" parameterType="BookmarkDTO">
+		DELETE FROM BOOKMARK
+		WHERE  USER_ID = #{userId} AND POST_ID = #{postId}
+	</delete>
+	
+	<select id="getBookmarkedPostIds" parameterType="String" resultType="Integer">
+		SELECT POST_ID
+		FROM   BOOKMARK
+		WHERE  USER_ID = #{userId}
+	</select>
+
+</mapper>

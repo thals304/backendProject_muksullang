@@ -28,6 +28,10 @@ public interface AdminService {
 	public List<ContentDTO> getBestOfDetailContent(long postId);
 	
 	public void updateBestOfPost(PostDTO postDTO, MultipartFile uploadImage) throws IllegalStateException, IOException;
+	
+	public List<ContentDTO> getRecommendDetailContent(long postId);
+	
+	public void updateRecommendPost(PostDTO postDTO, MultipartFile uploadImage) throws IllegalStateException, IOException;
 
-	public void deleteBestOfPost(long postId);
+	public void deletePost(long postId);
 }

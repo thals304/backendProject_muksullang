@@ -38,7 +38,15 @@ public interface AdminDAO {
 	// bestOf Content 업데이트
 	public void updateBestOfContent(ContentDTO contentDTO);
 	
-	// bestOf 게시물 삭제
-	public void deleteBestOfPost(long postId);
+	// Recommend content 조회하기
+	public List<ContentDTO> getRecommendDetailContent(long postId);
+	
+	// Recommend Post 업데이트
+	public void updateRecommendPost(PostDTO postDTO);
+	// Recommend Content 업데이트
+	public void updateRecommendContent(ContentDTO contentDTO);
+	
+	// 게시물 삭제
+	public void deletePost(long postId);
 	
 }

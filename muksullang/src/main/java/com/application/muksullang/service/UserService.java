@@ -1,9 +1,11 @@
 package com.application.muksullang.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.application.muksullang.dto.PostDTO;
 import com.application.muksullang.dto.UserDTO;
 
 public interface UserService {
@@ -19,6 +21,12 @@ public interface UserService {
 	public void updateUser(MultipartFile uploadProfile, UserDTO userDTO) throws IllegalStateException, IOException;
 	
 	public void updateInactiveUser(String userId);
+	
+	public List<PostDTO> getAllPosts(String userId);
+	
+	public List<PostDTO> getBookmarkedPosts(String userId);
+	
+	public List<PostDTO> getReviewedPosts(String userId);
 	
 	// 스케쥴링 - 신규 회원 조회
 	public void getTodayNewMemberCnt();

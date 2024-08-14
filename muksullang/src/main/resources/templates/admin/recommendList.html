@@ -36,8 +36,14 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond./portfolio_admin_template/js/1.4.2/respond.min.js"></script>
       <![endif]-->
- <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
-
+<script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+<script>
+	function processDeletePost(postId){
+		if (confirm("게시물을 삭제하시겠습니까?")){
+			location.href = '/admin/deleteBestOfPost?postId=' + postId;
+		}
+	}
+</script>
 </head>
 <body class="inner_page tables_page">
 	<div th:if="${session.adminId == null }">
@@ -173,10 +179,10 @@
 						                          		<td th:text="${recommend.sort}"></td>
 						                                <td th:text="${#dates.format(recommend.enrollAt, 'yyyy-MM-dd')}"></td>
 						                                <td>
-						                                    <input type="button" value="update">
+						                                    <input type="button" value="update" th:onclick="|location.href='@{/admin/updateRecommendPost(postId=${recommend.postId})}'|">
 						                                </td>
 						                                <td>
-						                                	<input type="button" value="delete">
+						                                	<input type="button" value="delete" th:onclick="|processDeletePost('${recommend.postId}')|">
 						                                </td>
 						                            </tr>
 						                        </tbody>

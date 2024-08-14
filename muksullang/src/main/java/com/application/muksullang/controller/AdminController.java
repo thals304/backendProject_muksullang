@@ -116,7 +116,7 @@ public class AdminController {
 	
 	@GetMapping("/bestOfList")
 	public String bestOfList(Model model) {
-		model.addAttribute("bestOfList", postService.getBestOfList("Best Of"));
+		model.addAttribute("bestOfList", postService.getBestOfList("BestOf"));
 		
 		return "admin/bestOfList";
 	}
@@ -150,7 +150,31 @@ public class AdminController {
 		String jsScript = "";
 		jsScript += "<script>";
 		jsScript += "alert('게시물 수정 완료 되었습니다.');";
-		jsScript += "location.href ='/post/bestOfDetail?postId="+ postDTO.getPostId()+"';";
+		jsScript += "location.href ='/post/bestOfList'";
+		jsScript += "</script>";
+		return jsScript;
+	}
+	
+	@GetMapping("/updateRecommendPost")
+	public String updateRecommendPost(@RequestParam("postId") long postId , Model model) {
+		
+		PostDTO postDTO = postService.getRecommendDetailPost(postId);
+		List<ContentDTO> contentList = adminService.getRecommendDetailContent(postId);
+		postDTO.setContentList(contentList);
+		model.addAttribute("postDTO", postDTO);
+		return "admin/updateRecommendPost";
+	}
+	
+	@PostMapping("/updateRecommendPost")
+	@ResponseBody
+	public String updateRecommendPost(@ModelAttribute PostDTO postDTO, @RequestParam("uploadImage") MultipartFile uploadImage) throws IllegalStateException, IOException{
+		
+		adminService.updateRecommendPost(postDTO, uploadImage);
+		
+		String jsScript = "";
+		jsScript += "<script>";
+		jsScript += "alert('게시물 수정 완료 되었습니다.');";
+		jsScript += "location.href ='/admin/recommendList'";
 		jsScript += "</script>";
 		return jsScript;
 	}
@@ -158,9 +182,9 @@ public class AdminController {
 	@GetMapping("/deleteBestOfPost")
 	public String deleteBestOfPost(@RequestParam("postId") long postId) {
 		
-		adminService.deleteBestOfPost(postId);
+		adminService.deletePost(postId);
 		
-		return "redirect:/admin/bestOfList";
+		return "redirect:/admin/main";
 	}
 	
 	

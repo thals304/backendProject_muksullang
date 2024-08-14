@@ -37,26 +37,6 @@
       <script src="https://oss.maxcdn.com/libs/respond./portfolio_admin_template/js/1.4.2/respond.min.js"></script>
       <![endif]-->
  <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
-<script>
-	let contentIndex = 1;
-	
-	function addContentField(){
-		
-		let container = document.getElementById("content-container");
-		let newTextarea = document.createElement("textarea");
-		    newTextarea.name = "contentDTOList[" + contentIndex + "].content";
-		    newTextarea.id = "content" + contentIndex; 
-		    newTextarea.rows = 10; 
-		    newTextarea.cols = 100; 
-		    newTextarea.placeholder = "Enter content";
-		    
-	    container.appendChild(newTextarea);
-		container.appendChild(document.createElement("br"));
-		container.appendChild(document.createElement("br"));
-		contentIndex++;
-	}
-
-</script>
 </head>
 <body class="inner_page tables_page">
 	<div th:if="${session.adminId == null }">
@@ -160,12 +140,12 @@
 							<!-- row -->
 							<div class="row">
 								<!-- table section -->
-								 <form th:action="@{/admin/createPost}" method="post" enctype="multipart/form-data">
+								 <form th:action="@{/admin/updateRecommendPost}" method="post" th:object="${postDTO}" enctype="multipart/form-data">
 							        <div class="col-md-12">
 							            <div class="white_shd full margin_bottom_30">
 							                <div class="full graph_head">
 							                    <div class="heading1 margin_0">
-							                        <h2>Create Post Section</h2>
+							                        <h2>Update Post Section</h2>
 							                    </div>
 							                </div>
 							                <div class="table_section padding_infor_info">
@@ -177,20 +157,26 @@
 							                                    <th>PostNm(Best Of/Recommend)<span style="color:red;">(필수)</span></th>
 							                                    <th>Title<span style="color:red;">(필수)</span></th>
 							                                    <th>Sort(식당/카페/바)</th>
-							                                    <th>Location</th>
 							                                    <th>Image<span style="color:red;">(필수)</span></th>
-							                                    <th>RunningTime</th>
+							                                   
 							                                </tr>
 							                            </thead>
 							                            <tbody>
 							                                <tr>
-							                                    <td><input type="hidden" id="adminId" name="adminId" th:value="${session.adminId}"></td>
-							                                    <td><input type="text" id="postNm" name="postNm"></td>
-							                                    <td><input type="text" id="title" name="title" placeholder=" 가게이름 / 기사 제목"></td>
-							                                    <td><input type="text" id="sort" name="sort" ></td>
-							                                    <td><input type="text" id="location" name="location"></td>
-							                                    <td><input type="file" id="uploadImage" name="uploadImage"></td>
-							                                    <td><input type="text" id="runningTime" name="runningTime" placeholder="xx:xx ~ xx:xx"></td>
+							                                    <td>
+							                                    <input type="hidden" id="adminId" name="adminId" th:value="${session.adminId}">
+							                                    <input type="hidden" th:field="*{postId}">
+							                                    </td>
+							                                    <td><input type="text" id="postNm" name="postNm" th:field="*{postNm}"></td>
+							                                    <td><input type="text" id="title" name="title" th:field="*{title}"></td>
+							                                    <td><input type="text" id="sort" name="sort" th:field="*{sort}"></td>
+							                                    
+							                                    <td>
+							                                    	<img th:src="@{/post/thumbnails(fileName=${postDTO.image})}" width="100">
+							                                    	<input type="file" name="uploadImage" >
+							                                    	<input type="hidden" th:field="*{image}"/>
+							                                    </td>
+							                                   
 							                                </tr>
 							                            </tbody>
 							                        </table>
@@ -203,20 +189,19 @@
 							            <div class="white_shd full margin_bottom_30">
 							                <div class="full graph_head">
 							                    <div class="heading1 margin_0">
-							                        <h2>Post - Content Section<span style="color:red;">(필수)</span></h2>
-							                        <h6>BestOf 게시물 - Content1, Content2, Content3 (총 3개로만 구성)</h6>
-							                        <h6>Recommend 게시물 - Content1, Content2, Content3, 4, 5, 6, 출처, 작성자 (총 8개로만 구성)</h6>
+							                        <h2>Update Content Section<span style="color:red;">(필수)</span></h2>
 							                    </div>
 							                </div>
 							                <div class="table_section padding_infor_info">
 							                    <div class="table-responsive-sm">
-							                        <div id="content-container">
-							                            <textarea name="contentDTOList[0].content" id="content0" rows="10" cols="100" placeholder="Enter content"></textarea>
+							                        <div id="content-container" >
+							                        	<div th:each="contentDTO, iterStat : *{contentList}">
+							                        		<input type="hidden" th:field="*{contentList[__${iterStat.index}__].contentId}" th:value="${contentDTO.contentId}">
+                            								<textarea th:field="*{contentList[__${iterStat.index}__].content}" th:id="'content' + ${iterStat.index}" rows="10" cols="100"></textarea>
+							                        	</div>
 							                            <br><br>
 							                        </div>
-							                        <button type="button" onclick="addContentField()">Add More Content</button>
-							                        <br><br>
-							                        <button type="submit">Submit Post</button>
+							                        <button type="submit">Update Post</button>
 							                    </div>
 							                </div>
 							            </div>

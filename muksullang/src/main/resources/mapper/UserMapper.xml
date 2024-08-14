@@ -63,6 +63,52 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
+	<resultMap id="postDetailMap" type="PostDTO">
+    <result column="POST_ID" property="postId"/>
+    <result column="POST_NM" property="postNm"/>
+    <result column="POST_TITLE" property="title"/>
+    <result column="POST_IMAGE" property="image"/>
+    <result column="POST_SORT" property="sort"/>
+	</resultMap>
+	
+	<select id="getAllPosts" parameterType="String" resultMap="postDetailMap">
+	    SELECT DISTINCT 
+	        P.POST_ID AS POST_ID,
+	        P.POST_NM AS POST_NM,
+	        P.TITLE AS POST_TITLE,
+	        P.IMAGE AS POST_IMAGE,
+	        P.SORT AS POST_SORT
+	    FROM POST P
+	    LEFT JOIN BOOKMARK B ON P.POST_ID = B.POST_ID AND B.USER_ID = #{userId}
+	    LEFT JOIN REPLY R ON P.POST_ID = R.POST_ID AND R.USER_ID = #{userId}
+	    WHERE B.USER_ID IS NOT NULL
+	       OR R.USER_ID IS NOT NULL
+	</select>
+	
+	<select id="getBookmarkedPosts" parameterType="String" resultMap="postDetailMap">
+		SELECT DISTINCT 
+	        P.POST_ID AS POST_ID,
+	        P.POST_NM AS POST_NM,
+	        P.TITLE AS POST_TITLE,
+	        P.IMAGE AS POST_IMAGE,
+	        P.SORT AS POST_SORT
+	    FROM POST P
+	    LEFT JOIN BOOKMARK B ON P.POST_ID = B.POST_ID AND B.USER_ID = #{userId}
+	    WHERE B.USER_ID IS NOT NULL
+	</select>
+	
+	<select id="getReviewedPosts" parameterType="String" resultMap="postDetailMap">
+		SELECT DISTINCT 
+	        P.POST_ID AS POST_ID,
+	        P.POST_NM AS POST_NM,
+	        P.TITLE AS POST_TITLE,
+	        P.IMAGE AS POST_IMAGE,
+	        P.SORT AS POST_SORT
+	    FROM POST P
+	    LEFT JOIN REPLY R ON P.POST_ID = R.POST_ID AND R.USER_ID = #{userId}
+	    WHERE R.USER_ID IS NOT NULL
+	</select>
+	
 	<update id="updateInactiveUser" parameterType="String">
 		UPDATE USER
 		SET    ACTIVE_YN = 'n',

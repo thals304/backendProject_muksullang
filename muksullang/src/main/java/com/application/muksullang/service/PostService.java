@@ -34,4 +34,5 @@ public interface PostService {
 	// recommend 디테일 (post 따로, content 따로)
 	public PostDTO getRecommendDetailPost(long postId);
 	public List<ContentDTO> getRecommendDetailContent(long postId);
+	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.application.muksullang.dto.PostDTO;
 import com.application.muksullang.dto.UserDTO;
 
 @Mapper
@@ -29,6 +30,16 @@ public interface UserDAO {
 	
 	// 신규 회원 수 count
 	public int getTodayNewMemberCnt(String today);
+	
+	// user의 찜한 게시물 & 리뷰 쓴 게시물 전체 모아보기
+	public List<PostDTO> getAllPosts(String userId);
+	
+	// user의 찜한 게시물 전체 모아보기
+	public List<PostDTO> getBookmarkedPosts(String userId);
+	
+	// user의 리뷰 쓴 게시물 전체 모아보기
+	public List<PostDTO> getReviewedPosts(String userId);
+	
 	
 	// 비활성화 회원 전체조회
 	public List<UserDTO> getInActiveMemberList();

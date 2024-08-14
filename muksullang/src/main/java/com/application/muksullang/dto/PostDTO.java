@@ -20,4 +20,5 @@ public class PostDTO {
 	private Date enrollAt;
 	
 	private List<ContentDTO> contentList;
+
 }

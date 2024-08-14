@@ -109,7 +109,51 @@
 		WHERE CONTENT_ID = #{contentId}
 	</update>
 	
-	<delete id="deleteBestOfPost" parameterType="long">
+	<select id="getRecommendDetailContent" parameterType="long" resultType="ContentDTO">
+		SELECT *
+		FROM   CONTENT
+		WHERE  POST_ID = #{postId}
+	</select>
+	
+	<update id="updateRecommendPost" parameterType="PostDTO">
+		UPDATE POST
+		<set>
+			<if test="adminId != null and adminId != ''">
+				ADMIN_ID = #{adminId},
+			</if>
+			<if test="postNm != null and postNm != ''">
+				POST_NM = #{postNm},
+			</if>
+			<if test="title != null and title != ''">
+				TITLE = #{title},
+			</if>
+			<if test="sort != null and sort != ''">
+				SORT = #{sort},
+			</if>
+			<if test="location != null and location != ''">
+				LOCATION = #{location},
+			</if>
+			<if test="image != null and image != ''">
+				IMAGE = #{image},
+			</if>
+			<if test="runningTime != null and runningTime != ''">
+				RUNNING_TIME = #{runningTime}
+			</if>
+		</set>
+		WHERE POST_ID = #{postId}
+	</update>
+	
+	<update id="updateRecommendContent" parameterType="ContentDTO">
+		UPDATE CONTENT
+		<set>
+			<if test="content != null and content != ''">
+				CONTENT = #{content}
+			</if>
+		</set>
+		WHERE CONTENT_ID = #{contentId}
+	</update>
+	
+	<delete id="deletePost" parameterType="long">
 		DELETE FROM POST
 		WHERE  POST_ID = #{postId}
 	</delete>

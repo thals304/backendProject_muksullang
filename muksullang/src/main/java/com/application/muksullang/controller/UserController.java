@@ -2,6 +2,7 @@ package com.application.muksullang.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
+
+import com.application.muksullang.dto.PostDTO;
 import com.application.muksullang.dto.UserDTO;
+import com.application.muksullang.service.PostService;
 import com.application.muksullang.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +32,7 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
 	
 	@Value("${file.repo.path}")
 	private String fileRepositoryPath;
@@ -83,10 +88,25 @@ public class UserController {
 	}
 	
 	@GetMapping("/myPage")
-	public String myPage() {
-        
-        return "user/myPage";
+	public String myPage(@RequestParam(value = "dataFilter", defaultValue = "all") String dataFilter, HttpServletRequest request, Model model) {
+	    String userId = (String) request.getSession().getAttribute("userId");
+	    
+	    List<PostDTO> allPosts = userService.getAllPosts(userId);
+	    List<PostDTO> bookmarkedPosts = userService.getBookmarkedPosts(userId);
+	    List<PostDTO> reviewedPosts = userService.getReviewedPosts(userId);
+	    
+	    if ("bookmarked".equals(dataFilter)) {
+	        model.addAttribute("posts", bookmarkedPosts);
+	    } else if ("reviewed".equals(dataFilter)) {
+	        model.addAttribute("posts", reviewedPosts);
+	    } else {
+	        model.addAttribute("posts", allPosts);
+	    }
+	    
+	    return "user/myPage";
 	}
+	
+	
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
@@ -149,4 +169,5 @@ public class UserController {
 		
 		return "redirect:/user/myPage"; // 아직 /post/main이 없어 myPage로 가도록 했는데 만들면 바꿀수도 있음
 	}
+	
 }

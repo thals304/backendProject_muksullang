@@ -9,19 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.application.muksullang.dto.BookmarkDTO;
 import com.application.muksullang.dto.ContentDTO;
 import com.application.muksullang.dto.PostDTO;
 import com.application.muksullang.dto.ReplyDTO;
+import com.application.muksullang.service.BookmarkService;
 import com.application.muksullang.service.PostService;
 import com.application.muksullang.service.ReplyService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /*
  *  
@@ -36,10 +43,7 @@ import com.application.muksullang.service.ReplyService;
  * - 북마크(게시물 찜하기) : bestOf/recommend.html에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
  * 버튼을 눌렀을 때 빨간색이 되면 북마크로 등록, 빨간색에서 다시 버튼을 눌러 흰색이 되면 북마크 취소 
  * - 공공데이터 csv import 해서 넣기(서울 관광 음식 - 위치에 송파 들어가는 것 중 5-6개 정도만 뽑아 사용> 사진 찾아야함)
- * - 게시물 수정/삭제 > 수정하기가 고민인게 best Of는 content 3개 recommend는 recipe : 개 article : 개로
- * 개수도 다르고 들어가는 구성도 다른데 수정하기 폼에서 이전 저장된 자료를 어떻게 뿌려줘야 할지 
  * - 찜하기 기능 완성 후 가능 > my page에서 찜한 게시물 & 리뷰 작성한 게시물 모아보기 (게시물이 많으면 페이지네이션? 해야하나)
- * - main 화면에 어떤 게시물을 뿌릴지 (Recommend는 아직 게시물 등록 안해서 등록하고 main.html에만 뿌리먄 됨)
  * - (선택사항) 게시물 등록 content를 form을 add하는 것만 있지 delete 하는 것은 없음
  * - (선택사항) 회원 가입에서 주소 입력시 정해진 형식대로 입력 안하면 회원가입 못하도록
  * - (선택사항) 비밀번호 확인(눈)가능
@@ -59,6 +63,9 @@ public class PostController {
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private BookmarkService bookmarkService;
 	
 	// 웹페이지 첫 화면 main 
 	@GetMapping("/main")
@@ -81,12 +88,22 @@ public class PostController {
 	
 	// Best Of 
 	@GetMapping("/bestOf")
-	public String bestOf(Model model) {
+	public String bestOf(HttpServletRequest request ,Model model) {
 		// 게시물 수가 9개 이상일 때 다음 페이지로 넘어가는 페이지네이션 기능을 만들어야 함
 		
-		
 		String type = "BestOf";
+		// 게시물 리스트 가져오기
 		model.addAttribute("bestOfList", postService.getBestOfList(type));
+		
+		// 세션에서 userId 가져오기
+		String userId = (String)request.getSession().getAttribute("userId");
+		
+		if (userId != null) {
+			 // userId가 세션에 저장되어 있는 경우
+	        // 찜한 게시물 ID 리스트 가져오기
+	        List<Integer> bookmarkedPostIds = bookmarkService.getBookmarkedPostIds(userId);
+	        model.addAttribute("bookmarkedPostIds", bookmarkedPostIds);
+		}
 		
 		return "post/bestOf";
 	}
@@ -183,4 +200,29 @@ public class PostController {
 		return "post/about";
 	}
 	
+	// Bookmark
+	@PostMapping("/bookmark")
+	@ResponseBody
+	public String bookMarkPost(@RequestBody BookmarkDTO bookmarkDTO){
+		String action = bookmarkDTO.getAction();
+		boolean success = false;
+		// userId, postId가 잘 넘어오는지 확인
+		System.out.println("userID : " + bookmarkDTO.getUserId());
+		System.out.println("postId : " + bookmarkDTO.getPostId());
+		
+		if(action.equals("add")) {
+			if (!bookmarkService.existsByUserIdAndPostId(bookmarkDTO)) { // 북마크에 존재하지 않으면 추가
+	            bookmarkService.addBookMark(bookmarkDTO);
+	            success = true;
+	        }
+		}
+		else if(action.equals("delete")) {
+			if (bookmarkService.existsByUserIdAndPostId(bookmarkDTO)) { // 북마크에 존재하면 삭제
+	            bookmarkService.deleteBookMark(bookmarkDTO);
+	            success = true;
+	        }
+		}
+		
+		return success ? "y" : "n";
+	}
 }

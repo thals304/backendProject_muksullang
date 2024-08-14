@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.application.muksullang.dao.UserDAO;
+import com.application.muksullang.dto.PostDTO;
 import com.application.muksullang.dto.UserDTO;
 
 @Service
@@ -77,8 +78,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getUserDetail(String userId) {
-		
 		return userDAO.getUserDetail(userId);
+	}
+	
+	@Override
+	public List<PostDTO> getBookmarkedPosts(String userId) {
+		return userDAO.getBookmarkedPosts(userId);
+	}
+	
+	
+	@Override
+	public List<PostDTO> getReviewedPosts(String userId) {
+		return userDAO.getReviewedPosts(userId);
 	}
 
 	@Override
@@ -123,6 +134,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<PostDTO> getAllPosts(String userId) {
+		return userDAO.getAllPosts(userId);
+	}
+	
+	
+	@Override
 	@Scheduled(cron="59 59 23 * * *")
 	public void getTodayNewMemberCnt() {
 		
@@ -149,6 +166,10 @@ public class UserServiceImpl implements UserService {
 		}
 		
 	}
+
+
+
+
 
 	
 }
