@@ -69,20 +69,33 @@
     <result column="POST_TITLE" property="title"/>
     <result column="POST_IMAGE" property="image"/>
     <result column="POST_SORT" property="sort"/>
+    <result column="POST_ENROLL_AT" property="enrollAt"></result>
 	</resultMap>
 	
-	<select id="getAllPosts" parameterType="String" resultMap="postDetailMap">
+	<select id="getCountPosts" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM   POST P
+		LEFT JOIN BOOKMARK B ON P.POST_ID = B.POST_ID AND B.USER_ID = #{userId}
+	    LEFT JOIN REPLY R ON P.POST_ID = R.POST_ID AND R.USER_ID = #{userId}
+	    WHERE B.USER_ID IS NOT NULL
+	       OR R.USER_ID IS NOT NULL
+	</select>
+	
+	<select id="getAllPosts" parameterType="map" resultMap="postDetailMap">
 	    SELECT DISTINCT 
 	        P.POST_ID AS POST_ID,
 	        P.POST_NM AS POST_NM,
 	        P.TITLE AS POST_TITLE,
 	        P.IMAGE AS POST_IMAGE,
-	        P.SORT AS POST_SORT
+	        P.SORT AS POST_SORT,
+	        P.ENROLL_AT AS POST_ENROLL_AT
 	    FROM POST P
 	    LEFT JOIN BOOKMARK B ON P.POST_ID = B.POST_ID AND B.USER_ID = #{userId}
 	    LEFT JOIN REPLY R ON P.POST_ID = R.POST_ID AND R.USER_ID = #{userId}
 	    WHERE B.USER_ID IS NOT NULL
 	       OR R.USER_ID IS NOT NULL
+	    ORDER BY P.ENROLL_AT 
+	    LIMIT #{limit} OFFSET #{offset}
 	</select>
 	
 	<select id="getBookmarkedPosts" parameterType="String" resultMap="postDetailMap">

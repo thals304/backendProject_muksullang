@@ -46,7 +46,8 @@ public class UserController {
 	@PostMapping("/signUp")
 	public String signUp(@ModelAttribute UserDTO userDTO) {
 		// form에서 데이터 잘 넘어오는지 확인 
-		System.out.println(userDTO);
+		System.out.println(userDTO.getUserId());
+		System.out.println("회원가입 시 비밀번호" +userDTO.getPasswd());
 		
 		userService.signUp(userDTO);
 		
@@ -74,7 +75,8 @@ public class UserController {
 		String isValidUser = "n"; 
 		
 		// .ajax에서 id 잘 넘어오는지 확인
-		System.out.println(userDTO.getUserId());
+		System.out.println("userId : "+ userDTO.getUserId());
+		System.out.println("passwd : " + userDTO.getPasswd());
 		
 		if (userService.signIn(userDTO)) { // 인증 되었을 경우
 
@@ -88,21 +90,22 @@ public class UserController {
 	}
 	
 	@GetMapping("/myPage")
-	public String myPage(@RequestParam(value = "dataFilter", defaultValue = "all") String dataFilter, HttpServletRequest request, Model model) {
-	    String userId = (String) request.getSession().getAttribute("userId");
+	public String myPage(@RequestParam(value = "page",defaultValue = "1") int page, HttpServletRequest request, Model model) {
 	    
-	    List<PostDTO> allPosts = userService.getAllPosts(userId);
-	    List<PostDTO> bookmarkedPosts = userService.getBookmarkedPosts(userId);
-	    List<PostDTO> reviewedPosts = userService.getReviewedPosts(userId);
-	    
-	    if ("bookmarked".equals(dataFilter)) {
-	        model.addAttribute("posts", bookmarkedPosts);
-	    } else if ("reviewed".equals(dataFilter)) {
-	        model.addAttribute("posts", reviewedPosts);
-	    } else {
-	        model.addAttribute("posts", allPosts);
-	    }
-	    
+		String userId = (String) request.getSession().getAttribute("userId");
+		
+		int pageSize = 6;
+		
+		int offset = (page - 1) * pageSize;
+		
+		int totalPosts = userService.getCountPosts(userId);
+		int totalPages = (int)Math.ceil((double) totalPosts / pageSize);
+		
+	    List<PostDTO> posts = userService.getAllPosts(userId, offset, pageSize);
+	    model.addAttribute("posts", posts);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	   
 	    return "user/myPage";
 	}
 	
@@ -114,7 +117,7 @@ public class UserController {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		return "redirect:/user/myPage";
+		return "redirect:/user/signIn";
 	}
 	
 	@GetMapping("/update")

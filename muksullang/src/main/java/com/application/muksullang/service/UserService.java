@@ -16,17 +16,19 @@ public interface UserService {
 	
 	public boolean signIn(UserDTO userDTO);
 	
+	public int getCountPosts(String userId);
+	
+	public List<PostDTO> getAllPosts(String userId, int offset, int limit);
+	
+	public List<PostDTO> getBookmarkedPosts(String userId);
+	
+	public List<PostDTO> getReviewedPosts(String userId);
+	
 	public UserDTO getUserDetail(String userId);
 	
 	public void updateUser(MultipartFile uploadProfile, UserDTO userDTO) throws IllegalStateException, IOException;
 	
 	public void updateInactiveUser(String userId);
-	
-	public List<PostDTO> getAllPosts(String userId);
-	
-	public List<PostDTO> getBookmarkedPosts(String userId);
-	
-	public List<PostDTO> getReviewedPosts(String userId);
 	
 	// 스케쥴링 - 신규 회원 조회
 	public void getTodayNewMemberCnt();

@@ -35,6 +35,7 @@
     Author URL: https://bootstrapmade.com/
   ======================================================= -->
   <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
 	 .img-container {
@@ -49,7 +50,6 @@
 	    object-fit: cover; /* 이미지 비율 유지하면서 영역을 채우기 */
 	}
 </style>
-
 <body>
 	 
  <!-- 로그인되지 않은 경우 표시될 내용 -->
@@ -103,18 +103,26 @@
           <div class="row mb-5 align-items-center">
             <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
               <h2>Welcome to My Page!</h2>
+              <h5>내가 찜한 게시물, 리뷰 게시물을 한 번에 모아 볼 수 있습니다.</h5>
             </div>
             <div id="filters" class="filters">
-			  	<a th:href="@{/user/myPage(dataFilter=all)}" class="active">모두 보기</a>
-				<a th:href="@{/user/myPage(dataFilter=bookmarked)}" class="filter">내가 찜한 게시물</a>
-				<a th:href="@{/user/myPage(dataFilter=reviewed)}" class="filter">내가 쓴 리뷰 게시물</a>
+		
+		          <!-- 
+		          <a th:href="@{/user/myPage(dataFilter='all')}" 
+		             th:classappend="${dataFilter == 'all'} ? 'active' : ''">모두 보기</a>
+		          <a th:href="@{/user/myPage(dataFilter='bookmarked')}" 
+		          th:classappend="${dataFilter == 'bookmarked'} ? 'active' : ''">내가 찜한 게시물</a>
+		          <a th:href="@{/user/myPage(dataFilter='reviewed')}" 
+            		 th:classappend="${dataFilter == 'reviewed'} ? 'active' : ''">내가 쓴 리뷰 게시물</a>
+		           -->
+		             
 			</div>
           </div>
           
           <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <!-- 모든 게시물 리스트 -->
             <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4" th:each="post : ${posts}">
-              
+              <!-- BestOf 게시물 -->
               <a th:if="${post.postNm == 'BestOf'}" 
 	              th:href="@{/post/bestOfDetail(postId=${post.postId}, sort=${post.sort})}" 
 	              class="item-wrap fancybox">
@@ -126,6 +134,7 @@
 	                    <img class="img-fluid" th:src="@{/post/thumbnails(fileName=${post.image})}" alt="Post Image">
 	                </div>
               </a>
+              <!-- Recommend 게시물 -->
               <a th:if="${post.postNm == 'Recommend'}"
 			       th:href="@{/post/recommedDetail(postId=${post.postId})}"
 			       class="item-wrap fancybox">
@@ -136,11 +145,38 @@
 			        <div class="img-container">
 			            <img class="img-fluid" th:src="@{/post/thumbnails(fileName=${post.image})}" alt="Post Image">
 			        </div>
-	    	 </a>
-		              
+	    	 </a>   
             </div>
-            
           </div>
+          
+          	<!-- (페이지네이션 -->
+    		<div class="text-center">
+	    		<div th:if="${totalPages != null and totalPages > 1}">
+				    <!-- 이전 버튼 -->
+				    <a th:if="${currentPage > 1}" 
+				       th:href="@{/user/myPage(page=${currentPage - 1})}">
+				        <i class="fas fa-chevron-left"></i> <!-- 왼쪽 화살표 아이콘 -->
+				    </a>
+				    <span th:if="${currentPage == 1}" class="disabled">
+				        <i class="fas fa-chevron-left"></i>
+				    </span>
+				
+				    <!-- 페이지 번호 버튼들 -->
+				    <a th:each="i : ${#numbers.sequence(1, totalPages)}"
+				       th:href="@{/user/myPage(page=${i})}"
+				       th:classappend="${i == currentPage} ? 'active'"
+				       th:text="${i}"></a>
+				
+				    <!-- 다음 버튼 -->
+				    <a th:if="${currentPage < totalPages}"
+				       th:href="@{/user/myPage(page=${currentPage + 1})}">
+				        <i class="fas fa-chevron-right"></i> <!-- 오른쪽 화살표 아이콘 -->
+				    </a>
+				    <span th:if="${currentPage == totalPages}" class="disabled">
+				        <i class="fas fa-chevron-right"></i>
+				    </span>
+				</div>
+        </div>
         </div>
       </div>
     </main>

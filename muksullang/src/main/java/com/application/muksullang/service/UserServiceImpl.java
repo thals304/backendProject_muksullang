@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -76,17 +78,24 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	
 	@Override
 	public UserDTO getUserDetail(String userId) {
 		return userDAO.getUserDetail(userId);
 	}
 	
 	@Override
+	public int getCountPosts(String userId) {
+		return userDAO.getCountPosts(userId);
+	}
+	
+	// 보류
+	@Override
 	public List<PostDTO> getBookmarkedPosts(String userId) {
 		return userDAO.getBookmarkedPosts(userId);
 	}
 	
-	
+	// 보류
 	@Override
 	public List<PostDTO> getReviewedPosts(String userId) {
 		return userDAO.getReviewedPosts(userId);
@@ -134,8 +143,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<PostDTO> getAllPosts(String userId) {
-		return userDAO.getAllPosts(userId);
+	public List<PostDTO> getAllPosts(String userId, int offset, int limit) {
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("userId", userId);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		
+		return userDAO.getAllPosts(params);
 	}
 	
 	
@@ -166,10 +182,6 @@ public class UserServiceImpl implements UserService {
 		}
 		
 	}
-
-
-
-
 
 	
 }

@@ -8,12 +8,12 @@
 </head>
 <script th:src="@{/jquery/jquery-3.7.1.min.js}"></script>
 <script>
-	function processDeleteReply(replyId){
-		let isDelete = confirm("작성한 리뷰를 삭제하시겠습니까?");
-		if (isDelete){
-			location.href = "/reply/deleteReply?replyId=" + replyId;
+		function processDeleteReply(replyId){
+			let isDelete = confirm("작성한 리뷰를 삭제하시겠습니까?");
+			if (isDelete){
+				location.href = "/reply/deleteReply?replyId=" + replyId;
+			}
 		}
-	}
 </script>
 <body>
 	<div layout:fragment="content2">

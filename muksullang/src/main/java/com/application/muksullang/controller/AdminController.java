@@ -150,7 +150,7 @@ public class AdminController {
 		String jsScript = "";
 		jsScript += "<script>";
 		jsScript += "alert('게시물 수정 완료 되었습니다.');";
-		jsScript += "location.href ='/post/bestOfList'";
+		jsScript += "location.href ='/admin/bestOfList'";
 		jsScript += "</script>";
 		return jsScript;
 	}

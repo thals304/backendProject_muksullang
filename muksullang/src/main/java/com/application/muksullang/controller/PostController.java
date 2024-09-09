@@ -88,18 +88,33 @@ public class PostController {
 	
 	// Best Of 
 	@GetMapping("/bestOf")
-	public String bestOf(HttpServletRequest request ,Model model) {
+	public String bestOf(@RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request ,Model model) {
 		// 게시물 수가 9개 이상일 때 다음 페이지로 넘어가는 페이지네이션 기능을 만들어야 함
 		
+		int pageSize = 9; // 페이지당 게시물 수
+		
 		String type = "BestOf";
-		// 게시물 리스트 가져오기
-		model.addAttribute("bestOfList", postService.getBestOfList(type));
+		
+		// 가져올 게시물의 시작 위치를 계산
+		// 현재 페이지에서 몇 번째 데이터부터 가져올지를 결정하는 역할
+		// offset =  (현재 페이지 번호 - 1) * 페이지당 보여줄 게시물 수
+	    int offset = (page - 1) * pageSize;
+		
+	    // 총 게시물 수를 가져와서 페이지 수 계산
+	    int totalPosts = postService.getCountPosts(type);
+	    int totalPages = (int) Math.ceil((double) totalPosts / pageSize );
+	    
+	    // 현재 페이지에 해당하는 게시물 리스트 가져오기
+	    List<PostDTO> bestOfList = postService.getCurrentPagePostList(type, offset, pageSize);
+		model.addAttribute("bestOfList", bestOfList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
 		
 		// 세션에서 userId 가져오기
 		String userId = (String)request.getSession().getAttribute("userId");
 		
 		if (userId != null) {
-			 // userId가 세션에 저장되어 있는 경우
+			// userId가 세션에 저장되어 있는 경우
 	        // 찜한 게시물 ID 리스트 가져오기
 	        List<Integer> bookmarkedPostIds = bookmarkService.getBookmarkedPostIds(userId);
 	        model.addAttribute("bookmarkedPostIds", bookmarkedPostIds);
@@ -159,10 +174,21 @@ public class PostController {
 	
 	// Recommend
 	@GetMapping("/recommend")
-	public String recommend(Model model) {
+	public String recommend(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+		
+		int pageSize = 5;
 		
 		String type = "Recommend";
-		List<PostDTO> recommendList = postService.getRecommendList(type);
+		
+		int offset = (page - 1) * pageSize;
+		
+		int totalPosts = postService.getCountPosts(type);
+		int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+		
+		List<PostDTO> recommendList = postService.getCurrentPagePostList(type, offset, pageSize);
+		model.addAttribute("recommendList", recommendList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
 		
 		// 각 게시물의 postId를 가지고 content 1개도 같이 html에 보내야함
 		for(PostDTO postDTO : recommendList) {

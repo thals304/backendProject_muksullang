@@ -135,11 +135,35 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="categories__pagination">
-											<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a
-												href="#">Next</a>
+										<!-- <div th:if="${totalPages != null and totalPages > 1}"> -->
+											<!-- 이전 버튼 -->
+											<a th:if="${currentPage > 1}"
+											   th:href="@{/post/recommend(page=${currentPage - 1})}">
+											   <i class="fas fa-chevron-left"></i>
+											</a>
+											<span th:if="${currentPage == 1}" class="disabled">
+												<i class="fas fa-chevron-left"></i>
+											</span>
+											
+											<!-- 페이지 번호 버튼들 -->
+											<a th:each="i : ${#numbers.sequence(1, totalPages)}"
+											   th:href="@{/post/recommend(page=${i})}"
+											   th:classappend="${i == currentPage} ? 'active'" 
+											   th:text="${i}"></a> 
+											   
+											<!-- 다음 버튼 -->
+											<a th:if="${currentPage < totalPages}"
+											   th:href="@{/post/recommend(page=${currentPage + 1})}">
+											   <i class="fas fa-chevron-right"></i>
+											</a>
+											<span th:if="${currentPage == totalPages}" class="disabled">
+												<i class="fas fa-chevron-right"></i>
+											</span>
 										</div>
 									</div>
+									<!-- </div> -->
 								</div>
+								
 							</div>
 							<!-- Add other columns or sections if needed -->
 						</div>

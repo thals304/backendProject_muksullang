@@ -1,5 +1,6 @@
 package com.application.muksullang.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,21 @@ public class PostServiceImpl implements PostService {
 		@Override
 		public List<PostDTO> getRightRecommendPostList() {
 			return postDAO.getRightRecommendPostList();
+		}
+		
+		@Override
+		public int getCountPosts(String type) {
+			return postDAO.getCountPosts(type);
+		}
+		
+		@Override
+		public List<PostDTO> getCurrentPagePostList(String type, int offset, int limit) {
+			Map<String, Object> params = new HashMap<>();
+		    params.put("type", type);
+		    params.put("offset", offset);
+		    params.put("limit", limit); 
+		    
+			return postDAO.getCurrentPagePostList(params);
 		}
 		
 		@Override
@@ -98,6 +114,8 @@ public class PostServiceImpl implements PostService {
 		public List<ContentDTO> getRecommendDetailContent(long postId) {
 			return postDAO.getRecommendDetailContent(postId);
 		}
+
+
 
 
 

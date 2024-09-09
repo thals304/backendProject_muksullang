@@ -24,9 +24,15 @@ public class ReplyController {
 	@Autowired
     private ReplyService replyService;
 	
-	@PostMapping("/creatBestOfReply")
+	@PostMapping("/createBestOfReply")
 	@ResponseBody
 	public String creatBestOfReply(@ModelAttribute ReplyDTO replyDTO) {
+		
+		System.out.println(replyDTO.getUserId());
+		System.out.println(replyDTO.getRating());
+		System.out.println(replyDTO.getContent());
+		System.out.println(replyDTO.getPostId());
+		
 		replyService.creatReply(replyDTO);
 		
 		String jsScript = "";
@@ -77,7 +83,8 @@ public class ReplyController {
 			return jsScript;
 	}
 	
-	@PostMapping("/creatRecommendReply") // create라고 스펠링 바꾸기
+	@PostMapping("/createRecommendReply") // create라고 스펠링 바꾸기
+	@ResponseBody
 	public String creatRecommendReply(@ModelAttribute ReplyDTO replyDTO) {
 		replyService.creatReply(replyDTO);
 		

@@ -16,7 +16,12 @@ public interface PostService {
 	public PostDTO getLeftRecommendPost();
 	public List<PostDTO> getRightRecommendPostList();
 	
+	// (페이지네이션) 해당 타입 게시물 총 개수 조회
+	public int getCountPosts(String type);
+	// (페이지네이션) 현재 페이지에 해당하는 게시물 리스트 조회
+	public List<PostDTO> getCurrentPagePostList(String type, int offset, int limit);
 	
+	// best of 게시물 전체 조회
 	public List<PostDTO> getBestOfList(String type);
 	
 	// best Of에서 검색하기 기능

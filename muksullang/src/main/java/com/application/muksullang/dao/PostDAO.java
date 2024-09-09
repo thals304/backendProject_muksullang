@@ -20,6 +20,11 @@ public interface PostDAO {
 	public PostDTO getLeftRecommendPost(); // 왼쪽 1개
 	public List<PostDTO> getRightRecommendPostList(); // 오른쪽 4개
 	
+	// (페이지네이션) 해당 타입 게시물 총 개수 조회
+	public int getCountPosts(String type);
+	// (페이지네이션) 현재 페이지에 해당하는 게시물 리스트 조회
+	public List<PostDTO> getCurrentPagePostList(Map<String, Object> params);
+	
 	// Best Of인 게시물 정보 리스트 가져오기
 	public List<PostDTO> getBestOfList(String type);
 	
