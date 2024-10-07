@@ -3,10 +3,7 @@
 
 <img src="https://github.com/user-attachments/assets/fbeeb53f-994b-4e72-9281-94d81e486465" width="300" />
 
-
-## 개발 기간 📆
-
-2024년 05월 ~ 2024년 08월
+먹슐랭(muksullang)은 먹다와 미슐랭을 합친 단어로 사용자가 다양한 맛집 정보를 찾아보고, 평가와 추천을 통해 신뢰성 높은 음식 경험을 할 수 있는 웹 서비스입니다.
 
 ## About Project
 ### > 프로젝트 니즈(Needs)
