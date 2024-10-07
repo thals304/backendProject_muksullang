@@ -1,10 +1,11 @@
 
-# < Project Title > Amazon Web Service 기반 “맛집 추천 커뮤니티 먹슐랭(Muksullang)” 시스템 개발 프로젝트
+# Amazon Web Service 기반 “맛집 추천 커뮤니티 먹슐랭(Muksullang)” 시스템 개발 프로젝트
 
 ### 개발 기간 📆
 
 2024년 04월 ~ 2024년 07월
 
+## About Project
 ### 프로젝트 니즈(Needs)
 
 **맛집 검색 플랫폼 통합** :
@@ -23,93 +24,18 @@
 
 더 나아가, 사용자가 관심 있어 하는 음식, 지역 등을 카테고리로 묶어서 이와 관련된 맛집 추천이 가능하도록 웹을 구현해 보고 싶습니다.
 
+### 프로젝트 목표
+**사용자의 편의성을 위한 직관적이고 유연한 정보 제공 시스템 구축**
+
+- 최신화된 정보 제공 시스템 구축
+- 안정된 정보 검색 시스템 구축
+- 구현과 수정이 유연한 시스템 구축
+- 보안 및 개인정보를 위한 철저한 보안 시스템 구축
+- 사용자의 편의성을 위한 직관적이고 쉬운 인터페이스 구축
+- 체계적인 시스템 아키텍쳐 장착
+- 시스템 운영의 효율화
+- 향후 서비스 확장을 고려한 확장성 있는 시스템 구축
 
 ### 주요 개발 자원 (SW)
 
-| 구 분 | 용 도 | 명칭 및 버전 |
-| --- | --- | --- |
-| OS | OS | Windows 11 |
-| WAS | WEB/WAS | Embedded Tomcat |
-| DB | DB | MySQL 8.0.32 |
-| 사용 언어 | 백 앤드 | Java jdk 17 |
-|  | 개발 프레임 워크 | Spring Boot 3.2.1 |
-|  | 프론트 앤드 | HTML5 , CSS3 , javascript, jQuery |
-| 소프트웨어 개발도구 | 개발도구 | Eclipse Jee 2023-06-R |
-|  | DB | DBeaver |
-| 문서 작성 | 에디터 | Microsoft Excel 
-Microsoft PowerPoint 
-한글 
-dbDiagram.io
-diagram.io |
-| 형상 관리 | 소스 관리 및 버전관리 | Git hub , Git |
-| 사용 라이브러리 및 API | 의존성 관리 | Gradle |
-|  | DB | Mybatis-3.5.3 |
-|  | 로그 | Logback , SQL Logging |
-|  | 트랜잭션 | Spring Transaction |
-|  | 스케쥴러 | Spring Scheduler |
-|  | 디자인 | Bootstrap |
-|  | 보안 | Spring Security-5.0.8 |
-|  | 에디터 | Ckeditor4 |
-|  | 우편주소 | DaumPostCode |
-|  | 파일 | Spring File |
-|  | 데이터 전송 | AJAX , JSON |
-|  | Excel Export | Poi-3.17 |
 
-### 주요 개발 자원 (H/W)
-
-| 구 분 | 용 도 | 명칭 및 버전 |
-| --- | --- | --- |
-| OS | OS | Windows 11 |
-| WAS | WEB/WAS | Embedded Tomcat |
-| DB | DB | MySQL 8.0.32 |
-| 사용 언어 | 백 앤드 | Java jdk 17 |
-|  | 개발 프레임 워크 | Spring Boot 3.2.1 |
-|  | 프론트 앤드 | HTML5 , CSS3 , javascript, jQuery |
-| 소프트웨어 개발도구 | 개발도구 | Eclipse Jee 2023-06-R |
-|  | DB | DBeaver |
-| 문서 작성 | 에디터 | Microsoft Excel 
-Microsoft PowerPoint 
-한글 
-dbDiagram.io
-diagram.io |
-| 형상 관리 | 소스 관리 및 버전관리 | Git hub , Git |
-| 사용 라이브러리 및 API | 의존성 관리 | Gradle |
-|  | DB | Mybatis-3.5.3 |
-|  | 로그 | Logback , SQL Logging |
-|  | 트랜잭션 | Spring Transaction |
-|  | 스케쥴러 | Spring Scheduler |
-|  | 디자인 | Bootstrap |
-|  | 보안 | Spring Security-5.0.8 |
-|  | 에디터 | Ckeditor4 |
-|  | 우편주소 | DaumPostCode |
-|  | 파일 | Spring File |
-|  | 데이터 전송 | AJAX , JSON |
-|  | Excel Export | Poi-3.17 |
-
-### 요구사항 정의서
-
-| 요구사항 정의서 |  |  |  |  |  |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| 프로젝트 | Amazon Web Service 맛집 추천 커뮤니티(먹슐랭) 시스템 개발 프로젝트 |  |  |  | 작성자 | 김소민 |
-| 시스템명 | Restaurant Recommendation System 1.0 |  |  |  | 작성일 | 2024-06-xx |
-| 요구사항ID | 업무구분 | 요구사항 | 유형 | 처리방안 |  |  |
-| RQ-001 | 사용자 | 회원가입 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-002 | 사용자 | 로그인 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-003 | 사용자 | 로그아웃 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-004 | 사용자 | 회원정보 수정(프로필, 패스워드, 이메일, 주소) | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-005 | 사용자 | 회원 탈퇴 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-006 | 사용자 | (마이페이지) 찜한 게시물, 리뷰 작성한 게시물 모아보기 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-006 | 사용자 | (마이페이지) 찜한 게시물만 모아보기 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-007 | 사용자 | (마이페이지) 리뷰 작성한 게시물만 모아보기 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-008 | 사용자 | 게시물 검색 (전체 조회) | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-009 | 사용자 | 게시물 보기 (상세 조회) | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-010 | 사용자 | 게시물 찜하기 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-011 | 사용자 | 게시물에 리뷰 달기(Best Of에서는 리뷰 작성시 별평가도) | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-012 | 사용자 | 리뷰에 좋아요 달기 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-013 | 관리자 | 게시물 등록 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-014 | 관리자 | 게시물 수정 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-015 | 관리자 | 게시물 삭제 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-018 | 관리자 | 사용자 수, 사용자 리뷰 수, 게시물 찜하기 수 등 조회 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-019 | 스케쥴러 | 스케쥴러를 통해 신규 회원 console에 출력 및 logger | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-020 | 스케쥴러 | 스케쥴러를 통해 inactiveYn이 n일 이상된 탈퇴 회원 삭제 | 기능 | 스프링 MVC 개발 |  |  |
-| RQ-021 | 공통 | 디자인 레이아웃 | 디자인 | Tiles3 라이브러리로 구현 |  |  |
