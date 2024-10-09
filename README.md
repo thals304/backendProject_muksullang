@@ -9,6 +9,15 @@
 > 평가와 추천을 통해 신뢰성 높은 음식 경험을 할 수 있는 웹 서비스입니다.
 
 ## About Project
+### 팀원
+- 김소민 :
+
+### 기술 스택
+Back-end : Spring Boot & MySQL
+
+### 프로젝트 정리 자료
+NOTION : https://tidal-library-4d1.notion.site/Muksullang-11810d5c8f0d81068533e4ba1fee73a8?pvs=4
+
 ### 프로젝트 니즈(Needs)
 
 **맛집 검색 플랫폼 통합** :
@@ -39,7 +48,5 @@
 - 시스템 운영의 효율화
 - 향후 서비스 확장을 고려한 확장성 있는 시스템 구축
 
-### 기술 스택
-Back-end : Spring Boot & MySQL
 
 
