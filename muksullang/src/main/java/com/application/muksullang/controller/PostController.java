@@ -39,11 +39,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * bestOfDetail에서 similarSortList가 원활하게 작동을 안함
  * aop 공부 후 사용해봐야함/test 코드도
  * 프로젝트 구현 안한 부분
- * - 커서 페이지네이션 (best of.html / recommend.html)
- * - 북마크(게시물 찜하기) : bestOf/recommend.html에서 북마크 버튼 생성은 했지만 아직 기능 구현 하지 않음 !(좀 더 연구 필요)
- * 버튼을 눌렀을 때 빨간색이 되면 북마크로 등록, 빨간색에서 다시 버튼을 눌러 흰색이 되면 북마크 취소 
- * - 공공데이터 csv import 해서 넣기(서울 관광 음식 - 위치에 송파 들어가는 것 중 5-6개 정도만 뽑아 사용> 사진 찾아야함)
- * - 찜하기 기능 완성 후 가능 > my page에서 찜한 게시물 & 리뷰 작성한 게시물 모아보기 (게시물이 많으면 페이지네이션? 해야하나)
+ * - 북마크(게시물 찜하기) : bestOf/recommend.html에서 북마크 버튼 생성이 눌러져서 저장은 되지만 눌러진 하트가 고정이 되지 않음 !(좀 더 연구 필요)
  * - (선택사항) 게시물 등록 content를 form을 add하는 것만 있지 delete 하는 것은 없음
  * - (선택사항) 회원 가입에서 주소 입력시 정해진 형식대로 입력 안하면 회원가입 못하도록
  * - (선택사항) 비밀번호 확인(눈)가능
@@ -71,17 +67,43 @@ public class PostController {
 	@GetMapping("/main")
 	public String main(Model model) {
 		// 이달의 Best Of : 왼쪽 2개 중간 1개 오른쪽 2개 (일단 enroll 기준으로 하고 나중에 찜하기 기능 완성하면 찜하기 수가 많거나 리뷰수가 많은 게시물을 뿌리는 방향으로)
-		model.addAttribute("leftBestOfPostList", postService.getLeftBestOfPostList());
-		model.addAttribute("centerBestOfPost", postService.getCenterBestOfPost());
-		model.addAttribute("rightBestOfPostList", postService.getRightBestOfPostList());
-		// 이달의 Recommend : 왼쪽 1개 오른쪽 4개 
-		PostDTO leftRecommendPostDTO = postService.getLeftRecommendPost();
-		model.addAttribute("leftRecommendPost", leftRecommendPostDTO);
-		// content 1개 넘어온 것 확인
-		// System.out.println(postService.getRecommendContent(leftRecommendPostDTO.getPostId()));
-		model.addAttribute("leftRecommendPostContent", postService.getRecommendContent(leftRecommendPostDTO.getPostId()));
+		// 이달의 Recommend : 왼쪽 1개 오른쪽 3개
+		List<PostDTO> leftBestOfPostList = postService.getLeftBestOfPostList();
+	    PostDTO centerBestOfPost = postService.getCenterBestOfPost();
+	    List<PostDTO> rightBestOfPostList = postService.getRightBestOfPostList();
+	    
+	    // 데이터가 없는 경우 (게시물이 하나도 없을 경우 500 에러 발생)
+	    if (leftBestOfPostList == null || leftBestOfPostList.isEmpty()) {
+	        throw new com.application.muksullang.except.ServerErrorException("왼쪽 게시물을 찾을 수 없습니다.");
+	    }
+
+	    if (centerBestOfPost == null) {
+	        throw new com.application.muksullang.except.ServerErrorException("중앙 게시물을 찾을 수 없습니다.");
+	    }
+
+	    if (rightBestOfPostList == null || rightBestOfPostList.isEmpty()) {
+	        throw new com.application.muksullang.except.ServerErrorException("오른쪽 게시물을 찾을 수 없습니다.");
+	    }
 		
-		model.addAttribute("rightRecommendPostList", postService.getRightRecommendPostList());
+		
+	    // Recommend 처리
+	    PostDTO leftRecommendPostDTO = postService.getLeftRecommendPost();
+	    if (leftRecommendPostDTO == null) {
+	        throw new com.application.muksullang.except.ServerErrorException("추천 게시물을 찾을 수 없습니다.");
+	    }
+
+	    List<PostDTO> rightRecommendPostList = postService.getRightRecommendPostList();
+	    if (rightRecommendPostList == null || rightRecommendPostList.isEmpty()) {
+	        throw new com.application.muksullang.except.ServerErrorException("추천 게시물을 찾을 수 없습니다.");
+	    }
+	    
+	    // 데이터가 있으면 모델에 추가
+	    model.addAttribute("leftBestOfPostList", leftBestOfPostList);
+	    model.addAttribute("centerBestOfPost", centerBestOfPost);
+	    model.addAttribute("rightBestOfPostList", rightBestOfPostList);
+	    model.addAttribute("leftRecommendPost", leftRecommendPostDTO);
+	    model.addAttribute("leftRecommendPostContent", postService.getRecommendContent(leftRecommendPostDTO.getPostId()));
+	    model.addAttribute("rightRecommendPostList", rightRecommendPostList);
 		
 		return "post/main";
 	}

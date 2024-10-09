@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404</title>
+</head>
+<style>
+    /* 전체 페이지 중앙 정렬 */
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* 전체 화면의 높이를 차지하게 함 */
+        margin: 0;
+        text-align: center;
+    }
+    
+    h1 {
+        font-size: 50px;
+        color: #ff4b4b;
+    }
+    
+    p {
+        font-size: 18px;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* 이미지 크기 조절 */
+    img {
+        max-width: 300px; /* 이미지 크기 조절 */
+        height: auto;
+        margin-bottom: 20px; /* 이미지와 텍스트 사이 간격 */
+    }
+</style>
+<body>
+	
+	<img th:src="@{/image/error.png}" alt="Error Image">
+	<h1>404 - 페이지를 찾을 수 없습니다</h1>
+    <p th:text="${errorMessage}">요청하신 페이지를 찾을 수 없습니다.</p>
+    <!-- <a th:href="@{/}">메인 페이지로 돌아가기</a> -->
+    
+    <p>문제가 계속 발생한다면 운영자에게 문의해 주세요.</p>
+    <p><strong>이메일:</strong> <a href="mailto: 1004reveca@gmail.com">1004reveca@gmail.com</a></p>
+</body>
+</html>
