@@ -2,21 +2,21 @@
 # Amazon Web Service 기반 “맛집 추천 커뮤니티 먹슐랭(Muksullang)” 시스템 개발 프로젝트
 <br>
 
-<img src="https://github.com/user-attachments/assets/fbeeb53f-994b-4e72-9281-94d81e486465" width="300" />
+<img src="https://github.com/user-attachments/assets/fbeeb53f-994b-4e72-9281-94d81e486465" width="300" /> <br>
 
-<br> <br>
 > 먹슐랭은 먹다와 미슐랭을 합친 단어로 사용자가 다양한 맛집 정보를 찾아보고, <br/>
 > 평가와 추천을 통해 신뢰성 높은 음식 경험을 할 수 있는 웹 서비스입니다.
 
 ## About Project
 ### 팀원
-- 김소민 :
+김소민 : [![GitHub](https://img.shields.io/badge/GitHub-black?style=flat-square&logo=github)](https://github.com/thals304)
 
 ### 기술 스택
-Back-end : Spring Boot & MySQL
+**Back-end - Spring Boot & MySQL**
 
-### 프로젝트 정리 자료
-NOTION : https://tidal-library-4d1.notion.site/Muksullang-11810d5c8f0d81068533e4ba1fee73a8?pvs=4
+### 프로젝트 정리 자료 (Notion)
+[![Notion](https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white)](https://tidal-library-4d1.notion.site/Muksullang-11810d5c8f0d81068533e4ba1fee73a8?pvs=4
+)
 
 ### 프로젝트 니즈(Needs)
 
